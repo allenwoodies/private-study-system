@@ -1,0 +1,9 @@
+node_modules/
+uploads/
+private/
+.env
+*.log
+.tmp/
+.venv/
+__pycache__/
+*.pyc

@@ -1,0 +1,2783 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>孩子学习系统</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --ink: #15202b;
+      --muted: #667381;
+      --line: #dce3ea;
+      --blue: #1f6feb;
+      --blue-soft: #eaf2ff;
+      --green: #248457;
+      --green-soft: #e8f6ef;
+      --amber: #a45f07;
+      --amber-soft: #fff3d9;
+      --red: #b42318;
+      --red-soft: #fff0ee;
+      --shadow: 0 8px 24px rgba(20, 32, 43, 0.08);
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: var(--bg); }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    button {
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--ink);
+      cursor: pointer;
+      padding: 9px 12px;
+      touch-action: manipulation;
+    }
+
+    button.primary {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    button.ghost {
+      background: transparent;
+    }
+
+    button.danger {
+      border-color: #f2c9c5;
+      background: var(--red-soft);
+      color: var(--red);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 11px;
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.12);
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .app {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 14px 14px calc(86px + env(safe-area-inset-bottom));
+    }
+
+    .top {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      margin: -14px -14px 12px;
+      padding: calc(12px + env(safe-area-inset-top)) 14px 12px;
+      background: rgba(244, 246, 248, 0.94);
+      border-bottom: 1px solid rgba(220, 227, 234, 0.8);
+      backdrop-filter: blur(12px);
+    }
+
+    .toprow {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .title h1 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+
+    .title p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .child-switch {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .child-switch button {
+      min-height: 52px;
+      text-align: left;
+      background: #fff;
+      border-color: var(--line);
+    }
+
+    .child-switch button.active {
+      border-color: #9cc3ff;
+      background: var(--blue-soft);
+      color: #174ea6;
+      font-weight: 800;
+    }
+
+    .child-switch span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .section { display: none; }
+    .section.active { display: grid; gap: 10px; }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .panel.compact {
+      padding: 10px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .compact .panel-header {
+      margin-bottom: 8px;
+    }
+
+    .panel h2, .panel h3 {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    .panel small, .muted {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .cards {
+      display: grid;
+      gap: 10px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .stat {
+      min-height: 58px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+      padding: 8px;
+      display: grid;
+      align-content: start;
+      gap: 2px;
+    }
+
+    .stat strong {
+      font-size: 18px;
+      letter-spacing: 0;
+      line-height: 1.15;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .quick {
+      min-height: 58px;
+      display: grid;
+      align-content: center;
+      gap: 2px;
+      text-align: left;
+      background: #fff;
+      padding: 8px 10px;
+    }
+
+    .quick strong {
+      font-size: 14px;
+      line-height: 1.25;
+    }
+
+    .quick span {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .quick.primary-tint {
+      border-color: #b9d5ff;
+      background: var(--blue-soft);
+    }
+
+    .subject-score-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .subject-score {
+      min-height: 66px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+      padding: 8px;
+      display: grid;
+      gap: 4px;
+      align-content: start;
+    }
+
+    .subject-score strong {
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    .subject-score-grid .empty {
+      grid-column: 1 / -1;
+      min-height: 58px;
+    }
+
+    .project-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .project-plan {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .plan-row {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+      padding: 9px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .teacher-task-list {
+      display: grid;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .teacher-task {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+      padding: 8px;
+      display: grid;
+      gap: 7px;
+    }
+
+    .teacher-task > .meta {
+      grid-column: 1 / -1;
+    }
+
+    #teacherProjectTitle {
+      color: #174ea6;
+    }
+
+    .teacher-task-main {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .teacher-task-title {
+      display: flex;
+      gap: 7px;
+      align-items: flex-start;
+      min-width: 0;
+    }
+
+    .task-order {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: var(--blue-soft);
+      color: #174ea6;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .task-name {
+      min-width: 0;
+      display: grid;
+      gap: 2px;
+    }
+
+    .task-name strong {
+      font-size: 14px;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+
+    .task-checks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .task-checks button {
+      min-height: 26px;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 11px;
+      line-height: 1.2;
+      background: #f7f9fb;
+      color: var(--muted);
+      border-color: var(--line);
+    }
+
+    .task-checks button.done {
+      font-weight: 800;
+    }
+
+    .task-checks button.check-recite.done {
+      border-color: #9cc3ff;
+      background: var(--blue-soft);
+      color: #174ea6;
+    }
+
+    .task-checks button.check-dictation.done {
+      border-color: #f0d6a4;
+      background: var(--amber-soft);
+      color: #704306;
+    }
+
+    .task-checks button.check-review.done {
+      border-color: #cbead8;
+      background: var(--green-soft);
+      color: #1d6443;
+    }
+
+    details.task-detail {
+      border-top: 1px solid var(--line);
+      padding-top: 5px;
+    }
+
+    details.task-detail summary {
+      color: #174ea6;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .recite-text {
+      margin-top: 8px;
+      white-space: pre-wrap;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .project-section-detail {
+      margin-bottom: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+      padding: 9px;
+    }
+
+    .project-section-detail summary {
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .project-section-detail .summary-title {
+      color: #174ea6;
+    }
+
+    .project-section-detail.plan-section .summary-title,
+    .plan-row strong {
+      color: #1d6443;
+    }
+
+    .project-section-detail.task-section {
+      border-color: #cfe0ff;
+      background: #f8fbff;
+    }
+
+    .summary-note {
+      color: var(--muted);
+      font-weight: 400;
+      margin-left: 6px;
+    }
+
+    .record-entry {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .record-entry .quick {
+      min-height: 56px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+
+    .tabs::-webkit-scrollbar { display: none; }
+
+    .chip {
+      min-height: 34px;
+      white-space: nowrap;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 13px;
+    }
+
+    .chip.active {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .form {
+      display: grid;
+      gap: 10px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .full { grid-column: 1 / -1; }
+
+    .list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+      padding: 11px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .item-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .item-title {
+      display: grid;
+      gap: 3px;
+    }
+
+    .item-title strong {
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .item-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: var(--green-soft);
+      border: 1px solid #cbead8;
+      color: #1d6443;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .tag.blue {
+      background: var(--blue-soft);
+      border-color: #cfe0ff;
+      color: #174ea6;
+    }
+
+    .tag.warn {
+      background: var(--amber-soft);
+      border-color: #f0d6a4;
+      color: #704306;
+    }
+
+    .tag.red {
+      background: var(--red-soft);
+      border-color: #f2c9c5;
+      color: var(--red);
+    }
+
+    .tag.gray {
+      background: #eef2f6;
+      border-color: #d9e1e8;
+      color: #506070;
+    }
+
+    .scorebar {
+      height: 8px;
+      border-radius: 999px;
+      background: #e8edf2;
+      overflow: hidden;
+    }
+
+    .scorebar span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--green);
+    }
+
+    .empty {
+      min-height: 74px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--muted);
+      padding: 14px;
+      line-height: 1.45;
+      background: #fbfcfe;
+    }
+
+    .empty-action {
+      gap: 8px;
+    }
+
+    .empty-action button {
+      min-height: 34px;
+      padding: 6px 10px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 30;
+      padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+      background: rgba(255, 255, 255, 0.96);
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 6px;
+      backdrop-filter: blur(12px);
+    }
+
+    .bottom-nav button {
+      min-height: 48px;
+      border: 0;
+      background: transparent;
+      display: grid;
+      place-items: center;
+      gap: 2px;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 6px 4px;
+    }
+
+    .bottom-nav button strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .bottom-nav button.active {
+      background: var(--blue-soft);
+      color: #174ea6;
+      font-weight: 800;
+    }
+
+    .drawer {
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 40;
+      background: rgba(21, 32, 43, 0.34);
+      padding: 16px;
+      align-items: flex-end;
+    }
+
+    .drawer.active { display: flex; }
+
+    .sheet {
+      width: 100%;
+      max-height: 88vh;
+      overflow: auto;
+      background: #fff;
+      border-radius: 8px;
+      padding: 14px;
+      box-shadow: 0 20px 60px rgba(21, 32, 43, 0.22);
+    }
+
+    .sheet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .sheet-head h3 {
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .ai-box {
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 430px;
+      overflow: auto;
+      font-family: Consolas, "Microsoft YaHei", monospace;
+      font-size: 12px;
+      line-height: 1.55;
+      background: #101722;
+      color: #e9f2ff;
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .file-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .file-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 9px;
+      background: #fbfcfe;
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .file-card img {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .file-icon {
+      width: 64px;
+      height: 64px;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .toast {
+      position: fixed;
+      left: 14px;
+      right: 14px;
+      bottom: calc(78px + env(safe-area-inset-bottom));
+      z-index: 50;
+      display: none;
+      background: #17202a;
+      color: #fff;
+      border-radius: 8px;
+      padding: 12px 14px;
+      box-shadow: var(--shadow);
+      font-size: 14px;
+    }
+
+    .toast.active { display: block; }
+
+    @media (min-width: 860px) {
+      .app {
+        padding: 18px 18px 96px;
+      }
+
+      .top {
+        margin: -18px -18px 16px;
+        padding: 16px 18px;
+      }
+
+      .child-switch {
+        width: 380px;
+        margin-left: auto;
+      }
+
+      .toprow {
+        grid-template-columns: 1fr auto;
+      }
+
+      .section.active {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+      }
+
+      .section .wide {
+        grid-column: 1 / -1;
+      }
+
+      .stats {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .cards.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .bottom-nav {
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(680px, calc(100% - 28px));
+        bottom: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+      }
+
+      .sheet {
+        width: min(720px, 100%);
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .record-entry {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .project-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 860px) {
+      .teacher-task {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+      }
+
+      .task-checks {
+        justify-content: flex-end;
+        min-width: 170px;
+      }
+
+      details.task-detail {
+        grid-column: 1 / -1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <div class="toprow">
+        <div class="title">
+          <h1>孩子学习系统</h1>
+          <p id="pageSubtitle">今日重点、AI批改、人工观察、周复盘。</p>
+        </div>
+        <button id="aiStatusBtn" class="ghost">AI检测中</button>
+      </div>
+      <div class="child-switch" id="childSwitch"></div>
+    </header>
+
+    <section id="home" class="section active">
+      <div class="panel wide compact">
+        <div class="panel-header">
+          <div>
+            <h2 id="homeTitle">今日</h2>
+            <small id="homeSub"></small>
+          </div>
+          <button id="resetBtn" class="danger">重置</button>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong id="summerProgress">0%</strong><span>暑假进度</span></div>
+          <div class="stat"><strong id="latestScore">-</strong><span id="latestScoreNote">学科最新均分</span></div>
+          <div class="stat"><strong id="growthAvg">-</strong><span>主观状态均分</span></div>
+          <div class="stat"><strong id="weeklyExercise">0分</strong><span id="weeklyExerciseNote">本周运动</span></div>
+        </div>
+      </div>
+
+      <div class="panel compact">
+        <div class="panel-header">
+          <h3>快速入口</h3>
+          <small>常用记录一键进入</small>
+        </div>
+        <div class="quick-grid">
+          <button class="quick primary-tint" data-jump="evaluate">
+            <strong>拍作业 / 试卷</strong>
+            <span>OCR 后 AI 自动分析</span>
+          </button>
+          <button class="quick" data-drawer="score">
+            <strong>记成绩</strong>
+            <span>考试、小测、作业分</span>
+          </button>
+          <button class="quick" data-drawer="growth">
+            <strong>记观察</strong>
+            <span>兴趣、专注、主动性</span>
+          </button>
+          <button class="quick" data-drawer="exercise">
+            <strong>记运动</strong>
+            <span>项目、时长、强度</span>
+          </button>
+          <button class="quick" data-drawer="schedule">
+            <strong>加日程</strong>
+            <span>学习、运动、休息安排</span>
+          </button>
+          <button class="quick" data-jump="weekly">
+            <strong>周复盘</strong>
+            <span>PLAN 到 ACTION</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="panel compact">
+        <div class="panel-header">
+          <h3>学科最近成绩</h3>
+          <small>语数英科分别看</small>
+        </div>
+        <div id="subjectScoreList" class="subject-score-grid"></div>
+      </div>
+
+      <div class="panel compact">
+        <div class="panel-header">
+          <h3>今日日程</h3>
+          <button data-drawer="schedule">新增</button>
+        </div>
+        <div id="todayScheduleList" class="list"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>优先关注</h3>
+          <small>不要超过 1-2 个</small>
+        </div>
+        <div id="priorityList" class="list"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>最近动态</h3>
+          <small id="activityCount"></small>
+        </div>
+        <div id="recentActivity" class="list"></div>
+      </div>
+    </section>
+
+    <section id="evaluate" class="section">
+      <div class="panel wide">
+        <div class="panel-header">
+          <div>
+            <h2>AI评价工作台</h2>
+            <small>上传后自动OCR和AI分析，结果会进入历史记录。</small>
+          </div>
+          <button id="copyEvalPromptBtn">复制详情</button>
+        </div>
+        <form id="evaluationForm" class="form">
+          <div class="form-row">
+            <label>学科<select name="subject" required></select></label>
+            <label>类型
+              <select name="type" required>
+                <option>试卷</option>
+                <option>作业</option>
+                <option>作文</option>
+                <option>口算</option>
+                <option>阅读理解</option>
+                <option>英语表达</option>
+                <option>科学实验记录</option>
+              </select>
+            </label>
+          </div>
+          <label>名称<input name="title" placeholder="例：暑假第1周数学应用题 / 期末试卷复盘" required /></label>
+          <div class="form-row">
+            <label>满分<input name="fullScore" type="number" min="1" step="0.5" value="100" /></label>
+            <label>家长初评分<input name="humanScore" type="number" min="0" step="0.5" placeholder="可空" /></label>
+          </div>
+          <label>评分重点<textarea name="rubric" placeholder="例：不只看答案，重点判断审题、数量关系、计算过程、书写规范。"></textarea></label>
+          <label>补充说明 / 手动OCR文本（可选）
+            <textarea name="workText" placeholder="可以留空。系统会先自动识别上传图片/PDF里的文字；如果照片不清楚，可以在这里补充题目、孩子答案、作文内容或老师参考答案。"></textarea>
+          </label>
+          <label>上传作业/试卷照片或 PDF
+            <input id="workFiles" name="files" type="file" accept="image/*,.pdf" capture="environment" multiple />
+            <span class="muted">可分多次拍摄/选择，适合试卷正面、反面和附页，最多 20 个文件。服务器会先做OCR，再交给 DeepSeek 评分。</span>
+          </label>
+          <div id="filePreview" class="file-list"></div>
+          <button class="primary" type="submit">保存并AI分析</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>AI详情</h3>
+          <small>最新结果或选中记录</small>
+        </div>
+        <div id="evaluationPrompt" class="ai-box"></div>
+      </div>
+
+      <div class="panel wide">
+        <div class="panel-header">
+          <h3>评价记录</h3>
+          <small id="evalCount"></small>
+        </div>
+        <div id="evaluationList" class="list"></div>
+      </div>
+    </section>
+
+    <section id="records" class="section">
+      <div class="panel wide compact">
+        <div class="panel-header">
+          <div>
+            <h2>记录中心</h2>
+            <small>成绩、观察、运动、日程都从这里快速新增。</small>
+          </div>
+        </div>
+        <div class="quick-grid record-entry">
+          <button class="quick primary-tint" data-drawer="score">
+            <strong>新增成绩</strong>
+            <span>考试 / 作业 / 小测</span>
+          </button>
+          <button class="quick" data-drawer="growth">
+            <strong>新增观察</strong>
+            <span>兴趣 / 专注 / 主动性</span>
+          </button>
+          <button class="quick" data-drawer="exercise">
+            <strong>新增运动</strong>
+            <span>项目 / 时长 / 强度</span>
+          </button>
+          <button class="quick" data-drawer="schedule">
+            <strong>新增日程</strong>
+            <span>学习 / 运动 / 休息</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="panel wide compact">
+        <div class="tabs" id="recordTabs">
+          <button class="chip active" data-record-tab="scores">成绩</button>
+          <button class="chip" data-record-tab="growth">人工观察</button>
+          <button class="chip" data-record-tab="exercise">运动</button>
+          <button class="chip" data-record-tab="schedule">日程</button>
+        </div>
+      </div>
+
+      <div class="panel record-pane" id="recordScores">
+        <div class="panel-header">
+          <h3>成绩记录</h3>
+          <button data-drawer="score">新增</button>
+        </div>
+        <div id="scoreList" class="list"></div>
+      </div>
+
+      <div class="panel record-pane" id="recordGrowth" style="display:none;">
+        <div class="panel-header">
+          <h3>成长观察</h3>
+          <button data-drawer="growth">新增</button>
+        </div>
+        <div id="growthList" class="list"></div>
+      </div>
+
+      <div class="panel record-pane" id="recordExercise" style="display:none;">
+        <div class="panel-header">
+          <h3>运动记录</h3>
+          <button data-drawer="exercise">新增</button>
+        </div>
+        <div id="exerciseList" class="list"></div>
+      </div>
+
+      <div class="panel record-pane" id="recordSchedule" style="display:none;">
+        <div class="panel-header">
+          <h3>日程表</h3>
+          <button data-drawer="schedule">新增</button>
+        </div>
+        <div id="scheduleList" class="list"></div>
+      </div>
+    </section>
+
+    <section id="knowledge" class="section">
+      <div class="panel wide">
+        <div class="tabs" id="subjectTabs"></div>
+      </div>
+
+      <div class="panel wide compact" id="teacherProjectPanel" style="display:none;">
+        <div class="panel-header">
+          <div>
+            <h3 id="teacherProjectTitle">老师专项</h3>
+            <small id="teacherProjectSub"></small>
+          </div>
+          <button id="addTeacherScheduleBtn">生成暑假日程</button>
+        </div>
+        <div class="project-summary">
+          <div class="stat"><strong id="teacherReciteCount">0/0</strong><span>背诵通过</span></div>
+          <div class="stat"><strong id="teacherDictationCount">0/0</strong><span>默写通过</span></div>
+          <div class="stat"><strong id="teacherReviewCount">0/0</strong><span>家长复查</span></div>
+          <div class="stat"><strong id="teacherOverallCount">0%</strong><span>总进度</span></div>
+        </div>
+        <details class="project-section-detail plan-section">
+          <summary><span class="summary-title">暑假分组节奏</span><span class="summary-note">按周查看</span></summary>
+          <div id="teacherPlanList" class="project-plan"></div>
+        </details>
+        <details class="project-section-detail task-section">
+          <summary><span class="summary-title" id="teacherTaskSummary">17项背诵打卡清单</span><span class="summary-note">展开后逐项打卡</span></summary>
+          <div id="teacherTaskList" class="teacher-task-list"></div>
+        </details>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>更新掌握度</h3>
+          <small>1-5 分</small>
+        </div>
+        <form id="masteryForm" class="form">
+          <label>知识点<select name="knowledgeId" required></select></label>
+          <div class="form-row">
+            <label>掌握度<select name="rating" required></select></label>
+            <label>来源
+              <select name="source">
+                <option>家长观察</option>
+                <option>作业</option>
+                <option>试卷</option>
+                <option>AI评价</option>
+                <option>老师反馈</option>
+              </select>
+            </label>
+          </div>
+          <label>证据<input name="evidence" placeholder="例：能讲清楚，但同类题复测仍错。"></label>
+          <button class="primary" type="submit">保存掌握度</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>知识能力图谱</h3>
+          <small id="knowledgeCount"></small>
+        </div>
+        <div id="knowledgeList" class="list"></div>
+      </div>
+    </section>
+
+    <section id="weekly" class="section">
+      <div class="panel">
+        <div class="panel-header">
+          <h3>每周PDCA</h3>
+          <small>每周一个小循环</small>
+        </div>
+        <form id="pdcaForm" class="form">
+          <div class="form-row">
+            <label>周开始<input type="date" name="weekStart" required /></label>
+            <label>周结束<input type="date" name="weekEnd" required /></label>
+          </div>
+          <label>PLAN 本周重点<input name="plan" placeholder="最多 1-2 个重点" required /></label>
+          <label>DO 执行任务<textarea name="doText" placeholder="每天或隔天做什么"></textarea></label>
+          <label>CHECK 检查结果<textarea name="checkText" placeholder="正确率、讲题、复述、情绪"></textarea></label>
+          <label>ACTION 下周调整<textarea name="actionText" placeholder="继续、降难度、换方法、进入下一点"></textarea></label>
+          <button class="primary" type="submit">保存PDCA</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>AI周报</h3>
+          <div>
+            <button id="runWeeklyAiBtn">生成周报</button>
+            <button id="copyWeeklyBtn">复制</button>
+          </div>
+        </div>
+        <div id="weeklyPrompt" class="ai-box"></div>
+      </div>
+
+      <div class="panel wide">
+        <div class="panel-header">
+          <h3>PDCA记录</h3>
+          <small id="pdcaCount"></small>
+        </div>
+        <div id="pdcaList" class="list"></div>
+      </div>
+    </section>
+  </div>
+
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="active" data-section="home"><strong>今</strong>首页</button>
+    <button data-section="evaluate"><strong>AI</strong>批改</button>
+    <button data-section="records"><strong>记</strong>记录</button>
+    <button data-section="knowledge"><strong>知</strong>知识</button>
+    <button data-section="weekly"><strong>周</strong>复盘</button>
+  </nav>
+
+  <div class="drawer" id="scoreDrawer">
+    <div class="sheet">
+      <div class="sheet-head">
+        <h3>记成绩</h3>
+        <button class="ghost" data-close-drawer>关闭</button>
+      </div>
+      <form id="scoreForm" class="form">
+        <div class="form-row">
+          <label>日期<input type="date" name="date" required /></label>
+          <label>学科<select name="subject" required></select></label>
+        </div>
+        <label>名称<input name="title" placeholder="期末试卷 / 暑假小测 / AI批改回写" required /></label>
+        <div class="form-row">
+          <label>得分<input name="score" type="number" min="0" step="0.5" required /></label>
+          <label>满分<input name="fullScore" type="number" min="1" step="0.5" value="100" required /></label>
+        </div>
+        <label>失分/反馈<input name="note" placeholder="例：应用题单位量判断错误；阅读概括不完整" /></label>
+        <button class="primary" type="submit">保存成绩</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="drawer" id="growthDrawer">
+    <div class="sheet">
+      <div class="sheet-head">
+        <h3>人工观察</h3>
+        <button class="ghost" data-close-drawer>关闭</button>
+      </div>
+      <form id="growthForm" class="form">
+        <div class="form-row">
+          <label>日期<input type="date" name="date" required /></label>
+          <label>维度<select name="dimension" required></select></label>
+        </div>
+        <label>评分<select name="rating" required></select></label>
+        <label>场景<input name="scene" placeholder="阅读 / 数学复盘 / 亲子讨论" required /></label>
+        <label>证据与备注<input name="note" placeholder="例：主动讲了故事结尾；完成但需要提醒" /></label>
+        <button class="primary" type="submit">保存观察</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="drawer" id="exerciseDrawer">
+    <div class="sheet">
+      <div class="sheet-head">
+        <h3>记运动</h3>
+        <button class="ghost" data-close-drawer>关闭</button>
+      </div>
+      <form id="exerciseForm" class="form">
+        <div class="form-row">
+          <label>日期<input type="date" name="date" required /></label>
+          <label>时长<input name="minutes" type="number" min="1" step="1" placeholder="分钟" required /></label>
+        </div>
+        <div class="form-row">
+          <label>项目<input name="activity" placeholder="跳绳 / 跑步 / 游泳 / 球类" required /></label>
+          <label>强度
+            <select name="intensity" required>
+              <option>轻松</option>
+              <option>中等</option>
+              <option>较强</option>
+            </select>
+          </label>
+        </div>
+        <label>备注<input name="note" placeholder="例：跳绳500个；户外跑20分钟；亲子骑行" /></label>
+        <button class="primary" type="submit">保存运动</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="drawer" id="scheduleDrawer">
+    <div class="sheet">
+      <div class="sheet-head">
+        <h3>新增日程</h3>
+        <button class="ghost" data-close-drawer>关闭</button>
+      </div>
+      <form id="scheduleForm" class="form">
+        <label>日期<input type="date" name="date" required /></label>
+        <div class="form-row">
+          <label>开始<input type="time" name="startTime" required /></label>
+          <label>结束<input type="time" name="endTime" /></label>
+        </div>
+        <div class="form-row">
+          <label>类型
+            <select name="category" required>
+              <option>学习</option>
+              <option>运动</option>
+              <option>阅读</option>
+              <option>家务</option>
+              <option>艺术</option>
+              <option>休息</option>
+              <option>外出</option>
+            </select>
+          </label>
+          <label>状态
+            <select name="status" required>
+              <option>计划</option>
+              <option>完成</option>
+              <option>调整</option>
+            </select>
+          </label>
+        </div>
+        <label>事项<input name="title" placeholder="例：数学错题复盘 / 户外运动 / 亲子阅读" required /></label>
+        <label>备注<input name="note" placeholder="可记录地点、材料、完成情况" /></label>
+        <button class="primary" type="submit">保存日程</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const subjects = ["语文", "数学", "英语", "科学"];
+    const growthDimensions = ["兴趣", "专注", "情绪", "主动性", "表达", "自信", "抗挫", "亲子配合"];
+    const ratingOptions = [1, 2, 3, 4, 5];
+    const fixedSummerSettings = { summerStart: "2026-07-01", summerEnd: "2026-08-30" };
+    const fixedChildren = {
+      daughter: { name: "陈知悦", nextGrade: "二年级" },
+      son: { name: "陈秋诺", nextGrade: "六年级" }
+    };
+
+    const knowledgeItems = [
+      { id: "d_g2_cn_words", track: "daughter_g2", subject: "语文", module: "识字写字与词语", point: "常用字识读与规范书写", ability: "字形辨认 / 笔顺意识 / 书写整洁 / 词语积累", checks: "听写10字；用词造句；看图写2-3句", risk: "会读不会写；笔顺混乱；造句不完整" },
+      { id: "d_g2_cn_read", track: "daughter_g2", subject: "语文", module: "朗读与阅读", point: "朗读流畅与故事复述", ability: "注意标点 / 时间顺序 / 人物事件 / 完整表达", checks: "朗读短文；说出谁和什么事；开始-经过-结果复述", risk: "漏字添字；读完不知道内容；顺序混乱" },
+      { id: "d_g2_cn_write", track: "daughter_g2", subject: "语文", module: "写话与表达", point: "完整句与小段表达", ability: "主谓完整 / 观察细节 / 情绪表达", checks: "写3句今天发生的事；把一句话扩成三句话", risk: "句子不完整；流水账；害怕写" },
+      { id: "d_g2_math_calc", track: "daughter_g2", subject: "数学", module: "数与运算", point: "100以内数的认识与加减法", ability: "数感 / 进退位理解 / 口算稳定 / 检查习惯", checks: "每天10道口算；解释进位；自己检查2题", risk: "只背算法；进退位不理解；错了不会查" },
+      { id: "d_g2_math_mul", track: "daughter_g2", subject: "数学", module: "数与运算", point: "乘法初步准备", ability: "几个几 / 重复加法 / 图形分组", checks: "摆3个4；重复加法改乘法；生活中找几个几", risk: "把乘法当口诀硬背；不理解几个几" },
+      { id: "d_g2_math_life", track: "daughter_g2", subject: "数学", module: "量与生活应用", point: "时间、人民币、长度", ability: "单位意识 / 估算 / 生活应用", checks: "看钟表；模拟找零；用尺量物品", risk: "单位混淆；不会联系生活" },
+      { id: "d_g2_math_problem", track: "daughter_g2", subject: "数学", module: "问题解决", point: "简单应用题读题与表达", ability: "找信息 / 找问题 / 画图表达 / 口头讲题", checks: "圈条件问题；画数量关系；讲为什么这样算", risk: "看到数字就乱算；不读问题" },
+      { id: "d_g2_en_listen", track: "daughter_g2", subject: "英语", module: "听说与兴趣", point: "日常指令和简单问答", ability: "听辨 / 模仿 / 开口意愿", checks: "听懂5个指令；用I like说3句话；跟读绘本", risk: "不开口；只认单词不听句子" },
+      { id: "d_g2_en_phonics", track: "daughter_g2", subject: "英语", module: "听说与兴趣", point: "自然拼读初步", ability: "字母音 / 音形对应 / 跟读节奏", checks: "说出5个字母常见发音；听音找字母；读CVC单词", risk: "只背字母名；音形不能对应" },
+      { id: "d_g2_science_observe", track: "daughter_g2", subject: "科学", module: "观察与提问", point: "自然观察记录", ability: "观察细节 / 分类比较 / 提出问题 / 记录表达", checks: "连续3天观察植物；记录天气；说相同点不同点", risk: "只说好玩；不会描述变化；没有问题意识" },
+      { id: "s_g6_cn_summary", track: "son_g6", subject: "语文", module: "阅读理解", point: "信息提取与概括", ability: "抓关键词 / 分层概括 / 主旨判断 / 答案组织", checks: "50字概括；标每段关键词；说明概括依据", risk: "答案太散；抄原文；抓不到中心" },
+      { id: "s_g6_cn_evidence", track: "son_g6", subject: "语文", module: "阅读理解", point: "人物事件与情感分析", ability: "细节证据 / 情感变化 / 因果分析", checks: "找3个细节；画情感变化线；用原文证据回答", risk: "凭感觉答题；没有文本证据" },
+      { id: "s_g6_cn_writing", track: "son_g6", subject: "语文", module: "作文与表达", point: "记叙文结构与细节描写", ability: "选材 / 结构 / 细节 / 情感表达", checks: "列起因-经过-结果；扩写场景；修改流水账", risk: "素材少；结构松；细节空" },
+      { id: "s_g6_cn_poetry_recite", track: "son_g6", subject: "语文", module: "六上必背专项", point: "古诗词背诵、默写与理解", ability: "准确背诵 / 作者朝代 / 关键词理解 / 默写规范", checks: "按老师打卡表背诵；隔天默写；说出诗句画面或情感", risk: "会背不会写；错别字多；只机械记忆不理解" },
+      { id: "s_g6_cn_classical", track: "son_g6", subject: "语文", module: "六上必背专项", point: "文言文重点篇目积累", ability: "断句朗读 / 重点词义 / 大意复述 / 文化常识", checks: "朗读《两小儿辩日》《曹冲称象》；解释重点句；讲清故事逻辑", risk: "能背但不懂；停顿错误；重点词义混淆" },
+      { id: "s_g6_cn_accumulation", track: "son_g6", subject: "语文", module: "六上必背专项", point: "日积月累与文学文化常识", ability: "名句积累 / 五行五音五谷五彩 / 出处匹配 / 迁移表达", checks: "完成日积月累二、七、八；抽背出处；用一句话解释含义", risk: "出处作者混乱；只记字面；默写漏句" },
+      { id: "s_g6_cn_modern_recite", track: "son_g6", subject: "语文", module: "六上必背专项", point: "现代文重点段落背诵", ability: "画面感记忆 / 重点词语 / 朗读节奏 / 默写稳定", checks: "背诵《少年闰土》第一自然段；默写关键词；描述画面", risk: "长段落畏难；漏词换词；只背不理解画面" },
+      { id: "s_g6_math_percent", track: "son_g6", subject: "数学", module: "数与代数", point: "分数、小数、百分数互化与应用", ability: "数感 / 单位量 / 比例关系 / 应用建模", checks: "解释0.25、1/4、25%；做互化题；讲百分数应用题", risk: "互化会但应用不会；单位1找错" },
+      { id: "s_g6_math_equation", track: "son_g6", subject: "数学", module: "数与代数", point: "方程思想与等量关系", ability: "未知量设定 / 等量关系 / 逆向思维", checks: "写等量关系；用方程解题；解释为什么设x", risk: "不会找关系；设未知量混乱" },
+      { id: "s_g6_math_geo", track: "son_g6", subject: "数学", module: "图形与几何", point: "面积、体积与空间想象", ability: "公式理解 / 图形分割 / 单位换算 / 空间想象", checks: "解释面积公式；组合图形面积；区分体积和表面积", risk: "公式会背不会用；单位混乱" },
+      { id: "s_g6_math_model", track: "son_g6", subject: "数学", module: "问题解决", point: "应用题审题、建模与复盘", ability: "审题 / 数量关系 / 画图建模 / 错因复盘", checks: "错题写错因；画线段图；同类题隔3天复测", risk: "漏条件；会算不会分析；同类错反复出现" },
+      { id: "s_g6_en_vocab", track: "son_g6", subject: "英语", module: "词汇与句法", point: "高频词汇和基础句型", ability: "词义 / 拼写 / 句型替换 / 语境使用", checks: "每天10词听写；用5词造句；句型替换3次", risk: "会背不会用；拼写不稳；句子结构乱" },
+      { id: "s_g6_en_grammar", track: "son_g6", subject: "英语", module: "词汇与句法", point: "时态和基本语法", ability: "一般现在时 / 一般过去时 / 疑问句 / 否定句", checks: "改写5句；圈动词变化；用过去时讲昨天", risk: "动词变化随意；语序混乱；只会选择题" },
+      { id: "s_g6_en_read", track: "son_g6", subject: "英语", module: "阅读与表达", point: "短文阅读和段落表达", ability: "信息定位 / 主旨理解 / 句群表达", checks: "读短文答5问；5句英文介绍一天；复述大意", risk: "逐词翻译；阅读速度慢；不能输出段落" },
+      { id: "s_g6_science_exp", track: "son_g6", subject: "科学", module: "实验与证据", point: "变量控制与实验记录", ability: "提出假设 / 控制变量 / 记录数据 / 证据推理", checks: "设计单变量实验；表格记录；用证据解释结论", risk: "变量混乱；结论没有证据" },
+      { id: "s_g6_science_concept", track: "son_g6", subject: "科学", module: "实验与证据", point: "物质、生命、地球与能量基础概念", ability: "概念理解 / 分类比较 / 因果解释", checks: "解释生活科学现象；做概念卡片；画因果关系图", risk: "只背结论；不会举例；因果说不清" }
+    ];
+
+    const teacherProjects = [
+      {
+        id: "son_g6_cn_2026_fall_recite",
+        childId: "son",
+        track: "son_g6",
+        subject: "语文",
+        title: "2026秋六年级语文上册必背内容",
+        source: "老师打卡表",
+        goal: "开学前完成第一轮背诵，8月完成默写和家长复查。",
+        plan: [
+          { id: "w1", date: "2026-07-06", title: "第1组：古诗词三首", items: ["宿建德江", "六月二十七日望湖楼醉书", "西江月·夜行黄沙道中"], note: "先熟读成诵，再抽查作者朝代。" },
+          { id: "w2", date: "2026-07-13", title: "第2组：园地一到园地二", items: ["江畔独步寻花", "七律·长征", "日积月累二"], note: "日积月累要同步记出处。" },
+          { id: "w3", date: "2026-07-20", title: "第3组：园地三四与浪淘沙", items: ["观书有感 其二", "送元二使安西", "浪淘沙（其一）"], note: "背诵后做一次隔天默写。" },
+          { id: "w4", date: "2026-07-27", title: "第4组：古诗三首与园地六", items: ["江南春", "书湖阴先生壁", "过故人庄"], note: "重点检查易错字和诗题。" },
+          { id: "w5", date: "2026-08-03", title: "第5组：文言文与文化常识", items: ["两小儿辩日", "曹冲称象", "日积月累七"], note: "文言文要能说大意，不只机械背。" },
+          { id: "w6", date: "2026-08-10", title: "第6组：现代文与鲁迅名句", items: ["少年闰土 第一自然段", "日积月累八"], note: "长段落拆成画面记忆，鲁迅名句记出处。" },
+          { id: "w7", date: "2026-08-17", title: "第7组：全册默写复查", items: ["17项全册抽查"], note: "每次抽3-4项，记录错字和漏句。" },
+          { id: "w8", date: "2026-08-24", title: "第8组：开学前家长签字复核", items: ["背诵", "默写", "检查人"], note: "按老师打卡表补齐复查签名。" }
+        ],
+        tasks: [
+          { id: "t01", order: 1, lesson: "古诗词三首", knowledgeId: "s_g6_cn_poetry_recite", title: "《宿建德江》", author: "[唐] 孟浩然", content: ["移舟泊烟渚，", "日暮客愁新。", "野旷天低树，", "江清月近人。"].join("\n") },
+          { id: "t02", order: 2, lesson: "古诗词三首", knowledgeId: "s_g6_cn_poetry_recite", title: "《六月二十七日望湖楼醉书》", author: "[宋] 苏轼", content: ["黑云翻墨未遮山，", "白雨跳珠乱入船。", "卷地风来忽吹散，", "望湖楼下水如天。"].join("\n") },
+          { id: "t03", order: 3, lesson: "古诗词三首", knowledgeId: "s_g6_cn_poetry_recite", title: "《西江月·夜行黄沙道中》", author: "[宋] 辛弃疾", content: ["明月别枝惊鹊，清风半夜鸣蝉。", "稻花香里说丰年，听取蛙声一片。", "七八个星天外，两三点雨山前。", "旧时茅店社林边，路转溪桥忽见。"].join("\n") },
+          { id: "t04", order: 4, lesson: "语文园地一", knowledgeId: "s_g6_cn_poetry_recite", title: "《江畔独步寻花》", author: "[唐] 杜甫", content: ["黄师塔前江水东，", "春光懒困倚微风。", "桃花一簇开无主，", "可爱深红爱浅红？"].join("\n") },
+          { id: "t05", order: 5, lesson: "第4课", knowledgeId: "s_g6_cn_poetry_recite", title: "《七律·长征》", author: "毛泽东", content: ["红军不怕远征难，万水千山只等闲。", "五岭逶迤腾细浪，乌蒙磅礴走泥丸。", "金沙水拍云崖暖，大渡桥横铁索寒。", "更喜岷山千里雪，三军过后尽开颜。"].join("\n") },
+          { id: "t06", order: 6, lesson: "语文园地二", knowledgeId: "s_g6_cn_accumulation", title: "日积月累", author: "名句积累", content: ["志士仁人，无求生以害仁，有杀身以成仁。——《论语》", "捐躯赴国难，视死忽如归。——曹植", "祖宗疆土，当以死守，不可以尺寸与人。——李纲", "位卑未敢忘忧国。——陆游"].join("\n") },
+          { id: "t07", order: 7, lesson: "语文园地三", knowledgeId: "s_g6_cn_poetry_recite", title: "《观书有感》其二", author: "[宋] 朱熹", content: ["昨夜江边春水生，", "蒙冲巨舰一毛轻。", "向来枉费推移力，", "此日中流自在行。"].join("\n") },
+          { id: "t08", order: 8, lesson: "语文园地四", knowledgeId: "s_g6_cn_poetry_recite", title: "《送元二使安西》", author: "[唐] 王维", content: ["渭城朝雨浥轻尘，", "客舍青青柳色新。", "劝君更尽一杯酒，", "西出阳关无故人。"].join("\n") },
+          { id: "t09", order: 9, lesson: "古诗三首", knowledgeId: "s_g6_cn_poetry_recite", title: "《浪淘沙（其一）》", author: "[唐] 刘禹锡", content: ["九曲黄河万里沙，", "浪淘风簸自天涯。", "如今直上银河去，", "同到牵牛织女家。"].join("\n") },
+          { id: "t10", order: 10, lesson: "古诗三首", knowledgeId: "s_g6_cn_poetry_recite", title: "《江南春》", author: "[唐] 杜牧", content: ["千里莺啼绿映红，", "水村山郭酒旗风。", "南朝四百八十寺，", "多少楼台烟雨中。"].join("\n") },
+          { id: "t11", order: 11, lesson: "古诗三首", knowledgeId: "s_g6_cn_poetry_recite", title: "《书湖阴先生壁》", author: "[宋] 王安石", content: ["茅檐长扫净无苔，", "花木成畦手自栽。", "一水护田将绿绕，", "两山排闼送青来。"].join("\n") },
+          { id: "t12", order: 12, lesson: "语文园地六", knowledgeId: "s_g6_cn_poetry_recite", title: "《过故人庄》", author: "[唐] 孟浩然", content: ["故人具鸡黍，邀我至田家。", "绿树村边合，青山郭外斜。", "开轩面场圃，把酒话桑麻。", "待到重阳日，还来就菊花。"].join("\n") },
+          { id: "t13", order: 13, lesson: "文言文二则", knowledgeId: "s_g6_cn_classical", title: "《两小儿辩日》", author: "文言文", content: ["孔子东游，见两小儿辩斗，问其故。", "一儿曰：“我以日始出时去人近，而日中时远也。”", "一儿以日初出远，而日中时近也。", "一儿曰：“日初出大如车盖，及日中则如盘盂，此不为远者小而近者大乎？”", "一儿曰：“日初出沧沧凉凉，及其日中如探汤，此不为近者热而远者凉乎？”", "孔子不能决也。", "两小儿笑曰：“孰为汝多知乎？”"].join("\n") },
+          { id: "t14", order: 14, lesson: "文言文二则", knowledgeId: "s_g6_cn_classical", title: "《曹冲称象》", author: "文言文", content: ["曹冲生五六岁，智意所及，有若成人之智。", "时孙权曾致巨象，太祖欲知其斤重，访之群下，咸莫能出其理。", "冲曰：“置象大船之上，而刻其水痕所至，称物以载之，则校可知矣。”", "太祖悦，即施行焉。"].join("\n") },
+          { id: "t15", order: 15, lesson: "语文园地七", knowledgeId: "s_g6_cn_accumulation", title: "日积月累", author: "传统文化常识", content: ["五行：金、木、水、火、土", "五音：宫、商、角、徵、羽", "五谷：稻、麦、黍、菽、稷", "五彩：黄、青、赤、白、黑"].join("\n") },
+          { id: "t16", order: 16, lesson: "第23课", knowledgeId: "s_g6_cn_modern_recite", title: "《少年闰土》第一自然段", author: "鲁迅", content: ["深蓝的天空中挂着一轮金黄的圆月，下面是海边的沙地，都种着一望无际的碧绿的西瓜，其间有一个十一二岁的少年，项带银圈，手捏一柄钢叉，向一匹猹尽力的刺去，那猹却将身一扭，反从他的胯下逃走了。"].join("\n") },
+          { id: "t17", order: 17, lesson: "语文园地八", knowledgeId: "s_g6_cn_accumulation", title: "日积月累", author: "鲁迅名句", content: ["无情未必真豪杰，怜子如何不丈夫。——鲁迅《答客诮》", "寄意寒星荃不察，我以我血荐轩辕。——鲁迅《自题小像》", "其实地上本没有路，走的人多了，也便成了路。——鲁迅《故乡》", "惟有民魂是值得宝贵的，惟有他发扬起来，中国才有真进步。——鲁迅《学界的三魂》", "我们从古以来，就有埋头苦干的人，有拼命硬干的人，有为民请命的人，有舍身求法的人……这就是中国的脊梁。——鲁迅《中国人失掉自信力了吗》"].join("\n") }
+        ]
+      }
+    ];
+
+    const defaultState = {
+      settings: fixedSummerSettings,
+      children: [
+        { id: "daughter", name: "陈知悦", nextGrade: "二年级", track: "daughter_g2", strategy: "兴趣保护、基础能力、表达习惯、轻量检测" },
+        { id: "son", name: "陈秋诺", nextGrade: "六年级", track: "son_g6", strategy: "小升初衔接、短板诊断、复盘习惯、自主学习" }
+      ],
+      scores: [
+      ],
+      observations: [
+      ],
+      exercises: [
+      ],
+      schedules: [
+      ],
+      mastery: {
+      },
+      teacherProgress: {
+      },
+      pdca: [
+      ],
+      evaluations: [
+      ]
+    };
+
+    const weeklyPromptIntro = `你是一个家庭学习教练。请基于我提供的数据，为孩子生成周报。
+要求：
+1. 明确区分事实、判断、假设、建议。
+2. 不要制造焦虑，不要只看分数。
+3. 下周最多给 1-2 个重点。
+4. 同时分析客观学习数据、主观成长观察、运动记录、日程执行和老师专项任务。
+5. 判断问题属于知识短板、能力短板、习惯短板、身体状态还是情绪状态。
+6. 输出 PDCA：PLAN、DO、CHECK、ACTION。
+7. 给出适合年龄的快乐学习方式。
+8. 不建议过量刷题。`;
+
+    let state = normalizeState(loadState());
+    let selectedChildId = state.children[0].id;
+    let activeSection = "home";
+    let activeSubject = "语文";
+    let activeRecordTab = "scores";
+    let pendingFiles = [];
+    let serverEvaluations = [];
+    const maxPendingFiles = 20;
+    let lastEvalPrompt = "";
+    let serverInfo = { reachable: false, aiConfigured: false, visionInput: false, model: "" };
+    let teacherProgressSyncing = false;
+    const removedCodexTestArtifacts = removeCodexTestArtifacts(state);
+    if (removedCodexTestArtifacts > 0) {
+      saveState();
+    }
+    saveState();
+
+    function normalizeState(raw) {
+      const clonedDefault = structuredClone(defaultState);
+      const merged = { ...clonedDefault, ...raw };
+      merged.settings = { ...fixedSummerSettings };
+      const rawChildren = raw?.children?.length ? raw.children : clonedDefault.children;
+      merged.children = clonedDefault.children.map(defaultChild => {
+        const existing = rawChildren.find(item => item.id === defaultChild.id) || {};
+        const fixed = fixedChildren[defaultChild.id] || {};
+        return { ...defaultChild, ...existing, ...fixed };
+      });
+      merged.scores = raw?.scores || clonedDefault.scores;
+      merged.observations = raw?.observations || clonedDefault.observations;
+      merged.exercises = raw?.exercises || clonedDefault.exercises;
+      merged.schedules = raw?.schedules || clonedDefault.schedules;
+      merged.mastery = raw?.mastery || clonedDefault.mastery;
+      merged.teacherProgress = raw?.teacherProgress || clonedDefault.teacherProgress;
+      merged.pdca = raw?.pdca || clonedDefault.pdca;
+      merged.evaluations = raw?.evaluations || clonedDefault.evaluations;
+      return merged;
+    }
+
+    function removeCodexTestArtifacts(targetState) {
+      let removed = 0;
+      const demoIds = new Set(["score_1", "score_2", "obs_1", "obs_2", "pdca_1", "pdca_2", "eval_1"]);
+      if (Array.isArray(targetState.evaluations)) {
+        const before = targetState.evaluations.length;
+        targetState.evaluations = targetState.evaluations.filter(item => !demoIds.has(item?.id));
+        removed += before - targetState.evaluations.length;
+      }
+      if (Array.isArray(targetState.scores)) {
+        const before = targetState.scores.length;
+        targetState.scores = targetState.scores.filter(item => !demoIds.has(item?.id));
+        removed += before - targetState.scores.length;
+      }
+      if (Array.isArray(targetState.observations)) {
+        const before = targetState.observations.length;
+        targetState.observations = targetState.observations.filter(item => !demoIds.has(item?.id));
+        removed += before - targetState.observations.length;
+      }
+      if (Array.isArray(targetState.exercises)) {
+        const before = targetState.exercises.length;
+        targetState.exercises = targetState.exercises.filter(item => !demoIds.has(item?.id));
+        removed += before - targetState.exercises.length;
+      }
+      if (Array.isArray(targetState.schedules)) {
+        const before = targetState.schedules.length;
+        targetState.schedules = targetState.schedules.filter(item => !demoIds.has(item?.id));
+        removed += before - targetState.schedules.length;
+      }
+      if (Array.isArray(targetState.pdca)) {
+        const before = targetState.pdca.length;
+        targetState.pdca = targetState.pdca.filter(item => !demoIds.has(item?.id));
+        removed += before - targetState.pdca.length;
+      }
+      if (targetState.mastery && typeof targetState.mastery === "object") {
+        ["daughter:d_g2_cn_read", "son:s_g6_math_model"].forEach(key => {
+          if (targetState.mastery[key]) {
+            delete targetState.mastery[key];
+            removed += 1;
+          }
+        });
+      }
+      return removed;
+    }
+
+    function loadState() {
+      const saved = localStorage.getItem("privateLearningSystem.v1");
+      if (!saved) return structuredClone(defaultState);
+      try { return JSON.parse(saved); } catch { return structuredClone(defaultState); }
+    }
+
+    function saveState() {
+      localStorage.setItem("privateLearningSystem.v1", JSON.stringify(state));
+    }
+
+    function $(selector) { return document.querySelector(selector); }
+    function $all(selector) { return Array.from(document.querySelectorAll(selector)); }
+    function today() {
+      const d = new Date();
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${d.getFullYear()}-${month}-${day}`;
+    }
+    function localDate(dateText, endOfDay = false) {
+      const [year, month, day] = String(dateText).split("-").map(Number);
+      return new Date(year, month - 1, day, endOfDay ? 23 : 0, endOfDay ? 59 : 0, endOfDay ? 59 : 0, endOfDay ? 999 : 0);
+    }
+    function currentWeekRange() {
+      const now = new Date();
+      const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const day = start.getDay() || 7;
+      start.setDate(start.getDate() - day + 1);
+      const end = new Date(start);
+      end.setDate(start.getDate() + 6);
+      end.setHours(23, 59, 59, 999);
+      return { start, end };
+    }
+    function uid(prefix) { return `${prefix}_${Date.now()}_${Math.floor(Math.random() * 10000)}`; }
+    function child() { return state.children.find(item => item.id === selectedChildId) || state.children[0]; }
+    function childLabel(id) { return state.children.find(item => item.id === id)?.name || id; }
+    function pct(score, fullScore) { return fullScore ? Math.round(Number(score) / Number(fullScore) * 100) : 0; }
+    function avg(rows, key) { return rows.length ? rows.reduce((sum, item) => sum + Number(item[key] || 0), 0) / rows.length : null; }
+    function escapeHtml(text) {
+      return String(text ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+    function currentKnowledge() { return knowledgeItems.filter(item => item.track === child().track); }
+    function masteryKey(knowledgeId) { return `${selectedChildId}:${knowledgeId}`; }
+    function teacherProjectsForChild(childId = selectedChildId) {
+      return teacherProjects.filter(project => project.childId === childId);
+    }
+    function activeTeacherProject() {
+      return teacherProjects.find(project => project.childId === selectedChildId && project.subject === activeSubject) || null;
+    }
+    function teacherProgressKey(project, task) {
+      return `${selectedChildId}:${project.id}:${task.id}`;
+    }
+    function teacherTaskProgress(project, task) {
+      return state.teacherProgress[teacherProgressKey(project, task)] || {};
+    }
+    function teacherProjectStats(project) {
+      const total = project.tasks.length;
+      const counts = project.tasks.reduce((acc, task) => {
+        const progress = teacherTaskProgress(project, task);
+        if (progress.recite) acc.recite += 1;
+        if (progress.dictation) acc.dictation += 1;
+        if (progress.review) acc.review += 1;
+        if (progress.recite && progress.dictation && progress.review) acc.complete += 1;
+        return acc;
+      }, { recite: 0, dictation: 0, review: 0, complete: 0 });
+      counts.total = total;
+      counts.percent = total ? Math.round((counts.recite + counts.dictation + counts.review) / (total * 3) * 100) : 0;
+      return counts;
+    }
+    function teacherProjectWeeklyData() {
+      return teacherProjectsForChild().map(project => {
+        const stats = teacherProjectStats(project);
+        return {
+          title: project.title,
+          subject: project.subject,
+          goal: project.goal,
+          stats,
+          tasks: project.tasks.map(task => {
+            const progress = teacherTaskProgress(project, task);
+            return {
+              order: task.order,
+              lesson: task.lesson,
+              title: task.title,
+              knowledge_point: knowledgeItems.find(item => item.id === task.knowledgeId)?.point || "",
+              recite: !!progress.recite,
+              dictation: !!progress.dictation,
+              review: !!progress.review,
+              updated_at: progress.updatedAt || ""
+            };
+          })
+        };
+      });
+    }
+
+    function setToast(text) {
+      const toast = $("#toast");
+      toast.textContent = text;
+      toast.classList.add("active");
+      setTimeout(() => toast.classList.remove("active"), 2200);
+    }
+
+    async function refreshServerInfo() {
+      if (location.protocol === "file:") {
+        serverInfo = { reachable: false, aiConfigured: false, visionInput: false, model: "" };
+        renderAiStatus();
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/health", { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        serverInfo = {
+          reachable: true,
+          aiConfigured: Boolean(data.aiConfigured),
+          visionInput: Boolean(data.visionInput),
+          model: data.model || ""
+        };
+      } catch {
+        serverInfo = { reachable: false, aiConfigured: false, visionInput: false, model: "" };
+      }
+      renderAiStatus();
+    }
+
+    async function refreshServerEvaluations() {
+      if (location.protocol === "file:" || !serverInfo.reachable) {
+        serverEvaluations = [];
+        renderEvaluations();
+        renderHome();
+        renderWeeklyPrompt();
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/evaluations?childId=${encodeURIComponent(selectedChildId)}&limit=100`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        serverEvaluations = Array.isArray(data.evaluations) ? data.evaluations : [];
+      } catch {
+        serverEvaluations = [];
+      }
+      renderEvaluations();
+      renderHome();
+      renderWeeklyPrompt();
+    }
+
+    async function refreshTeacherProgress() {
+      if (location.protocol === "file:" || !serverInfo.reachable) {
+        renderTeacherProject();
+        renderHome();
+        renderWeeklyPrompt();
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/teacher-progress?childId=${encodeURIComponent(selectedChildId)}`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        if (data.progress && typeof data.progress === "object") {
+          state.teacherProgress = { ...state.teacherProgress, ...data.progress };
+          saveState();
+        }
+      } catch {
+      }
+      renderTeacherProject();
+      renderHome();
+      renderWeeklyPrompt();
+    }
+
+    async function refreshOnlineState() {
+      await refreshServerInfo();
+      await Promise.all([
+        refreshServerEvaluations(),
+        refreshTeacherProgress()
+      ]);
+    }
+
+    function renderAiStatus() {
+      const button = $("#aiStatusBtn");
+      if (!button) return;
+      if (location.protocol === "file:") {
+        button.textContent = "AI: 手动";
+        button.title = "当前是本地文件模式，不能直接调用后端。通过服务器地址访问后可调用 DeepSeek。";
+        return;
+      }
+      if (!serverInfo.reachable) {
+        button.textContent = "AI: 离线";
+        button.title = "没有连上后端 /api/health。";
+        return;
+      }
+      if (!serverInfo.aiConfigured) {
+        button.textContent = "AI: 未配置";
+        button.title = "后端可用，但未设置 DEEPSEEK_API_KEY。";
+        return;
+      }
+      button.textContent = `AI: ${serverInfo.model || "已连接"}`;
+      button.title = serverInfo.visionInput ? "AI 已连接，支持视觉输入。" : "AI 已连接。当前 DeepSeek 接入按文本批改，不直接读取图片。";
+    }
+
+    function canCallAi() {
+      return location.protocol !== "file:" && serverInfo.reachable && serverInfo.aiConfigured;
+    }
+
+    function renderSelectOptions() {
+      $all("select[name='subject']").forEach(select => {
+        const previous = select.value;
+        select.innerHTML = subjects.map(item => `<option value="${item}">${item}</option>`).join("");
+        if (previous) select.value = previous;
+      });
+
+      $all("select[name='rating']").forEach(select => {
+        const previous = select.value;
+        select.innerHTML = ratingOptions.map(item => `<option value="${item}">${item} 分</option>`).join("");
+        if (previous) select.value = previous;
+      });
+
+      const dimension = $("select[name='dimension']");
+      if (dimension) {
+        const previous = dimension.value;
+        dimension.innerHTML = growthDimensions.map(item => `<option value="${item}">${item}</option>`).join("");
+        if (previous) dimension.value = previous;
+      }
+
+      renderKnowledgeSelect();
+    }
+
+    function renderChildSwitch() {
+      $("#childSwitch").innerHTML = state.children.map(item => `
+        <button class="${item.id === selectedChildId ? "active" : ""}" data-child="${item.id}">
+          ${escapeHtml(item.name)}
+          <span>准${escapeHtml(item.nextGrade)}</span>
+        </button>
+      `).join("");
+    }
+
+    function renderSubjectTabs() {
+      $("#subjectTabs").innerHTML = subjects.map(item => `
+        <button class="chip ${item === activeSubject ? "active" : ""}" data-subject="${item}">${item}</button>
+      `).join("");
+    }
+
+    function renderKnowledgeSelect() {
+      const select = $("#masteryForm select[name='knowledgeId']");
+      if (!select) return;
+      const rows = currentKnowledge().filter(item => item.subject === activeSubject);
+      select.innerHTML = rows.map(item => `<option value="${item.id}">${item.module} · ${item.point}</option>`).join("");
+    }
+
+    function resultWeaknesses(result = {}) {
+      return [
+        ...(result.knowledge_weaknesses || []),
+        ...(result.ability_weaknesses || [])
+      ].filter(Boolean).join("；");
+    }
+
+    function serverRecordToEvaluation(record) {
+      const result = record.result || {};
+      return {
+        id: `server:${record.id}`,
+        viewId: `server:${record.id}`,
+        serverRecordId: record.id,
+        serverOnly: true,
+        childId: record.childId || selectedChildId,
+        date: record.date || String(record.createdAt || "").slice(0, 10),
+        createdAt: record.createdAt || record.date || "",
+        subject: record.subject || "-",
+        type: record.type || "-",
+        title: record.title || "未命名AI评价",
+        fullScore: record.fullScore || result.full_score || "",
+        humanScore: record.humanScore || "",
+        aiScore: result.reference_score ?? "",
+        confidence: result.confidence || "",
+        status: record.status === "failed" ? "AI调用失败" : "服务器已保存",
+        summary: result.summary || record.error || "",
+        weaknesses: resultWeaknesses(result),
+        files: (record.files || []).map(file => ({
+          name: file.originalName || file.storedName || "附件",
+          type: file.mimeType || "",
+          size: file.size || 0
+        })),
+        ocrText: record.ocr?.text || "",
+        ocrDetails: record.ocr?.details || [],
+        rawAiResult: result,
+        rawResponse: record.raw || "",
+        model: record.model || "",
+        usage: record.usage || null,
+        source: "server"
+      };
+    }
+
+    function evaluationRowsForChild() {
+      const localRows = state.evaluations
+        .filter(item => item.childId === selectedChildId)
+        .map(item => ({
+          ...item,
+          viewId: item.id,
+          createdAt: item.createdAt || item.date || "",
+          source: "local",
+          serverOnly: false
+        }));
+      const localServerIds = new Set(localRows.map(item => item.serverRecordId).filter(Boolean));
+      const serverRows = serverEvaluations
+        .filter(record => !record.childId || record.childId === selectedChildId)
+        .filter(record => !localServerIds.has(record.id))
+        .map(serverRecordToEvaluation);
+      return [...localRows, ...serverRows]
+        .sort((a, b) => String(b.createdAt || b.date || "").localeCompare(String(a.createdAt || a.date || "")));
+    }
+
+    function findEvaluationRow(viewId) {
+      return evaluationRowsForChild().find(item => item.viewId === viewId || item.id === viewId);
+    }
+
+    function evaluationDetailText(item) {
+      if (!item) return "未找到记录。";
+      const result = item.rawAiResult || {};
+      const lines = [
+        `来源：${item.serverOnly ? "服务器历史" : "浏览器本地"}`,
+        `名称：${item.title}`,
+        `日期：${item.date} · ${item.subject} · ${item.type}`,
+        `状态：${item.status}`,
+        `AI参考分：${item.aiScore === "" || item.aiScore == null ? "无法准确给分" : item.aiScore}`,
+        `置信度：${item.confidence || "未标注"}`,
+        "",
+        "AI结论",
+        item.summary || "暂无结论。",
+        "",
+        "知识/能力短板",
+        item.weaknesses || "暂无明确短板。",
+        "",
+        "建议动作",
+        (result.recommended_actions || []).length ? result.recommended_actions.map((text, index) => `${index + 1}. ${text}`).join("\n") : "暂无建议。",
+        "",
+        "需要人工复核",
+        (result.parent_review_needed || []).length ? result.parent_review_needed.map((text, index) => `${index + 1}. ${text}`).join("\n") : "暂无特别复核项。",
+        "",
+        "OCR状态",
+        (item.ocrDetails || []).length
+          ? item.ocrDetails.map(detail => `${detail.file}: ${detail.status}${detail.method ? ` / ${detail.method}` : ""}${detail.characters != null ? ` / ${detail.characters}字` : ""}${detail.rotation != null ? ` / 旋转${detail.rotation}°` : ""}`).join("\n")
+          : "无附件OCR记录。",
+        "",
+        "文件",
+        (item.files || []).length ? item.files.map(file => file.name || file.originalName || "附件").join("\n") : "无文件记录。"
+      ];
+      return lines.join("\n");
+    }
+
+    function showEvaluationDetail(viewId) {
+      const item = findEvaluationRow(viewId);
+      lastEvalPrompt = evaluationDetailText(item);
+      $("#evaluationPrompt").textContent = lastEvalPrompt;
+      $("#evaluationPrompt").scrollIntoView({ block: "start", behavior: "smooth" });
+    }
+
+    function renderHome() {
+      const c = child();
+      $("#homeTitle").textContent = `${c.name} · 准${c.nextGrade}`;
+      $("#homeSub").textContent = c.strategy;
+
+      const start = localDate(state.settings.summerStart);
+      const end = localDate(state.settings.summerEnd, true);
+      const now = new Date();
+      const progress = Math.round(Math.min(Math.max(now - start, 0), end - start) / Math.max(1, end - start) * 100);
+      $("#summerProgress").textContent = `${progress}%`;
+
+      const subjectScores = latestSubjectScores();
+      const scoredSubjects = subjectScores.filter(item => item.latest);
+      const latestAverage = scoredSubjects.length
+        ? Math.round(scoredSubjects.reduce((sum, item) => sum + item.percent, 0) / scoredSubjects.length)
+        : null;
+      $("#latestScore").textContent = latestAverage == null ? "-" : `${latestAverage}%`;
+      $("#latestScoreNote").textContent = scoredSubjects.length ? `${scoredSubjects.length}/4 科有记录` : "学科最新均分";
+
+      const observations = state.observations.filter(item => item.childId === selectedChildId);
+      const growth = avg(observations, "rating");
+      $("#growthAvg").textContent = growth ? growth.toFixed(1) : "-";
+
+      const { start: weekStart, end: weekEnd } = currentWeekRange();
+      const weeklyMinutes = state.exercises
+        .filter(item => item.childId === selectedChildId)
+        .filter(item => {
+          const date = localDate(item.date);
+          return date >= weekStart && date <= weekEnd;
+        })
+        .reduce((sum, item) => sum + Number(item.minutes || 0), 0);
+      $("#weeklyExercise").textContent = `${weeklyMinutes}分`;
+      $("#weeklyExerciseNote").textContent = weeklyMinutes ? "本周运动" : "本周待记录";
+
+      const lowMastery = currentKnowledge().filter(item => {
+        const m = state.mastery[masteryKey(item.id)];
+        return !m || Number(m.rating) <= 2;
+      });
+
+      const latestPdca = state.pdca.filter(item => item.childId === selectedChildId).sort((a, b) => b.weekStart.localeCompare(a.weekStart))[0];
+
+      renderPriorityList(lowMastery, latestPdca);
+      renderSubjectScores(subjectScores);
+      renderTodaySchedule();
+      renderRecentActivity();
+    }
+
+    function latestSubjectScores() {
+      const rows = state.scores.filter(item => item.childId === selectedChildId);
+      return subjects.map(subject => {
+        const latest = rows
+          .filter(item => item.subject === subject)
+          .sort((a, b) => String(b.date).localeCompare(String(a.date)))[0] || null;
+        return {
+          subject,
+          latest,
+          percent: latest ? pct(latest.score, latest.fullScore) : null
+        };
+      });
+    }
+
+    function renderSubjectScores(rows) {
+      if (!rows.some(item => item.latest)) {
+        $("#subjectScoreList").innerHTML = `<div class="empty empty-action">
+          <div>暂无学科成绩记录。先补一条考试、小测或作业分，首页才会显示各科趋势。</div>
+          <button data-drawer="score">新增成绩</button>
+        </div>`;
+        return;
+      }
+      $("#subjectScoreList").innerHTML = rows.map(item => `
+        <div class="subject-score">
+          <div class="item-head">
+            <div class="item-title"><strong>${escapeHtml(item.subject)}</strong><span class="meta">${item.latest ? escapeHtml(item.latest.title) : "暂无记录"}</span></div>
+            <span class="tag ${item.percent == null ? "gray" : item.percent >= 90 ? "blue" : item.percent < 75 ? "warn" : ""}">${item.percent == null ? "-" : `${item.percent}%`}</span>
+          </div>
+          <div class="meta">${item.latest ? `${escapeHtml(item.latest.date)} · ${item.latest.score}/${item.latest.fullScore}` : "下一次考试或小测后补录"}</div>
+        </div>
+      `).join("");
+    }
+
+    function renderTodaySchedule() {
+      const rows = state.schedules
+        .filter(item => item.childId === selectedChildId && item.date === today())
+        .sort((a, b) => String(a.startTime || "").localeCompare(String(b.startTime || "")));
+      $("#todayScheduleList").innerHTML = rows.length ? rows.map(item => `
+        <div class="item">
+          <div class="item-head">
+            <div class="item-title"><strong>${escapeHtml(item.title)}</strong><span class="meta">${escapeHtml(item.startTime || "--:--")}${item.endTime ? `-${escapeHtml(item.endTime)}` : ""} · ${escapeHtml(item.category)}</span></div>
+            <span class="tag ${item.status === "完成" ? "blue" : item.status === "调整" ? "warn" : ""}">${escapeHtml(item.status)}</span>
+          </div>
+          ${item.note ? `<div class="meta">${escapeHtml(item.note)}</div>` : ""}
+        </div>
+      `).join("") : `<div class="empty empty-action"><div>今天暂无日程。</div><button data-drawer="schedule">新增日程</button></div>`;
+    }
+
+    function renderPriorityList(lowMastery, latestPdca) {
+      const rows = [];
+      const teacherProject = teacherProjectsForChild()[0];
+      if (teacherProject) {
+        const stats = teacherProjectStats(teacherProject);
+        if (stats.percent < 100) {
+          rows.push(`<div class="item">
+            <div class="item-head"><div class="item-title"><strong>六上语文必背专项</strong><span class="meta">${stats.recite}/${stats.total} 背诵 · ${stats.dictation}/${stats.total} 默写 · ${stats.review}/${stats.total} 复查</span></div><span class="tag warn">${stats.percent}%</span></div>
+            <div class="meta">${escapeHtml(teacherProject.goal)}</div>
+            <div class="item-actions"><button data-jump="knowledge" data-subject-jump="语文">去打卡</button></div>
+          </div>`);
+        }
+      }
+      if (latestPdca) {
+        rows.push(`<div class="item">
+          <div class="item-head"><div class="item-title"><strong>本周重点</strong><span class="meta">${escapeHtml(latestPdca.weekStart)} 至 ${escapeHtml(latestPdca.weekEnd)}</span></div><span class="tag blue">PDCA</span></div>
+          <div>${escapeHtml(latestPdca.plan)}</div>
+          <div class="meta">${escapeHtml(latestPdca.doText || "还没有执行记录")}</div>
+        </div>`);
+      }
+      lowMastery.slice(0, 4).forEach(item => {
+        const m = state.mastery[masteryKey(item.id)];
+        rows.push(`<div class="item">
+          <div class="item-head"><div class="item-title"><strong>${escapeHtml(item.point)}</strong><span class="meta">${item.subject} · ${item.module}</span></div><span class="tag warn">${m ? `${m.rating}分` : "未评"}</span></div>
+          <div class="meta">${escapeHtml(item.risk)}</div>
+        </div>`);
+      });
+      $("#priorityList").innerHTML = rows.length ? rows.join("") : `<div class="empty empty-action"><div>暂无明显优先项。可以先评一个知识点掌握度，或生成本周 PDCA。</div><button data-jump="knowledge">去知识图谱</button></div>`;
+    }
+
+    function renderRecentActivity() {
+      const activities = [
+        ...state.evaluations.filter(item => item.childId === selectedChildId).map(item => ({ date: item.date, type: "AI评价", title: `${item.subject} · ${item.title}`, note: item.status })),
+        ...state.scores.filter(item => item.childId === selectedChildId).map(item => ({ date: item.date, type: "成绩", title: `${item.subject} · ${item.title}`, note: `${item.score}/${item.fullScore}` })),
+        ...state.observations.filter(item => item.childId === selectedChildId).map(item => ({ date: item.date, type: "观察", title: `${item.dimension} ${item.rating}分`, note: item.scene })),
+        ...state.exercises.filter(item => item.childId === selectedChildId).map(item => ({ date: item.date, type: "运动", title: `${item.activity} ${item.minutes}分钟`, note: item.intensity })),
+        ...state.schedules.filter(item => item.childId === selectedChildId).map(item => ({ date: item.date, type: "日程", title: item.title, note: `${item.startTime || ""} ${item.status || ""}`.trim() })),
+        ...state.pdca.filter(item => item.childId === selectedChildId).map(item => ({ date: item.weekStart, type: "PDCA", title: item.plan, note: item.weekEnd }))
+      ].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 8);
+      $("#activityCount").textContent = `${activities.length} 条`;
+      $("#recentActivity").innerHTML = activities.length ? activities.map(item => `
+        <div class="item">
+          <div class="item-head"><div class="item-title"><strong>${escapeHtml(item.title)}</strong><span class="meta">${item.date} · ${item.type}</span></div><span class="tag">${escapeHtml(item.note)}</span></div>
+        </div>
+      `).join("") : `<div class="empty empty-action"><div>暂无记录。先从 AI 批改、成绩或观察开始。</div><button data-jump="evaluate">去AI批改</button></div>`;
+    }
+
+    function renderScores() {
+      const rows = state.scores.filter(item => item.childId === selectedChildId).sort((a, b) => b.date.localeCompare(a.date));
+      $("#scoreList").innerHTML = rows.length ? rows.map(item => {
+        const percent = pct(item.score, item.fullScore);
+        return `<div class="item">
+          <div class="item-head">
+            <div class="item-title"><strong>${escapeHtml(item.title)}</strong><span class="meta">${item.date} · ${item.subject}</span></div>
+            <span class="tag blue">${item.score}/${item.fullScore}</span>
+          </div>
+          <div class="scorebar"><span style="width:${percent}%"></span></div>
+          <div class="meta">${escapeHtml(item.note || "无反馈")}</div>
+          <button class="danger" data-delete-score="${item.id}">删除</button>
+        </div>`;
+      }).join("") : `<div class="empty empty-action"><div>暂无成绩记录。</div><button data-drawer="score">新增成绩</button></div>`;
+    }
+
+    function renderGrowth() {
+      const rows = state.observations.filter(item => item.childId === selectedChildId).sort((a, b) => b.date.localeCompare(a.date));
+      $("#growthList").innerHTML = rows.length ? rows.map(item => `
+        <div class="item">
+          <div class="item-head">
+            <div class="item-title"><strong>${escapeHtml(item.dimension)} · ${item.rating}分</strong><span class="meta">${item.date} · ${escapeHtml(item.scene)}</span></div>
+            <span class="tag">${item.rating >= 4 ? "状态好" : item.rating <= 2 ? "需关注" : "正常"}</span>
+          </div>
+          <div class="meta">${escapeHtml(item.note || "无备注")}</div>
+          <button class="danger" data-delete-observation="${item.id}">删除</button>
+        </div>
+      `).join("") : `<div class="empty empty-action"><div>暂无成长观察。</div><button data-drawer="growth">新增观察</button></div>`;
+    }
+
+    function renderExercise() {
+      const rows = state.exercises.filter(item => item.childId === selectedChildId).sort((a, b) => b.date.localeCompare(a.date));
+      $("#exerciseList").innerHTML = rows.length ? rows.map(item => `
+        <div class="item">
+          <div class="item-head">
+            <div class="item-title"><strong>${escapeHtml(item.activity)} · ${item.minutes}分钟</strong><span class="meta">${item.date} · ${escapeHtml(item.intensity)}</span></div>
+            <span class="tag blue">体</span>
+          </div>
+          <div class="meta">${escapeHtml(item.note || "无备注")}</div>
+          <button class="danger" data-delete-exercise="${item.id}">删除</button>
+        </div>
+      `).join("") : `<div class="empty empty-action"><div>暂无运动记录。</div><button data-drawer="exercise">新增运动</button></div>`;
+    }
+
+    function renderSchedule() {
+      const rows = state.schedules.filter(item => item.childId === selectedChildId).sort((a, b) => {
+        const dateCompare = String(b.date).localeCompare(String(a.date));
+        if (dateCompare) return dateCompare;
+        return String(a.startTime || "").localeCompare(String(b.startTime || ""));
+      });
+      $("#scheduleList").innerHTML = rows.length ? rows.map(item => `
+        <div class="item">
+          <div class="item-head">
+            <div class="item-title"><strong>${escapeHtml(item.title)}</strong><span class="meta">${item.date} · ${escapeHtml(item.startTime || "--:--")}${item.endTime ? `-${escapeHtml(item.endTime)}` : ""} · ${escapeHtml(item.category)}</span></div>
+            <span class="tag ${item.status === "完成" ? "blue" : item.status === "调整" ? "warn" : ""}">${escapeHtml(item.status)}</span>
+          </div>
+          <div class="meta">${escapeHtml(item.note || "无备注")}</div>
+          <button class="danger" data-delete-schedule="${item.id}">删除</button>
+        </div>
+      `).join("") : `<div class="empty empty-action"><div>暂无日程。</div><button data-drawer="schedule">新增日程</button></div>`;
+    }
+
+    function renderTeacherProject() {
+      const panel = $("#teacherProjectPanel");
+      const project = activeTeacherProject();
+      if (!panel || !project) {
+        if (panel) panel.style.display = "none";
+        return;
+      }
+
+      panel.style.display = "";
+      const stats = teacherProjectStats(project);
+      $("#teacherProjectTitle").textContent = project.title;
+      $("#teacherProjectSub").textContent = `${project.source} · 完成记录保存到服务器，可跨浏览器同步。`;
+      $("#teacherReciteCount").textContent = `${stats.recite}/${stats.total}`;
+      $("#teacherDictationCount").textContent = `${stats.dictation}/${stats.total}`;
+      $("#teacherReviewCount").textContent = `${stats.review}/${stats.total}`;
+      $("#teacherOverallCount").textContent = `${stats.percent}%`;
+      $("#teacherTaskSummary").textContent = `${stats.total}项背诵打卡清单：背诵 ${stats.recite}/${stats.total} · 默写 ${stats.dictation}/${stats.total} · 复查 ${stats.review}/${stats.total}`;
+
+      $("#teacherPlanList").innerHTML = project.plan.map(stage => `
+        <div class="plan-row">
+          <div class="item-head">
+            <div class="item-title"><strong>${escapeHtml(stage.title)}</strong><span class="meta">${escapeHtml(stage.date)} 开始</span></div>
+            <span class="tag blue">暑假节奏</span>
+          </div>
+          <div class="meta">${escapeHtml(stage.items.join("、"))}</div>
+          <div class="meta">${escapeHtml(stage.note)}</div>
+        </div>
+      `).join("");
+
+      $("#teacherTaskList").innerHTML = project.tasks.map(task => {
+        const progress = teacherTaskProgress(project, task);
+        const knowledge = knowledgeItems.find(item => item.id === task.knowledgeId);
+        const updateText = [progress.reciteDate ? `背诵 ${progress.reciteDate}` : "", progress.dictationDate ? `默写 ${progress.dictationDate}` : "", progress.reviewDate ? `复查 ${progress.reviewDate}` : ""].filter(Boolean).join("；");
+        return `
+          <div class="teacher-task">
+            <div class="teacher-task-main">
+              <div class="teacher-task-title">
+                <span class="task-order">${task.order}</span>
+                <div class="task-name">
+                  <strong>${escapeHtml(task.title)}</strong>
+                  <span class="meta">${escapeHtml(task.lesson)} · ${escapeHtml(task.author || "")} · ${escapeHtml(knowledge?.point || "六上必背")}</span>
+                </div>
+              </div>
+            </div>
+            <div class="task-checks">
+              <button class="check-recite ${progress.recite ? "done" : "pending"}" data-teacher-project="${project.id}" data-teacher-task="${task.id}" data-teacher-check="recite" title="${progress.recite ? "背诵已完成" : "背诵未完成"}">背诵${progress.recite ? " ✓" : ""}</button>
+              <button class="check-dictation ${progress.dictation ? "done" : "pending"}" data-teacher-project="${project.id}" data-teacher-task="${task.id}" data-teacher-check="dictation" title="${progress.dictation ? "默写已完成" : "默写未完成"}">默写${progress.dictation ? " ✓" : ""}</button>
+              <button class="check-review ${progress.review ? "done" : "pending"}" data-teacher-project="${project.id}" data-teacher-task="${task.id}" data-teacher-check="review" title="${progress.review ? "复查已完成" : "复查未完成"}">复查${progress.review ? " ✓" : ""}</button>
+            </div>
+            ${updateText ? `<div class="meta">记录：${escapeHtml(updateText)}</div>` : ""}
+            <details class="task-detail">
+              <summary>查看背诵内容</summary>
+              <div class="recite-text">${escapeHtml(task.content)}</div>
+            </details>
+          </div>
+        `;
+      }).join("");
+    }
+
+    async function toggleTeacherCheck(projectId, taskId, check) {
+      if (teacherProgressSyncing) return;
+      const project = teacherProjects.find(item => item.id === projectId && item.childId === selectedChildId);
+      const task = project?.tasks.find(item => item.id === taskId);
+      if (!project || !task || !["recite", "dictation", "review"].includes(check)) return;
+      const key = teacherProgressKey(project, task);
+      const progress = { ...(state.teacherProgress[key] || {}) };
+      const nextDone = !progress[check];
+
+      if (location.protocol !== "file:") {
+        if (!serverInfo.reachable) await refreshServerInfo();
+        if (!serverInfo.reachable) {
+          setToast("服务器未连接，打卡未保存");
+          return;
+        }
+
+        teacherProgressSyncing = true;
+        try {
+          const response = await fetch("/api/teacher-progress", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              childId: selectedChildId,
+              projectId: project.id,
+              taskId: task.id,
+              check,
+              done: nextDone
+            })
+          });
+          const data = await response.json();
+          if (!response.ok || !data.ok) throw new Error(data.error || `HTTP ${response.status}`);
+          state.teacherProgress[key] = data.progress;
+          saveState();
+          setToast(`${task.title}${nextDone ? "已保存到服务器" : "已取消并保存"}`);
+          renderAll();
+        } catch (error) {
+          setToast(`保存失败：${error.message}`);
+        } finally {
+          teacherProgressSyncing = false;
+        }
+        return;
+      }
+
+      progress[check] = nextDone;
+      progress[`${check}Date`] = nextDone ? today() : "";
+      progress.updatedAt = new Date().toISOString();
+      state.teacherProgress[key] = progress;
+      saveState();
+      setToast(`${task.title}${nextDone ? "已临时保存" : "已取消"}`);
+      renderAll();
+    }
+
+    function addTeacherProjectSchedule() {
+      const project = activeTeacherProject();
+      if (!project) return;
+      let added = 0;
+      project.plan.forEach(stage => {
+        const sourceId = `${project.id}:${stage.id}`;
+        const exists = state.schedules.some(item => item.childId === selectedChildId && item.sourceId === sourceId);
+        if (exists) return;
+        state.schedules.push({
+          id: uid("schedule"),
+          childId: selectedChildId,
+          date: stage.date,
+          startTime: "09:00",
+          endTime: "09:25",
+          category: "学习",
+          title: `语文必背：${stage.title}`,
+          status: "计划",
+          note: `${project.title}；内容：${stage.items.join("、")}。${stage.note}`,
+          sourceId
+        });
+        added += 1;
+      });
+      saveState();
+      setToast(added ? `已生成 ${added} 条暑假日程` : "暑假日程已存在");
+      activeSection = "records";
+      activeRecordTab = "schedule";
+      renderAll();
+    }
+
+    function renderKnowledge() {
+      const rows = currentKnowledge().filter(item => item.subject === activeSubject);
+      $("#knowledgeCount").textContent = `${rows.length} 个`;
+      $("#knowledgeList").innerHTML = rows.length ? rows.map(item => {
+        const m = state.mastery[masteryKey(item.id)];
+        const rating = m ? Number(m.rating) : 0;
+        return `<div class="item">
+          <div class="item-head">
+            <div class="item-title"><strong>${escapeHtml(item.point)}</strong><span class="meta">${escapeHtml(item.module)}</span></div>
+            <span class="tag ${rating <= 2 ? "warn" : "blue"}">${rating ? `${rating}分` : "未评"}</span>
+          </div>
+          <div class="tags">
+            <span class="tag">${escapeHtml(item.ability)}</span>
+          </div>
+          <div class="meta">检测：${escapeHtml(item.checks)}</div>
+          <div class="meta">风险：${escapeHtml(item.risk)}</div>
+          ${m?.evidence ? `<div class="meta">证据：${escapeHtml(m.evidence)}</div>` : ""}
+        </div>`;
+      }).join("") : `<div class="empty">暂无知识点。</div>`;
+    }
+
+    function renderEvaluations() {
+      const rows = evaluationRowsForChild();
+      const serverOnlyCount = rows.filter(item => item.serverOnly).length;
+      $("#evalCount").textContent = `${rows.length} 条${serverOnlyCount ? ` · 服务器补回 ${serverOnlyCount} 条` : ""}`;
+      $("#evaluationList").innerHTML = rows.length ? rows.map(item => `
+        <div class="item">
+          <div class="item-head">
+            <div class="item-title"><strong>${escapeHtml(item.title)}</strong><span class="meta">${item.date} · ${item.subject} · ${item.type}</span></div>
+            <span class="tag ${["已AI评价", "服务器已保存"].includes(item.status) ? "blue" : "warn"}">${escapeHtml(item.status)}</span>
+          </div>
+          <div class="tags">
+            <span class="tag ${item.serverOnly ? "blue" : "gray"}">${item.serverOnly ? "服务器历史" : "浏览器本地"}</span>
+            <span class="tag">满分 ${item.fullScore || "-"}</span>
+            <span class="tag">家长 ${item.humanScore || "-"}</span>
+            <span class="tag">AI ${item.aiScore || "-"}</span>
+            ${item.confidence ? `<span class="tag ${item.confidence === "低" ? "warn" : "blue"}">置信度 ${escapeHtml(item.confidence)}</span>` : ""}
+          </div>
+          <div class="meta">文件：${item.files?.length ? item.files.map(file => escapeHtml(file.name)).join("，") : "未保存文件内容"}</div>
+          ${item.ocrDetails?.length ? `<div class="meta">OCR：${escapeHtml(item.ocrDetails.map(detail => `${detail.file}: ${detail.status}${detail.method ? `/${detail.method}` : ""}${detail.characters != null ? `/${detail.characters}字` : ""}${detail.rotation != null ? `/旋转${detail.rotation}°` : ""}`).join("；"))}</div>` : ""}
+          ${item.summary ? `<div class="meta">AI结论：${escapeHtml(item.summary)}</div>` : ""}
+          ${item.weaknesses ? `<div class="meta">短板：${escapeHtml(item.weaknesses)}</div>` : ""}
+          <div class="item-actions">
+            <button data-view-evaluation="${escapeHtml(item.viewId)}">详情</button>
+            ${item.serverOnly ? "" : `<button class="danger" data-delete-evaluation="${escapeHtml(item.id)}">删除</button>`}
+          </div>
+        </div>
+      `).join("") : `<div class="empty">暂无 AI 评价记录。</div>`;
+      renderEvaluationPrompt();
+    }
+
+    function buildEvaluationPrompt(record) {
+      if (!record) {
+        return "先上传或保存一条作业/试卷记录。";
+      }
+      return `请作为小学家庭学习教练，基于我上传的作业/试卷附件进行评价。
+
+孩子：${childLabel(record.childId)}
+阶段：准${child().nextGrade}
+学科：${record.subject}
+类型：${record.type}
+名称：${record.title}
+满分：${record.fullScore || "未提供"}
+家长初评分：${record.humanScore || "未提供"}
+评分重点：${record.rubric || "请根据题目、答案、过程和书写综合判断。"}
+附件：${record.files?.length ? record.files.map(file => `${file.name} (${file.type || "unknown"}, ${Math.round(file.size / 1024)}KB)`).join("；") : "请查看我随消息上传的图片/PDF。"}
+题目/孩子答案/OCR文本：
+${record.workText || "未提供文本。"}
+
+请输出：
+1. 参考分和扣分依据。
+2. 每道错题或问题点的知识点归因。
+3. 错误类型：知识不会、概念混淆、审题问题、计算错误、表达不规范、粗心、时间管理。
+4. 能力短板：计算、阅读理解、表达、建模、证据推理等。
+5. 下周只建议 1-2 个训练重点。
+6. 给出适合孩子年龄的快乐练习方式。
+7. 明确说明哪些判断只是推测，需要家长或老师复核。`;
+    }
+
+    function renderEvaluationPrompt() {
+      const rows = evaluationRowsForChild();
+      if (rows[0]?.rawAiResult) {
+        lastEvalPrompt = evaluationDetailText(rows[0]);
+      } else {
+        lastEvalPrompt = buildEvaluationPrompt(rows[0]);
+      }
+      $("#evaluationPrompt").textContent = lastEvalPrompt;
+    }
+
+    function renderPdca() {
+      const rows = state.pdca.filter(item => item.childId === selectedChildId).sort((a, b) => b.weekStart.localeCompare(a.weekStart));
+      $("#pdcaCount").textContent = `${rows.length} 条`;
+      $("#pdcaList").innerHTML = rows.length ? rows.map(item => `
+        <div class="item">
+          <div class="item-head">
+            <div class="item-title"><strong>${escapeHtml(item.plan)}</strong><span class="meta">${item.weekStart} 至 ${item.weekEnd}</span></div>
+            <span class="tag blue">PDCA</span>
+          </div>
+          <div class="meta">DO：${escapeHtml(item.doText || "未记录")}</div>
+          <div class="meta">CHECK：${escapeHtml(item.checkText || "未记录")}</div>
+          <div class="meta">ACTION：${escapeHtml(item.actionText || "未记录")}</div>
+          <button class="danger" data-delete-pdca="${item.id}">删除</button>
+        </div>
+      `).join("") : `<div class="empty">暂无 PDCA 记录。</div>`;
+      renderWeeklyPrompt();
+    }
+
+    function weeklyData() {
+      return {
+        exported_at: new Date().toISOString(),
+        child: child(),
+        knowledge_items: currentKnowledge().map(item => ({ ...item, mastery: state.mastery[masteryKey(item.id)] || null })),
+        score_records: state.scores.filter(item => item.childId === selectedChildId),
+        growth_observations: state.observations.filter(item => item.childId === selectedChildId),
+        exercise_records: state.exercises.filter(item => item.childId === selectedChildId),
+        schedule_items: state.schedules.filter(item => item.childId === selectedChildId),
+        teacher_projects: teacherProjectWeeklyData(),
+        ai_evaluations: evaluationRowsForChild(),
+        pdca_cycles: state.pdca.filter(item => item.childId === selectedChildId)
+      };
+    }
+
+    function renderWeeklyPrompt() {
+      $("#weeklyPrompt").textContent = `${weeklyPromptIntro}\n\n本周数据：\n${JSON.stringify(weeklyData(), null, 2)}`;
+    }
+
+    function renderFilePreview() {
+      const list = $("#filePreview");
+      if (!pendingFiles.length) {
+        list.innerHTML = "";
+        return;
+      }
+      list.innerHTML = pendingFiles.map((file, index) => `
+        <div class="file-card">
+          ${file.preview ? `<img src="${file.preview}" alt="">` : `<div class="file-icon">PDF</div>`}
+          <div>
+            <strong>第 ${index + 1} 页${index === 0 ? " / 正面" : index === 1 ? " / 反面" : ""}</strong>
+            <div class="meta">${escapeHtml(file.name)}</div>
+            <div class="meta">${escapeHtml(file.type || "unknown")} · ${Math.round(file.size / 1024)}KB</div>
+            <button class="danger" data-remove-upload="${file.id}">删除这一页</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function renderAll() {
+      renderChildSwitch();
+      renderSubjectTabs();
+      renderSelectOptions();
+      renderHome();
+      renderScores();
+      renderGrowth();
+      renderExercise();
+      renderSchedule();
+      renderKnowledge();
+      renderTeacherProject();
+      renderEvaluations();
+      renderPdca();
+      renderAiStatus();
+      updateSection();
+      updateRecordPanes();
+      setupDates();
+    }
+
+    function updateSection() {
+      $all(".section").forEach(section => section.classList.toggle("active", section.id === activeSection));
+      $all("#bottomNav button").forEach(button => button.classList.toggle("active", button.dataset.section === activeSection));
+      const subtitles = {
+        home: "今日重点、AI批改、人工观察、周复盘。",
+        evaluate: "上传作业或试卷，自动生成 AI 分析。",
+        records: "记录成绩、观察、运动和日程。",
+        knowledge: "按知识点和能力点看掌握度。",
+        weekly: "每周只抓 1-2 个最划算的点。"
+      };
+      $("#pageSubtitle").textContent = subtitles[activeSection] || subtitles.home;
+    }
+
+    function setupDates() {
+      $all("input[type='date']").forEach(input => {
+        if (!input.value) input.value = today();
+      });
+      const weekEnd = $("#pdcaForm input[name='weekEnd']");
+      if (weekEnd && !weekEnd.value) {
+        const d = new Date();
+        d.setDate(d.getDate() + 6);
+        weekEnd.value = d.toISOString().slice(0, 10);
+      }
+    }
+
+    function openDrawer(name) {
+      $(`#${name}Drawer`)?.classList.add("active");
+    }
+
+    function updateRecordPanes() {
+      $all("#recordTabs button").forEach(item => item.classList.toggle("active", item.dataset.recordTab === activeRecordTab));
+      const paneMap = {
+        scores: "#recordScores",
+        growth: "#recordGrowth",
+        exercise: "#recordExercise",
+        schedule: "#recordSchedule"
+      };
+      Object.entries(paneMap).forEach(([key, selector]) => {
+        const pane = $(selector);
+        if (pane) pane.style.display = activeRecordTab === key ? "" : "none";
+      });
+    }
+
+
+    function closeDrawers() {
+      $all(".drawer").forEach(drawer => drawer.classList.remove("active"));
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        setToast("已复制");
+      } catch {
+        setToast("复制失败，可手动选中文本");
+      }
+    }
+
+    $("#childSwitch").addEventListener("click", event => {
+      const button = event.target.closest("button[data-child]");
+      if (!button) return;
+      selectedChildId = button.dataset.child;
+      serverEvaluations = [];
+      renderAll();
+      refreshServerEvaluations();
+      refreshTeacherProgress();
+    });
+
+    $("#bottomNav").addEventListener("click", event => {
+      const button = event.target.closest("button[data-section]");
+      if (!button) return;
+      activeSection = button.dataset.section;
+      renderAll();
+      if (activeSection === "evaluate") refreshServerEvaluations();
+    });
+
+    document.body.addEventListener("click", event => {
+      const viewEvaluation = event.target.closest("[data-view-evaluation]");
+      const teacherCheck = event.target.closest("[data-teacher-check]");
+      const jump = event.target.closest("[data-jump]");
+      const drawer = event.target.closest("[data-drawer]");
+      const close = event.target.closest("[data-close-drawer]");
+      const removeUpload = event.target.closest("[data-remove-upload]");
+      if (teacherCheck) {
+        toggleTeacherCheck(teacherCheck.dataset.teacherProject, teacherCheck.dataset.teacherTask, teacherCheck.dataset.teacherCheck);
+        return;
+      }
+      if (viewEvaluation) {
+        showEvaluationDetail(viewEvaluation.dataset.viewEvaluation);
+        return;
+      }
+      if (removeUpload) {
+        const target = pendingFiles.find(item => item.id === removeUpload.dataset.removeUpload);
+        if (target?.preview) URL.revokeObjectURL(target.preview);
+        pendingFiles = pendingFiles.filter(item => item.id !== removeUpload.dataset.removeUpload);
+        renderFilePreview();
+        return;
+      }
+      if (jump) {
+        if (jump.dataset.subjectJump) activeSubject = jump.dataset.subjectJump;
+        activeSection = jump.dataset.jump;
+        renderAll();
+        if (activeSection === "evaluate") refreshServerEvaluations();
+      }
+      if (drawer) openDrawer(drawer.dataset.drawer);
+      if (close || event.target.classList.contains("drawer")) closeDrawers();
+
+      const deleteScore = event.target.dataset.deleteScore;
+      const deleteObservation = event.target.dataset.deleteObservation;
+      const deleteExercise = event.target.dataset.deleteExercise;
+      const deleteSchedule = event.target.dataset.deleteSchedule;
+      const deletePdca = event.target.dataset.deletePdca;
+      const deleteEvaluation = event.target.dataset.deleteEvaluation;
+      if (deleteScore) state.scores = state.scores.filter(item => item.id !== deleteScore);
+      if (deleteObservation) state.observations = state.observations.filter(item => item.id !== deleteObservation);
+      if (deleteExercise) state.exercises = state.exercises.filter(item => item.id !== deleteExercise);
+      if (deleteSchedule) state.schedules = state.schedules.filter(item => item.id !== deleteSchedule);
+      if (deletePdca) state.pdca = state.pdca.filter(item => item.id !== deletePdca);
+      if (deleteEvaluation) state.evaluations = state.evaluations.filter(item => item.id !== deleteEvaluation);
+      if (deleteScore || deleteObservation || deleteExercise || deleteSchedule || deletePdca || deleteEvaluation) {
+        saveState();
+        renderAll();
+      }
+    });
+
+    $("#recordTabs").addEventListener("click", event => {
+      const button = event.target.closest("button[data-record-tab]");
+      if (!button) return;
+      activeRecordTab = button.dataset.recordTab;
+      updateRecordPanes();
+    });
+
+    $("#subjectTabs").addEventListener("click", event => {
+      const button = event.target.closest("button[data-subject]");
+      if (!button) return;
+      activeSubject = button.dataset.subject;
+      renderAll();
+    });
+
+    $("#addTeacherScheduleBtn").addEventListener("click", addTeacherProjectSchedule);
+
+    $("#scoreForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const form = new FormData(event.target);
+      state.scores.push({
+        id: uid("score"),
+        childId: selectedChildId,
+        date: form.get("date"),
+        subject: form.get("subject"),
+        title: form.get("title"),
+        score: Number(form.get("score")),
+        fullScore: Number(form.get("fullScore")),
+        note: form.get("note")
+      });
+      saveState();
+      event.target.reset();
+      closeDrawers();
+      setToast("成绩已保存");
+      renderAll();
+    });
+
+    $("#growthForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const form = new FormData(event.target);
+      state.observations.push({
+        id: uid("obs"),
+        childId: selectedChildId,
+        date: form.get("date"),
+        dimension: form.get("dimension"),
+        rating: Number(form.get("rating")),
+        scene: form.get("scene"),
+        note: form.get("note")
+      });
+      saveState();
+      event.target.reset();
+      closeDrawers();
+      setToast("观察已保存");
+      renderAll();
+    });
+
+    $("#exerciseForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const form = new FormData(event.target);
+      state.exercises.push({
+        id: uid("exercise"),
+        childId: selectedChildId,
+        date: form.get("date"),
+        activity: form.get("activity"),
+        minutes: Number(form.get("minutes")),
+        intensity: form.get("intensity"),
+        note: form.get("note")
+      });
+      saveState();
+      event.target.reset();
+      closeDrawers();
+      setToast("运动已保存");
+      renderAll();
+    });
+
+    $("#scheduleForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const form = new FormData(event.target);
+      state.schedules.push({
+        id: uid("schedule"),
+        childId: selectedChildId,
+        date: form.get("date"),
+        startTime: form.get("startTime"),
+        endTime: form.get("endTime"),
+        category: form.get("category"),
+        title: form.get("title"),
+        status: form.get("status"),
+        note: form.get("note")
+      });
+      saveState();
+      event.target.reset();
+      closeDrawers();
+      setToast("日程已保存");
+      renderAll();
+    });
+
+    $("#masteryForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const form = new FormData(event.target);
+      const knowledgeId = form.get("knowledgeId");
+      state.mastery[masteryKey(knowledgeId)] = {
+        rating: Number(form.get("rating")),
+        source: form.get("source"),
+        evidence: form.get("evidence"),
+        date: today()
+      };
+      saveState();
+      event.target.reset();
+      setToast("掌握度已更新");
+      renderAll();
+    });
+
+    $("#pdcaForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const form = new FormData(event.target);
+      state.pdca.push({
+        id: uid("pdca"),
+        childId: selectedChildId,
+        weekStart: form.get("weekStart"),
+        weekEnd: form.get("weekEnd"),
+        plan: form.get("plan"),
+        doText: form.get("doText"),
+        checkText: form.get("checkText"),
+        actionText: form.get("actionText")
+      });
+      saveState();
+      event.target.reset();
+      setToast("PDCA已保存");
+      renderAll();
+    });
+
+    $("#workFiles").addEventListener("change", event => {
+      const files = Array.from(event.target.files || []);
+      const remaining = maxPendingFiles - pendingFiles.length;
+      if (remaining <= 0) {
+        setToast(`最多上传 ${maxPendingFiles} 个文件`);
+        event.target.value = "";
+        return;
+      }
+      const accepted = files.slice(0, remaining).map(file => ({
+        id: uid("upload"),
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        file,
+        preview: file.type.startsWith("image/") ? URL.createObjectURL(file) : ""
+      }));
+      pendingFiles = [...pendingFiles, ...accepted];
+      if (files.length > accepted.length) {
+        setToast(`最多上传 ${maxPendingFiles} 个文件，已保留前 ${accepted.length} 个`);
+      }
+      event.target.value = "";
+      renderFilePreview();
+    });
+
+    $("#evaluationForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      const form = new FormData(event.target);
+      await refreshServerInfo();
+      const record = {
+        id: uid("eval"),
+        childId: selectedChildId,
+        date: today(),
+        subject: form.get("subject"),
+        type: form.get("type"),
+        title: form.get("title"),
+        fullScore: Number(form.get("fullScore") || 100),
+        humanScore: form.get("humanScore") ? Number(form.get("humanScore")) : "",
+        rubric: form.get("rubric"),
+        workText: form.get("workText"),
+        status: "待AI评价",
+        files: pendingFiles.map(({ id, file, preview, ...meta }, index) => ({ ...meta, page: index + 1 })),
+        aiScore: "",
+        confidence: "",
+        summary: "",
+        weaknesses: "",
+        ocrText: "",
+        ocrDetails: [],
+        rawAiResult: null
+      };
+
+      lastEvalPrompt = buildEvaluationPrompt(record);
+
+      if (canCallAi()) {
+        try {
+          setToast("正在调用 DeepSeek 批改...");
+          const uploadForm = new FormData();
+          uploadForm.append("childId", selectedChildId);
+          uploadForm.append("child", child().name);
+          uploadForm.append("grade", `准${child().nextGrade}`);
+          uploadForm.append("subject", form.get("subject"));
+          uploadForm.append("type", form.get("type"));
+          uploadForm.append("title", form.get("title"));
+          uploadForm.append("fullScore", form.get("fullScore") || "100");
+          uploadForm.append("humanScore", form.get("humanScore") || "");
+          uploadForm.append("rubric", form.get("rubric") || "");
+          uploadForm.append("workText", form.get("workText") || "");
+          pendingFiles.forEach(item => uploadForm.append("files", item.file, item.name));
+          const response = await fetch("/api/evaluate", {
+            method: "POST",
+            body: uploadForm
+          });
+          const data = await response.json();
+          if (!response.ok || !data.ok) throw new Error(data.error || `HTTP ${response.status}`);
+          const result = data.result || {};
+          record.aiScore = result.reference_score ?? "";
+          record.confidence = result.confidence || "中";
+          record.summary = result.summary || "";
+          record.weaknesses = [
+            ...(result.knowledge_weaknesses || []),
+            ...(result.ability_weaknesses || [])
+          ].join("；");
+          record.status = "已AI评价";
+          record.rawAiResult = result;
+          record.ocrText = data.ocr?.text || "";
+          record.ocrDetails = data.ocr?.details || [];
+          record.serverRecordId = data.record?.id || "";
+          record.serverSavedAt = data.record?.createdAt || "";
+          record.storedFiles = data.files || [];
+          lastEvalPrompt = evaluationDetailText(record);
+          $("#evaluationPrompt").textContent = lastEvalPrompt;
+        } catch (error) {
+          record.status = "AI调用失败";
+          record.summary = error.message;
+          $("#evaluationPrompt").textContent = `${lastEvalPrompt}\n\n后端调用失败：${error.message}`;
+        }
+      } else {
+        $("#evaluationPrompt").textContent = lastEvalPrompt;
+      }
+
+      state.evaluations.push(record);
+      saveState();
+      event.target.reset();
+      pendingFiles.forEach(item => {
+        if (item.preview) URL.revokeObjectURL(item.preview);
+      });
+      pendingFiles = [];
+      renderFilePreview();
+      setToast(canCallAi() ? "AI评价已保存" : "AI请求已生成");
+      renderAll();
+      if (canCallAi()) refreshServerEvaluations();
+    });
+
+    $("#copyEvalPromptBtn").addEventListener("click", () => copyText(lastEvalPrompt || $("#evaluationPrompt").textContent));
+    $("#copyWeeklyBtn").addEventListener("click", () => copyText($("#weeklyPrompt").textContent));
+    $("#aiStatusBtn").addEventListener("click", async () => {
+      await refreshServerInfo();
+      setToast(serverInfo.aiConfigured ? "AI已连接" : "AI未配置或离线");
+    });
+    $("#runWeeklyAiBtn").addEventListener("click", async () => {
+      await refreshServerInfo();
+      if (!canCallAi()) {
+        setToast("AI未连接，请复制数据手动发送");
+        return;
+      }
+      try {
+        setToast("正在生成周报...");
+        const response = await fetch("/api/weekly-review", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(weeklyData())
+        });
+        const data = await response.json();
+        if (!response.ok || !data.ok) throw new Error(data.error || `HTTP ${response.status}`);
+        $("#weeklyPrompt").textContent = JSON.stringify(data.result, null, 2);
+        setToast("周报已生成");
+      } catch (error) {
+        setToast(`周报失败：${error.message}`);
+      }
+    });
+
+    $("#resetBtn").addEventListener("click", () => {
+      if (!confirm("确定重置为示例数据？当前浏览器里的记录会被覆盖。")) return;
+      state = structuredClone(defaultState);
+      selectedChildId = state.children[0].id;
+      activeSection = "home";
+      saveState();
+      renderAll();
+    });
+
+    renderAll();
+    refreshOnlineState();
+    window.addEventListener("focus", refreshOnlineState);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) refreshOnlineState();
+    });
+  </script>
+</body>
+</html>

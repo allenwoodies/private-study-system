@@ -1,0 +1,2 @@
+date,child_id,subject,type,title,full_score,human_score,ai_score,confidence,status,files,weaknesses,summary,next_action
+2026-07-04,son,数学,试卷,期末试卷复盘,100,86,,中,待AI评价,试卷照片1.jpg;试卷照片2.jpg,分数应用题;单位换算,等待AI评价,回写AI参考分和错因
