@@ -708,21 +708,21 @@ app.post("/api/weekly-review", async (req, res, next) => {
   }
 });
 
-app.use(express.static(__dirname, {
-  extensions: ["html"],
-  setHeaders(res, filePath) {
-    if (filePath.endsWith(".html")) {
-      res.setHeader("Cache-Control", "no-store");
-    }
-  }
-}));
+function sendIndex(res) {
+  res.setHeader("Cache-Control", "no-store");
+  res.sendFile(path.join(__dirname, "index.html"));
+}
+
+app.get(["/", "/index.html"], (_req, res) => {
+  sendIndex(res);
+});
 
 app.use((req, res) => {
   if (req.path.startsWith("/api/")) {
     res.status(404).json({ ok: false, error: "API route not found." });
     return;
   }
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.status(404).type("text/plain").send("Not found.");
 });
 
 app.use((error, _req, res, _next) => {
