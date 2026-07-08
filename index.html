@@ -655,6 +655,158 @@
       color: #704306;
     }
 
+    .junior-map-header {
+      display: grid;
+      gap: 10px;
+    }
+
+    .junior-map-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .junior-map-title h2 {
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .subject-page-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .subject-page-tabs button {
+      min-height: 42px;
+      padding: 7px 6px;
+      background: #fbfcfe;
+      font-size: 13px;
+      display: grid;
+      gap: 2px;
+    }
+
+    .subject-page-tabs button.active {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .subject-page-tabs span {
+      font-size: 11px;
+      font-weight: 600;
+      opacity: .78;
+      line-height: 1.25;
+    }
+
+    .junior-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .map-root {
+      border: 1px solid #cfe0ff;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #f7fbff, #ffffff);
+      padding: 12px;
+      display: grid;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    .map-root strong {
+      font-size: 18px;
+      color: #174ea6;
+      line-height: 1.35;
+    }
+
+    .map-lanes {
+      display: grid;
+      gap: 10px;
+    }
+
+    .map-lane {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+      padding: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .map-lane h3 {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .map-lane.sync h3 {
+      color: #174ea6;
+    }
+
+    .map-lane.core h3 {
+      color: #1d6443;
+    }
+
+    .map-module {
+      border: 1px solid #e2e8ef;
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .map-module summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 10px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .map-module summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .map-module-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .map-module-title strong {
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+
+    .map-points {
+      display: grid;
+      gap: 8px;
+      border-top: 1px solid var(--line);
+      padding: 9px;
+    }
+
+    .map-point {
+      display: grid;
+      gap: 7px;
+      border-left: 3px solid #cfe0ff;
+      background: #fbfcfe;
+      border-radius: 6px;
+      padding: 8px;
+    }
+
+    .map-lane.core .map-point {
+      border-left-color: #cbead8;
+    }
+
+    .map-point strong {
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
     .form {
       display: grid;
       gap: 10px;
@@ -800,7 +952,7 @@
       background: rgba(255, 255, 255, 0.96);
       border-top: 1px solid var(--line);
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 6px;
       backdrop-filter: blur(12px);
     }
@@ -972,7 +1124,7 @@
       .bottom-nav {
         left: 50%;
         transform: translateX(-50%);
-        width: min(680px, calc(100% - 28px));
+        width: min(760px, calc(100% - 28px));
         bottom: 12px;
         border: 1px solid var(--line);
         border-radius: 8px;
@@ -1008,6 +1160,14 @@
 
       .field-row {
         grid-template-columns: 38px minmax(0, 1fr);
+      }
+
+      .subject-page-tabs {
+        grid-template-columns: repeat(4, minmax(58px, 1fr));
+      }
+
+      .junior-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
@@ -1353,6 +1513,27 @@
       </div>
     </section>
 
+    <section id="juniorMap" class="section">
+      <div class="panel wide junior-map-header">
+        <div class="junior-map-title">
+          <div>
+            <h2>初中知识图谱</h2>
+            <small id="juniorMapContext">一个科目一个页面，先看全局，再展开章节。</small>
+          </div>
+          <span class="tag blue">陈秋诺 · 七上衔接</span>
+        </div>
+        <div class="subject-page-tabs" id="juniorSubjectTabs"></div>
+      </div>
+
+      <div class="panel wide compact">
+        <div class="junior-summary" id="juniorMapSummary"></div>
+      </div>
+
+      <div class="panel wide">
+        <div id="juniorSubjectPage"></div>
+      </div>
+    </section>
+
     <section id="weekly" class="section">
       <div class="panel">
         <div class="panel-header">
@@ -1398,6 +1579,7 @@
     <button data-section="evaluate"><strong>AI</strong>批改</button>
     <button data-section="records"><strong>记</strong>记录</button>
     <button data-section="knowledge"><strong>知</strong>知识</button>
+    <button data-section="juniorMap"><strong>图</strong>图谱</button>
     <button data-section="weekly"><strong>周</strong>复盘</button>
   </nav>
 
@@ -1675,6 +1857,7 @@
     let selectedChildId = state.children[0].id;
     let activeSection = "home";
     let activeSubject = "语文";
+    let activeJuniorSubject = "语文";
     let activeKnowledgeView = "outline";
     let activeRecordTab = "scores";
     let pendingFiles = [];
@@ -2524,6 +2707,129 @@
       return { record, rating, label: `${rating}分 · 稳定`, cls: "blue", action: "保持低频复习" };
     }
 
+    function isJuniorSyncItem(item) {
+      return item.track === "son_g6" && item.module.startsWith("温州七上同步");
+    }
+
+    function isJuniorCoreItem(item) {
+      return item.track === "son_g6" && item.module.startsWith("初中核心");
+    }
+
+    function juniorKnowledge(subject = activeJuniorSubject) {
+      return knowledgeItems.filter(item =>
+        item.subject === subject && (isJuniorSyncItem(item) || isJuniorCoreItem(item))
+      );
+    }
+
+    function juniorModuleTitle(module) {
+      return module
+        .replace(/^温州七上同步·?/, "")
+        .replace(/^初中核心·?/, "");
+    }
+
+    function renderJuniorMap() {
+      const tabs = $("#juniorSubjectTabs");
+      const summary = $("#juniorMapSummary");
+      const page = $("#juniorSubjectPage");
+      if (!tabs || !summary || !page) return;
+      if (!subjects.includes(activeJuniorSubject)) activeJuniorSubject = subjects[0];
+
+      const subjectCounts = subjects.map(subject => {
+        const rows = juniorKnowledge(subject);
+        return {
+          subject,
+          total: rows.length,
+          sync: rows.filter(isJuniorSyncItem).length,
+          core: rows.filter(isJuniorCoreItem).length
+        };
+      });
+
+      tabs.innerHTML = subjectCounts.map(item => `
+        <button class="${activeJuniorSubject === item.subject ? "active" : ""}" data-junior-subject="${escapeHtml(item.subject)}">
+          <strong>${escapeHtml(item.subject)}</strong>
+          <span>${item.sync} 同步 / ${item.core} 核心</span>
+        </button>
+      `).join("");
+
+      const rows = juniorKnowledge(activeJuniorSubject);
+      const syncRows = rows.filter(isJuniorSyncItem);
+      const coreRows = rows.filter(isJuniorCoreItem);
+      const ratedRows = rows.filter(item => state.mastery[masteryKey(item.id)]);
+      const weakRows = rows.filter(item => masteryInfo(item).rating <= 2);
+      const syncModules = groupByModule(syncRows);
+      const coreModules = groupByModule(coreRows);
+
+      $("#juniorMapContext").textContent = `${activeJuniorSubject} · 温州七上同步 ${syncRows.length} 点 · 初中核心 ${coreRows.length} 点`;
+      summary.innerHTML = [
+        { value: syncModules.length, label: "七上章节" },
+        { value: coreModules.length, label: "核心模块" },
+        { value: ratedRows.length, label: "已记录" },
+        { value: weakRows.length, label: "待关注" }
+      ].map(item => `
+        <div class="stat">
+          <strong>${item.value}</strong>
+          <span>${item.label}</span>
+        </div>
+      `).join("");
+
+      page.innerHTML = `
+        <div class="map-root">
+          <strong>${escapeHtml(activeJuniorSubject)}知识体系</strong>
+          <span class="meta">按“当前温州七上同步内容”和“整个初中三年的核心能力”分开看。先展开章节理解位置，再记录孩子的掌握度证据。</span>
+        </div>
+        <div class="map-lanes">
+          ${renderJuniorLane("sync", "温州七上同步", "跟随七年级上册教材进度，用来安排预习、复习和阶段检查。", syncModules, "当前科目还没有七上同步内容。")}
+          ${renderJuniorLane("core", "初中核心能力", "跨越七到九年级的能力主线，用来判断长期短板。", coreModules, "当前科目还没有初中核心内容。")}
+        </div>
+      `;
+    }
+
+    function renderJuniorLane(tone, title, subtitle, modules, emptyText) {
+      return `<div class="map-lane ${tone}">
+        <h3>${escapeHtml(title)}</h3>
+        <div class="meta">${escapeHtml(subtitle)}</div>
+        ${modules.length ? modules.map((module, index) => renderJuniorModule(module, index)).join("") : `<div class="empty">${escapeHtml(emptyText)}</div>`}
+      </div>`;
+    }
+
+    function renderJuniorModule(module, index) {
+      const ratedCount = module.items.filter(item => state.mastery[masteryKey(item.id)]).length;
+      const weakCount = module.items.filter(item => masteryInfo(item).rating <= 2).length;
+      return `<details class="map-module" ${index < 2 ? "open" : ""}>
+        <summary>
+          <div class="map-module-title">
+            <strong>${escapeHtml(juniorModuleTitle(module.module))}</strong>
+            <span class="tag ${weakCount ? "warn" : "blue"}">${ratedCount}/${module.items.length}</span>
+          </div>
+          <span class="meta">${weakCount ? `${weakCount} 个待关注` : "暂无明显薄弱记录"}</span>
+        </summary>
+        <div class="map-points">
+          ${module.items.map(renderJuniorPoint).join("")}
+        </div>
+      </details>`;
+    }
+
+    function renderJuniorPoint(item) {
+      const info = masteryInfo(item);
+      return `<div class="map-point">
+        <div class="item-head">
+          <div class="item-title">
+            <strong>${escapeHtml(item.point)}</strong>
+            <span class="meta">${escapeHtml(item.ability)}</span>
+          </div>
+          <span class="tag ${info.cls}">${escapeHtml(info.label)}</span>
+        </div>
+        <div class="knowledge-fields">
+          <div class="field-row"><b>检测</b><span>${escapeHtml(item.checks)}</span></div>
+          <div class="field-row"><b>风险</b><span>${escapeHtml(item.risk)}</span></div>
+          ${info.record?.evidence ? `<div class="field-row"><b>证据</b><span>${escapeHtml(info.record.evidence)} · ${escapeHtml(info.record.source || "")} · ${escapeHtml(info.record.date || "")}</span></div>` : ""}
+        </div>
+        <div class="item-actions">
+          <button data-focus-knowledge="${escapeHtml(item.id)}">记录掌握度</button>
+        </div>
+      </div>`;
+    }
+
     function renderKnowledgeOutline(modules) {
       if (!modules.length) {
         $("#knowledgeList").innerHTML = `<div class="empty">当前学科暂无知识点。</div>`;
@@ -2787,6 +3093,7 @@ ${record.workText || "未提供文本。"}
       renderExercise();
       renderSchedule();
       renderKnowledge();
+      renderJuniorMap();
       renderTeacherProject();
       renderEvaluations();
       renderPdca();
@@ -2804,6 +3111,7 @@ ${record.workText || "未提供文本。"}
         evaluate: "上传作业或试卷，自动生成 AI 分析。",
         records: "记录成绩、观察、运动和日程。",
         knowledge: "按知识点和能力点看掌握度。",
+        juniorMap: "四科分页面查看初中知识体系。",
         weekly: "每周只抓 1-2 个最划算的点。"
       };
       $("#pageSubtitle").textContent = subtitles[activeSection] || subtitles.home;
@@ -2867,6 +3175,7 @@ ${record.workText || "未提供文本。"}
       const button = event.target.closest("button[data-section]");
       if (!button) return;
       activeSection = button.dataset.section;
+      if (activeSection === "juniorMap") selectedChildId = "son";
       renderAll();
       if (activeSection === "evaluate") refreshServerEvaluations();
     });
@@ -2930,6 +3239,11 @@ ${record.workText || "未提供文本。"}
       const focusKnowledge = event.target.closest("[data-focus-knowledge]");
       if (focusKnowledge) {
         const targetId = focusKnowledge.dataset.focusKnowledge;
+        const targetItem = knowledgeItems.find(item => item.id === targetId);
+        const targetChild = state.children.find(item => item.track === targetItem?.track);
+        if (targetChild) selectedChildId = targetChild.id;
+        if (targetItem?.subject) activeSubject = targetItem.subject;
+        activeSection = "knowledge";
         activeKnowledgeView = "mastery";
         renderAll();
         const select = $("#masteryForm select[name='knowledgeId']");
@@ -2950,6 +3264,13 @@ ${record.workText || "未提供文本。"}
       const button = event.target.closest("button[data-subject]");
       if (!button) return;
       activeSubject = button.dataset.subject;
+      renderAll();
+    });
+
+    $("#juniorSubjectTabs").addEventListener("click", event => {
+      const button = event.target.closest("button[data-junior-subject]");
+      if (!button) return;
+      activeJuniorSubject = button.dataset.juniorSubject;
       renderAll();
     });
 
