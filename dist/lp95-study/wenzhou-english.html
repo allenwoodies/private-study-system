@@ -1,0 +1,1724 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>浙江温州初中英语中考知识体系查漏补缺表</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --ink: #17202a;
+      --muted: #667381;
+      --line: #dce3ea;
+      --blue: #1f6feb;
+      --blue-soft: #eaf2ff;
+      --green: #248457;
+      --green-soft: #e8f6ef;
+      --amber: #a45f07;
+      --amber-soft: #fff3d9;
+      --shadow: 0 8px 24px rgba(20, 32, 43, .08);
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--bg); line-height: 1.65; }
+    .page { width: min(1180px, 100%); margin: 0 auto; padding: 18px 14px 44px; }
+    header, nav, section, .toolbar {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+    h1 { margin: 0 0 8px; font-size: clamp(24px, 4vw, 40px); line-height: 1.2; }
+    h2 { margin: 0; font-size: 22px; line-height: 1.35; }
+    h3 { margin: 0; }
+    .subtitle, .section-note, .note-box, .source-list, .foot { color: var(--muted); }
+    .subtitle { max-width: 900px; margin: 0 0 14px; }
+    .note-box {
+      border: 1px solid #cfe0ff;
+      border-radius: 10px;
+      background: #f7fbff;
+      padding: 12px;
+      color: #174ea6;
+      font-weight: 700;
+    }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 12px;
+    }
+    .progress-label { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--muted); margin-bottom: 5px; }
+    .bar { height: 10px; border-radius: 999px; overflow: hidden; background: #e8edf2; }
+    .bar span { display: block; height: 100%; width: 0; background: var(--green); }
+    button {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    nav strong { display: block; margin-bottom: 10px; }
+    .nav-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    a { color: #174ea6; text-decoration: none; }
+    .nav-grid a, .source-list a {
+      border: 1px solid #cfe0ff;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .section-head { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+    .tag {
+      display: inline-flex;
+      white-space: nowrap;
+      border: 1px solid #cbead8;
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: #1d6443;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .mindmap {
+      border: 1px solid #cfe0ff;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #f7fbff, #fff);
+      padding: 16px;
+    }
+    .map-center {
+      width: min(420px, 100%);
+      margin: 0 auto 14px;
+      border: 2px solid #9cc3ff;
+      border-radius: 16px;
+      background: #fff;
+      padding: 16px;
+      text-align: center;
+      color: #174ea6;
+      font-size: 24px;
+      font-weight: 900;
+    }
+    .map-center span { display: block; margin-top: 6px; color: var(--muted); font-size: 13px; font-weight: 600; }
+    .map-branches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .map-node {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 12px;
+    }
+    .map-node h3 { color: #174ea6; font-size: 16px; margin-bottom: 6px; }
+    .map-node:nth-child(2n) h3 { color: #1d6443; }
+    .map-node:nth-child(3n) h3 { color: #704306; }
+    .map-node ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 13px; }
+    .group-title {
+      margin: 16px 0 8px;
+      color: #174ea6;
+      font-size: 17px;
+    }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; }
+    table { width: 100%; min-width: 900px; border-collapse: collapse; background: #fff; }
+    th, td { border-bottom: 1px solid var(--line); padding: 9px 10px; vertical-align: top; font-size: 13px; }
+    th { background: #f7f9fb; text-align: left; color: #506070; white-space: nowrap; }
+    th:first-child, td:first-child { width: 56px; text-align: center; }
+    td:nth-child(2) { width: 150px; font-weight: 800; color: #1d6443; }
+    td:nth-child(3) { width: 260px; font-weight: 700; }
+    input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--green); }
+    .source-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .foot { text-align: center; font-size: 13px; margin-top: 18px; }
+    @media (max-width: 760px) {
+      .page { padding: 10px 10px 28px; }
+      header, nav, section, .toolbar { padding: 12px; border-radius: 8px; }
+      .toolbar { position: static; grid-template-columns: 1fr; }
+      .map-branches { grid-template-columns: 1fr; }
+      .section-head { display: grid; }
+      table { min-width: 760px; font-size: 12px; }
+      th, td { padding: 8px; }
+    }
+    @media print {
+      .toolbar, nav { display: none; }
+      body { background: #fff; }
+      header, section { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>浙江温州初中英语中考知识体系查漏补缺表</h1>
+      <p class="subtitle">适用于温州市初中英语中考复习。框架依据《义务教育英语课程标准（2022年版）》、浙江省初中学业水平考试省级统一命题方向，并结合温州常用“英语（新标准）/外研版”初中教材模块整理。</p>
+      <div class="note-box">使用方式：逐项检查“是否掌握”。能独立解释概念、完成典型题、说清易错点，才建议勾选。本页共 151 个检查点，勾选状态保存在本机浏览器。</div>
+      <div class="source-list">
+        <a href="https://zjjcmspublic.oss-cn-hangzhou-zwynet-d01-a.internet.cloud.zj.gov.cn/jcms_files/jcms1/web3114/site/attach/0/924fe84581ff48a6bba132fac066ea0d.pdf" target="_blank" rel="noopener">浙江省教育厅：初中学业水平考试省级统一命题通知</a><a href="https://www.zjzs.net/art/2025/6/23/art_31_11386.html" target="_blank" rel="noopener">浙江省教育考试院：2025年初中学业水平考试命题思路</a><a href="https://book.zjeav.com/" target="_blank" rel="noopener">浙江省数字教材服务平台：初中英语新标准、科学浙教版教材</a><a href="https://www.moe.gov.cn/srcsite/A26/s8001/202204/W020220420582349487953.pdf" target="_blank" rel="noopener">教育部：义务教育英语课程标准（2022年版）</a>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div>
+        <div class="progress-label"><span>查漏补缺进度</span><span id="progressText">0 / 151</span></div>
+        <div class="bar"><span id="progressBar"></span></div>
+      </div>
+      <button id="resetBtn" type="button">清空勾选</button>
+      <button type="button" onclick="window.print()">打印或导出 PDF</button>
+    </div>
+
+    <nav>
+      <strong>目录</strong>
+      <div class="nav-grid">
+        <a href="#mindmap">一、整体思维导图</a><a href="#strategy">二、最小提分策略</a><a href="#textbook">三、外研版教材主线</a><a href="#listening">四、听力与听说</a><a href="#vocabulary">五、词汇与短语</a><a href="#grammar">六、语法句法</a><a href="#reading">七、阅读与任务型阅读</a><a href="#language-use">八、完形与语言运用</a><a href="#writing">九、写作表达</a><a href="#patterns">十、句型速查</a>
+      </div>
+    </nav>
+
+    <section id="mindmap">
+      <div class="section-head">
+        <div>
+          <h2>一、整体思维导图</h2>
+          <p class="section-note">先用总图定位知识板块，再下钻到后面的检查表。适合每周复盘时快速确认薄弱板块。</p>
+        </div>
+        <span class="tag">知识脉络</span>
+      </div>
+      <div class="mindmap" aria-label="浙江温州中考英语知识思维导图">
+        <div class="map-center">浙江温州中考英语<span>听说 · 词汇语法 · 阅读语篇 · 语言运用 · 写作表达 · 文化策略</span></div>
+        <div class="map-branches">
+          
+          <div class="map-node">
+            <h3>听力听说</h3>
+            <ul><li>数字、时间、地点、人物、事件细节</li><li>主旨推断、态度判断、信息转述</li><li>朗读、情景问答、话题表达、口语连贯</li></ul>
+          </div>
+          <div class="map-node">
+            <h3>词汇短语</h3>
+            <ul><li>课标核心词、主题词群、固定搭配</li><li>词形变化、派生合成、近义辨析</li><li>在语境中理解词义和功能</li></ul>
+          </div>
+          <div class="map-node">
+            <h3>语法句法</h3>
+            <ul><li>时态、语态、从句、非谓语、情态动词</li><li>句子成分、句型转换、主谓一致</li><li>语法服务于语篇表达，不孤立刷题</li></ul>
+          </div>
+          <div class="map-node">
+            <h3>阅读语篇</h3>
+            <ul><li>应用文、记叙文、说明文、议论文</li><li>主旨、细节、推断、词义、结构</li><li>多文本、图表、任务型阅读和观点表达</li></ul>
+          </div>
+          <div class="map-node">
+            <h3>写作表达</h3>
+            <ul><li>要点覆盖、结构清楚、语言准确</li><li>应用文、建议、观点、故事、活动介绍</li><li>审题、提纲、连接词、修改检查</li></ul>
+          </div>
+          <div class="map-node">
+            <h3>文化策略</h3>
+            <ul><li>人与自我、人与社会、人与自然</li><li>跨文化意识、学习策略、复盘错因</li><li>真实情境下解决问题和表达观点</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="strategy">
+      <div class="section-head">
+        <div>
+          <h2>二、最小提分策略</h2>
+          <p class="section-note">英语提分不要先陷入海量刷题。先稳定听读基础、语法低错、阅读证据和写作结构。</p>
+        </div>
+        <span class="tag">先抓收益</span>
+      </div>
+      
+      <h3 class="group-title">优先级</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-strategy-01"></td>
+              <td>听力保底</td>
+              <td>每天 10 分钟泛听 + 5 分钟精听，能复述人物、地点、事件和结果。</td>
+              <td>只听不复述，错题不知道漏了哪个信息点。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-strategy-02"></td>
+              <td>词汇复现</td>
+              <td>按主题建立词群，做到会读、会拼、会变形、会搭配、会造句。</td>
+              <td>只背中文意思，写作和完形无法调用。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-strategy-03"></td>
+              <td>语法低错</td>
+              <td>时态、语态、从句、非谓语、主谓一致每周专项清一类错。</td>
+              <td>凭语感选择，错题不归因。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-strategy-04"></td>
+              <td>阅读证据</td>
+              <td>每道阅读题能在原文标出定位句或推断依据。</td>
+              <td>答案看似合理，但没有文本证据。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-strategy-05"></td>
+              <td>完形逻辑</td>
+              <td>先读主线，再看上下文、搭配、情感变化和复现词。</td>
+              <td>逐空做题，忽略全文语境。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-strategy-06"></td>
+              <td>写作模板升级</td>
+              <td>固定三段结构，但每篇至少有 3 个具体细节和 2 个高级连接。</td>
+              <td>模板味太重，内容空，语法低级错多。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-strategy-07"></td>
+              <td>错题标签</td>
+              <td>每题标为词汇、语法、定位、推断、审题、表达六类之一。</td>
+              <td>只抄答案，不知道下次如何避免。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-strategy-08"></td>
+              <td>周复盘</td>
+              <td>每周只选 1 个最高频错误专题做 20-30 分钟复测。</td>
+              <td>每周都学很多，但没有一个点真正变稳。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section id="textbook">
+      <div class="section-head">
+        <div>
+          <h2>三、外研版教材主线</h2>
+          <p class="section-note">温州初中英语按“英语（新标准）/外研版”模块体系组织更贴近教材。复习时不要只看语法表，要把语法放回模块话题和语篇任务。</p>
+        </div>
+        <span class="tag">温州教材</span>
+      </div>
+      
+      <h3 class="group-title">七年级上</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-7a-01"></td>
+              <td>Starter Modules</td>
+              <td>师友、课堂、课本、日常生活；字母音形、问候、课堂指令、颜色时间。</td>
+              <td>大小写、标点、基本问答不规范。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-7a-02"></td>
+              <td>Module 1 My classmates</td>
+              <td>自我介绍、国家城市、be 动词、人称代词。</td>
+              <td>am/is/are 混用，介绍只会背模板。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-7a-03"></td>
+              <td>Module 2 My family</td>
+              <td>家庭成员、职业、this/that/these/those、名词单复数。</td>
+              <td>指示代词远近和单复数不一致。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-7a-04"></td>
+              <td>Module 3 My school</td>
+              <td>学校场所、there be、方位介词、校园描述。</td>
+              <td>there is/are 与名词单复数不匹配。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-7a-05"></td>
+              <td>Module 4-5 Food &amp; school day</td>
+              <td>饮食健康、课程时间、have/has、一般现在时。</td>
+              <td>第三人称单数和时间表达不稳。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-7a-06"></td>
+              <td>Module 6-10</td>
+              <td>动物、电脑、礼物、人物地点、春节；一般现在时与现在进行时。</td>
+              <td>两种时态混淆，节日文化词汇散。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="group-title">七年级下</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-7b-01"></td>
+              <td>Lost and found</td>
+              <td>物品归属、名词性物主代词、失物招领表达。</td>
+              <td>my/mine、your/yours 混淆。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-7b-02"></td>
+              <td>What can you do?</td>
+              <td>能力表达、can/can't、社团和竞选。</td>
+              <td>can 后动词原形漏掉。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-7b-03"></td>
+              <td>Making plans</td>
+              <td>计划、be going to、周末活动。</td>
+              <td>be going to 结构不完整。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-7b-04"></td>
+              <td>Life in the future</td>
+              <td>未来生活、will、预测和想象表达。</td>
+              <td>will 与 be going to 混用。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-7b-05"></td>
+              <td>Shopping / Body language</td>
+              <td>购物对话、礼貌表达、肢体语言文化差异。</td>
+              <td>口语场景语气不自然。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-7b-06"></td>
+              <td>Past life / Story time</td>
+              <td>一般过去时、人物经历、故事叙述。</td>
+              <td>动词过去式和时间状语不匹配。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="group-title">八年级上</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-8a-01"></td>
+              <td>Learning English</td>
+              <td>学习建议、should、why not、how about。</td>
+              <td>建议句型单一，不会解释理由。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-8a-02"></td>
+              <td>Hometown / Sports / Transport</td>
+              <td>比较级最高级、交通方式、体育话题。</td>
+              <td>比较对象不清，than/as...as 用错。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-8a-03"></td>
+              <td>Teahouse / Animals / Stories</td>
+              <td>动词不定式、保护动物、过去进行时。</td>
+              <td>不定式作宾语/目的状语不分。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-8a-04"></td>
+              <td>Accidents / Population / Weather</td>
+              <td>过去进行时、冠词、情态动词和天气表达。</td>
+              <td>事故叙述缺时间线。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-8a-05"></td>
+              <td>Way of life / Help</td>
+              <td>情态动词 must/can/may、急救和文化规则。</td>
+              <td>情态动词语气强弱不分。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="group-title">八年级下</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-8b-01"></td>
+              <td>Feelings / Experiences</td>
+              <td>感官系动词、现在完成时、经历表达。</td>
+              <td>have been to / have gone to 混淆。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-8b-02"></td>
+              <td>Health / Cartoons</td>
+              <td>现在完成时延续性、健康建议、故事人物。</td>
+              <td>for/since 与瞬间动词搭配错误。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-8b-03"></td>
+              <td>Hobbies / Friendship</td>
+              <td>简单句基本句型、宾语从句入门。</td>
+              <td>宾语从句语序仍按疑问句。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-8b-04"></td>
+              <td>Time off / On the radio</td>
+              <td>宾语从句、旅行与媒体表达。</td>
+              <td>that/if/whether/疑问词选择不稳。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="group-title">九年级</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-9-01"></td>
+              <td>Wonders / Holidays / Heroes</td>
+              <td>时态综合、时间状语从句、人物事迹介绍。</td>
+              <td>故事时间线混乱。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-9-02"></td>
+              <td>Home alone / Museums / Problems</td>
+              <td>结果状语从句、条件状语从句、建议表达。</td>
+              <td>if 条件句主将从现不稳。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-9-03"></td>
+              <td>Great books / Sports life</td>
+              <td>被动语态、一般现在/过去被动。</td>
+              <td>主动被动主语判断错误。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-9-04"></td>
+              <td>Photos / Australia / Save our world</td>
+              <td>定语从句、环保议题、文化介绍。</td>
+              <td>关系代词和先行词不对应。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-book-9-05"></td>
+              <td>复习整合</td>
+              <td>围绕人与自我、人与社会、人与自然三大主题做综合阅读和写作。</td>
+              <td>只按语法复习，忽略主题语篇。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section id="listening">
+      <div class="section-head">
+        <div>
+          <h2>四、听力与听说</h2>
+          <p class="section-note">温州英语听说能力要长期练，不适合临考突击。听力要从“听懂关键词”升级到“听懂关系和态度”。</p>
+        </div>
+        <span class="tag">输入输出</span>
+      </div>
+      
+      <h3 class="group-title">听力信息</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-listen-01"></td>
+              <td>数字价格</td>
+              <td>电话号码、价格、数量、年龄、百分比、编号。</td>
+              <td>相近数字、teen/ty、hundred/thousand 听混。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-listen-02"></td>
+              <td>时间日期</td>
+              <td>星期、月份、时刻、持续时间、先后顺序。</td>
+              <td>half past、quarter、in/on/at 不敏感。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-listen-03"></td>
+              <td>地点路线</td>
+              <td>school, hospital, museum, station, restaurant；问路和方位。</td>
+              <td>left/right、across/opposite/next to 混淆。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-listen-04"></td>
+              <td>人物关系</td>
+              <td>teacher-student、doctor-patient、shop assistant-customer 等。</td>
+              <td>只听到词，没判断说话人关系。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-listen-05"></td>
+              <td>事件结果</td>
+              <td>谁做了什么、为什么、结果如何。</td>
+              <td>原因和结果顺序颠倒。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-listen-06"></td>
+              <td>态度情绪</td>
+              <td>happy, worried, surprised, disappointed, interested。</td>
+              <td>忽略语气词和转折词。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-listen-07"></td>
+              <td>主旨大意</td>
+              <td>听完整段后概括主题，不被局部词带偏。</td>
+              <td>听到熟词就选，忽略全文目的。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-listen-08"></td>
+              <td>推断判断</td>
+              <td>根据语境判断未直接说出的信息。</td>
+              <td>把原文同词当答案，不推理。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="group-title">听说表达</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-speak-01"></td>
+              <td>朗读</td>
+              <td>重音、连读、停顿、升降调；能自然读课文和短文。</td>
+              <td>逐词读，句群停顿不清。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-speak-02"></td>
+              <td>情景问答</td>
+              <td>根据中文或图片快速组织一句完整答语。</td>
+              <td>只答关键词，句子不完整。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-speak-03"></td>
+              <td>信息转述</td>
+              <td>听读材料后转述人物、时间、地点、事件、观点。</td>
+              <td>漏主语、漏时态、漏逻辑连接。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-speak-04"></td>
+              <td>话题表达</td>
+              <td>围绕学校、家庭、健康、旅行、环保等话题说 6-8 句。</td>
+              <td>内容散，只有单句，没有结构。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-speak-05"></td>
+              <td>观点理由</td>
+              <td>I think... because... For example... 能清楚表达观点和理由。</td>
+              <td>有观点无理由，或理由与观点不匹配。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-speak-06"></td>
+              <td>口语修复</td>
+              <td>不会说时能换词、解释、举例，不直接停住。</td>
+              <td>遇到生词就沉默。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section id="vocabulary">
+      <div class="section-head">
+        <div>
+          <h2>五、词汇与短语</h2>
+          <p class="section-note">中考词汇不是“中文意思背熟”就够，要放进主题、搭配、句法和语篇中使用。</p>
+        </div>
+        <span class="tag">语境记忆</span>
+      </div>
+      
+      <h3 class="group-title">主题词群</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-01"></td>
+              <td>个人信息</td>
+              <td>name, age, country, city, hobby, personality, dream。</td>
+              <td>介绍信息缺逻辑顺序。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-02"></td>
+              <td>家庭朋友</td>
+              <td>family members, jobs, relationship, friendship。</td>
+              <td>人物关系和所有格表达错。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-03"></td>
+              <td>学校学习</td>
+              <td>subjects, timetable, classroom, learning methods。</td>
+              <td>course/class/lesson 区分不清。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-04"></td>
+              <td>饮食健康</td>
+              <td>food, diet, exercise, illness, advice, habit。</td>
+              <td>healthy/health、ill/sick 词性混用。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-05"></td>
+              <td>运动休闲</td>
+              <td>sports, hobbies, music, movies, reading。</td>
+              <td>go/do/play 搭配不稳。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-06"></td>
+              <td>旅行交通</td>
+              <td>transport, direction, hotel, ticket, journey。</td>
+              <td>take/spend/cost/pay 混淆。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-07"></td>
+              <td>天气自然</td>
+              <td>weather, season, animals, plants, environment。</td>
+              <td>weather 不可数，temperature 搭配不稳。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-08"></td>
+              <td>节日文化</td>
+              <td>festival, custom, celebration, gift, symbol。</td>
+              <td>中国文化英文表达不会。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-09"></td>
+              <td>科技媒体</td>
+              <td>computer, Internet, AI, radio, newspaper, app。</td>
+              <td>technology 与 technique 混用。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-10"></td>
+              <td>社会规则</td>
+              <td>rules, safety, manners, volunteer, public places。</td>
+              <td>must/have to/should 语气不分。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="group-title">词汇能力</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-11"></td>
+              <td>词性变化</td>
+              <td>名词、动词、形容词、副词转换，如 success/succeed/successful。</td>
+              <td>只知道一个词形，填空不会变。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-12"></td>
+              <td>名词单复数</td>
+              <td>规则复数、不规则复数、不可数名词、量词。</td>
+              <td>information/advice/news 当可数。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-13"></td>
+              <td>动词短语</td>
+              <td>look up, give up, put off, take care of, get on with。</td>
+              <td>介词/副词小品词漏写。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-14"></td>
+              <td>介词搭配</td>
+              <td>be good at, be interested in, be proud of, depend on。</td>
+              <td>中文直译导致介词错。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-15"></td>
+              <td>形容词搭配</td>
+              <td>similar to, different from, full of, afraid of。</td>
+              <td>固定搭配记不准。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-16"></td>
+              <td>易混词</td>
+              <td>say/tell/speak/talk, bring/take, borrow/lend/keep。</td>
+              <td>只背中文，不看动作方向。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-17"></td>
+              <td>构词法</td>
+              <td>前缀 un-/im-/dis-/re-，后缀 -ful/-less/-tion/-ment/-er。</td>
+              <td>词义能猜但词性不会判断。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-18"></td>
+              <td>同义替换</td>
+              <td>start/begin, improve/make better, protect/keep safe。</td>
+              <td>阅读找不到原文同义表达。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-19"></td>
+              <td>熟词生义</td>
+              <td>light, right, mean, present, point, matter。</td>
+              <td>只记常见义，阅读误解。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-vocab-20"></td>
+              <td>语境选词</td>
+              <td>根据前后文、情感色彩、搭配和句法位置选词。</td>
+              <td>选项逐个翻译，忽略语篇。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section id="grammar">
+      <div class="section-head">
+        <div>
+          <h2>六、语法句法</h2>
+          <p class="section-note">语法的目标不是背术语，而是在阅读中看懂长句，在写作中少出低级错。</p>
+        </div>
+        <span class="tag">低错核心</span>
+      </div>
+      
+      <h3 class="group-title">基础句法</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-01"></td>
+              <td>句子成分</td>
+              <td>主语、谓语、宾语、表语、定语、状语、宾补。</td>
+              <td>不知道谓语动词，长句无法拆。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-02"></td>
+              <td>五种基本句型</td>
+              <td>SV, SVO, SVP, SVOO, SVOC。</td>
+              <td>写作只会简单 SVO。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-03"></td>
+              <td>be 动词</td>
+              <td>am/is/are/was/were 与主语、时态一致。</td>
+              <td>主谓不一致。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-04"></td>
+              <td>there be</td>
+              <td>就近原则、时态变化、否定疑问。</td>
+              <td>there has 与 there be 混用。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-05"></td>
+              <td>代词</td>
+              <td>人称、物主、反身、不定代词。</td>
+              <td>形容词性/名词性物主代词错。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-06"></td>
+              <td>冠词</td>
+              <td>a/an/the/零冠词；首次提及和特指。</td>
+              <td>元音音素判断错。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-07"></td>
+              <td>数词</td>
+              <td>基数词、序数词、分数、小数、年代日期。</td>
+              <td>hundred/thousand 是否加 s 不稳。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-08"></td>
+              <td>介词</td>
+              <td>时间、地点、方式、原因介词及固定搭配。</td>
+              <td>in/on/at、by/with/in 混淆。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="group-title">时态语态</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-09"></td>
+              <td>一般现在时</td>
+              <td>事实、习惯、频率；第三人称单数。</td>
+              <td>三单漏 s/es。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-10"></td>
+              <td>现在进行时</td>
+              <td>正在发生、阶段性动作；be doing。</td>
+              <td>be 动词漏写。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-11"></td>
+              <td>一般过去时</td>
+              <td>过去时间、规则/不规则过去式。</td>
+              <td>过去式拼写和否定疑问错。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-12"></td>
+              <td>过去进行时</td>
+              <td>过去某时正在发生；when/while。</td>
+              <td>主从句动作关系不清。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-13"></td>
+              <td>一般将来时</td>
+              <td>will 与 be going to。</td>
+              <td>计划、预测、临时决定分不清。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-14"></td>
+              <td>现在完成时</td>
+              <td>have/has done，经历、影响、持续。</td>
+              <td>since/for 和瞬间动词误用。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-15"></td>
+              <td>被动语态</td>
+              <td>be done；一般现在、过去、将来、情态被动。</td>
+              <td>不知道动作承受者作主语。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-16"></td>
+              <td>时态综合</td>
+              <td>根据时间状语、上下文和语篇逻辑判断。</td>
+              <td>只看单句，不看全文时间线。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="group-title">词类与从句</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-17"></td>
+              <td>形容词副词</td>
+              <td>比较级、最高级、原级比较、修饰关系。</td>
+              <td>more/most 与词尾 -er/-est 叠用。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-18"></td>
+              <td>情态动词</td>
+              <td>can, may, must, should, need, had better。</td>
+              <td>mustn't 与 don't have to 区分不清。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-19"></td>
+              <td>非谓语</td>
+              <td>to do, doing, done 的常见搭配和功能。</td>
+              <td>want to do / enjoy doing 混用。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-20"></td>
+              <td>祈使句</td>
+              <td>肯定、否定、Let 型、and/or 结构。</td>
+              <td>祈使句主语和动词形式错。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-21"></td>
+              <td>感叹句</td>
+              <td>What + 名词；How + 形容词/副词。</td>
+              <td>what/how 选择错。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-22"></td>
+              <td>宾语从句</td>
+              <td>连接词、陈述语序、时态呼应。</td>
+              <td>从句仍用疑问语序。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-23"></td>
+              <td>状语从句</td>
+              <td>时间、条件、原因、结果、让步、目的。</td>
+              <td>if/when 引导从句时态错。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-24"></td>
+              <td>定语从句</td>
+              <td>先行词、关系代词 who/which/that。</td>
+              <td>关系词与先行词不对应。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-25"></td>
+              <td>并列复合句</td>
+              <td>and, but, or, so, while, however。</td>
+              <td>连接词逻辑关系不对。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-grammar-26"></td>
+              <td>主谓一致</td>
+              <td>单复数、就近原则、不可数名词、集合名词。</td>
+              <td>主语长时找不到真正主语。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section id="reading">
+      <div class="section-head">
+        <div>
+          <h2>七、阅读与任务型阅读</h2>
+          <p class="section-note">阅读题要从“读懂大概”升级为“能用证据解释为什么选这个答案”。</p>
+        </div>
+        <span class="tag">证据答题</span>
+      </div>
+      
+      <h3 class="group-title">阅读题型</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-01"></td>
+              <td>主旨大意</td>
+              <td>概括文章或段落中心，识别作者写作目的。</td>
+              <td>被开头细节或高频词带偏。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-02"></td>
+              <td>细节定位</td>
+              <td>根据题干关键词定位原文，注意同义替换。</td>
+              <td>只找原词，漏掉改写表达。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-03"></td>
+              <td>推理判断</td>
+              <td>根据事实、因果、态度和上下文推断。</td>
+              <td>把自己的常识当答案。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-04"></td>
+              <td>词义猜测</td>
+              <td>用定义、举例、转折、因果、构词法判断。</td>
+              <td>孤立翻译生词。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-05"></td>
+              <td>标题选择</td>
+              <td>标题要覆盖全文、简洁、有概括性。</td>
+              <td>选局部细节做标题。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-06"></td>
+              <td>结构排序</td>
+              <td>识别总分、时间、空间、问题解决、因果结构。</td>
+              <td>只看句子表面意思。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-07"></td>
+              <td>作者态度</td>
+              <td>positive, negative, worried, hopeful, objective。</td>
+              <td>忽略形容词和转折。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-08"></td>
+              <td>代词指代</td>
+              <td>it/they/this/that/which 指代前文对象或事件。</td>
+              <td>只找最近名词，不看语义。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="group-title">语篇类型</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-09"></td>
+              <td>应用文</td>
+              <td>广告、通知、海报、邮件、说明；快速提取信息。</td>
+              <td>不看标题、图标和限制条件。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-10"></td>
+              <td>记叙文</td>
+              <td>人物、事件、冲突、情感变化、主题。</td>
+              <td>只记情节，不提炼人物成长。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-11"></td>
+              <td>说明文</td>
+              <td>说明对象、特征、原因、过程、数据。</td>
+              <td>漏读限定词和数据。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-12"></td>
+              <td>议论文</td>
+              <td>观点、理由、例证、结论。</td>
+              <td>观点和例子分不清。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-13"></td>
+              <td>科普文本</td>
+              <td>科学概念、实验、技术应用、环保健康。</td>
+              <td>术语害怕，忽略上下文解释。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-14"></td>
+              <td>多文本阅读</td>
+              <td>比较两三则材料的共同点、差异和任务要求。</td>
+              <td>答案只引用一则材料。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-15"></td>
+              <td>图表阅读</td>
+              <td>图表标题、单位、趋势、最大最小值。</td>
+              <td>单位、比例和时间范围漏看。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-read-16"></td>
+              <td>任务型阅读</td>
+              <td>补句、匹配、回答问题、完成表格、开放表达。</td>
+              <td>只填词，不管语法和逻辑。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section id="language-use">
+      <div class="section-head">
+        <div>
+          <h2>八、完形与语言运用</h2>
+          <p class="section-note">完形和语法填空考的是“语言在语篇中的作用”，不是孤立词汇或语法。</p>
+        </div>
+        <span class="tag">上下文</span>
+      </div>
+      
+      <h3 class="group-title">完形填空</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-01"></td>
+              <td>全文主线</td>
+              <td>先快速读首尾段和每段首句，判断故事/说明主线。</td>
+              <td>第一空就开始纠结。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-02"></td>
+              <td>上下文复现</td>
+              <td>原词复现、同义复现、反义对照、代词照应。</td>
+              <td>不回看上下文。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-03"></td>
+              <td>情感变化</td>
+              <td>人物心情从担心到放松、从失败到成长等。</td>
+              <td>只看选项意思，忽略情感线。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-04"></td>
+              <td>逻辑关系</td>
+              <td>转折、因果、递进、让步、条件。</td>
+              <td>but/so/however 后逻辑判断错。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-05"></td>
+              <td>固定搭配</td>
+              <td>动词短语、介词搭配、形容词搭配。</td>
+              <td>搭配靠直觉。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-06"></td>
+              <td>词义辨析</td>
+              <td>近义动词、形容词、副词在语境中的细微差别。</td>
+              <td>四个词都认识但不知道选哪个。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-07"></td>
+              <td>句法位置</td>
+              <td>根据空格前后判断词性和句子成分。</td>
+              <td>名词、动词、形容词位置不清。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-08"></td>
+              <td>主题价值</td>
+              <td>成长、合作、坚持、环保、科技、文化等主题导向。</td>
+              <td>忽略文章价值取向。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="group-title">语法与词汇运用</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-09"></td>
+              <td>动词形式</td>
+              <td>时态、语态、非谓语、主谓一致。</td>
+              <td>看到动词就只变时态。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-10"></td>
+              <td>名词形式</td>
+              <td>单复数、所有格、不可数、量词。</td>
+              <td>可数不可数不分。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-11"></td>
+              <td>形副转换</td>
+              <td>修饰名词用形容词，修饰动词/句子用副词。</td>
+              <td>careful/carefully 混用。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-12"></td>
+              <td>代词与限定词</td>
+              <td>人称、物主、反身、some/any/much/many。</td>
+              <td>指代对象不清。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-13"></td>
+              <td>连词填空</td>
+              <td>根据分句关系选 because/although/if/when/that。</td>
+              <td>只按中文意思填。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-14"></td>
+              <td>介词填空</td>
+              <td>时间、地点、方式、固定搭配。</td>
+              <td>in/on/at 和固定短语不稳。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-use-15"></td>
+              <td>短文改错意识</td>
+              <td>检查大小写、拼写、标点、谓语、单复数。</td>
+              <td>最后不回读全文。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section id="writing">
+      <div class="section-head">
+        <div>
+          <h2>九、写作表达</h2>
+          <p class="section-note">中考写作要做到：审题不偏、要点完整、结构清楚、语言准确、有具体细节。</p>
+        </div>
+        <span class="tag">结构表达</span>
+      </div>
+      
+      <h3 class="group-title">写作流程</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-01"></td>
+              <td>审题</td>
+              <td>圈身份、对象、体裁、时态、人称、要点和字数。</td>
+              <td>漏身份或漏要点。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-02"></td>
+              <td>列提纲</td>
+              <td>开头点题，中间 2-3 个要点，结尾总结或倡议。</td>
+              <td>想到哪写到哪。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-03"></td>
+              <td>句群组织</td>
+              <td>一个要点写 2-3 句，先总说再解释例子。</td>
+              <td>句子堆叠，没有段落逻辑。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-04"></td>
+              <td>连接词</td>
+              <td>first, besides, however, as a result, in my opinion。</td>
+              <td>连接词少或使用不准确。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-05"></td>
+              <td>具体细节</td>
+              <td>用时间、地点、人物、动作、例子让内容具体。</td>
+              <td>good, nice, interesting 反复出现。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-06"></td>
+              <td>检查修改</td>
+              <td>时态、人称、三单、单复数、拼写、标点。</td>
+              <td>低级错误扣分。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="group-title">常见体裁</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-07"></td>
+              <td>邮件/书信</td>
+              <td>称呼、目的、正文、结尾；语气得体。</td>
+              <td>格式和对象语气不匹配。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-08"></td>
+              <td>通知/海报</td>
+              <td>时间地点、活动内容、要求、联系方式。</td>
+              <td>关键信息不完整。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-09"></td>
+              <td>建议类</td>
+              <td>问题描述 + 建议 + 理由 + 鼓励。</td>
+              <td>建议只有 should，没有原因。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-10"></td>
+              <td>观点类</td>
+              <td>亮明观点，给出两到三条理由，适当举例。</td>
+              <td>观点摇摆或理由重复。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-11"></td>
+              <td>经历故事</td>
+              <td>时间线、冲突、转折、结果、感受。</td>
+              <td>故事没有高潮或感悟。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-12"></td>
+              <td>人物介绍</td>
+              <td>身份、品质、事件证据、影响。</td>
+              <td>只列形容词，无具体事例。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-13"></td>
+              <td>活动介绍</td>
+              <td>活动背景、过程、收获、建议。</td>
+              <td>过程流水账，缺收获。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-14"></td>
+              <td>图表作文</td>
+              <td>描述数据趋势，分析原因，提出建议。</td>
+              <td>只抄数据，不总结趋势。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-15"></td>
+              <td>文化介绍</td>
+              <td>节日、习俗、意义、个人体验。</td>
+              <td>文化词汇不会表达。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-write-16"></td>
+              <td>环保科技</td>
+              <td>现象、影响、做法、倡议。</td>
+              <td>大话空话，无可执行做法。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section id="patterns">
+      <div class="section-head">
+        <div>
+          <h2>十、句型速查</h2>
+          <p class="section-note">句型不是背模板，而是帮孩子把中文想法稳定转成英文句子。</p>
+        </div>
+        <span class="tag">表达工具</span>
+      </div>
+      
+      <h3 class="group-title">高频句型</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>板块</th>
+              <th>知识点/能力点</th>
+              <th>掌握标准</th>
+              <th>易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="en-pattern-01"></td>
+              <td>建议</td>
+              <td>You should... / Why not...? / It is a good idea to...</td>
+              <td>只会 should，表达单调。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-pattern-02"></td>
+              <td>原因结果</td>
+              <td>because, so, as a result, That is why...</td>
+              <td>because 和 so 连用。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-pattern-03"></td>
+              <td>目的</td>
+              <td>in order to, so that, to do。</td>
+              <td>目的状语位置混乱。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-pattern-04"></td>
+              <td>比较</td>
+              <td>as...as, more...than, one of the most...。</td>
+              <td>比较对象不对等。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-pattern-05"></td>
+              <td>观点</td>
+              <td>In my opinion, I believe that..., From my point of view。</td>
+              <td>观点句后没有理由。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-pattern-06"></td>
+              <td>举例</td>
+              <td>For example, such as, take...as an example。</td>
+              <td>such as 后接完整句。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-pattern-07"></td>
+              <td>让步转折</td>
+              <td>although, though, however, but。</td>
+              <td>although 和 but 连用。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-pattern-08"></td>
+              <td>总结</td>
+              <td>In a word, All in all, To sum up。</td>
+              <td>结尾只是重复开头。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-pattern-09"></td>
+              <td>期待希望</td>
+              <td>I hope that..., I am looking forward to...。</td>
+              <td>look forward to 后动词原形。</td>
+              <td>undefined</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="en-pattern-10"></td>
+              <td>责任倡议</td>
+              <td>It is our duty to..., Let's take action to...。</td>
+              <td>倡议空泛，没有具体行动。</td>
+              <td>undefined</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="foot">本表用于浙江温州初中英语中考查漏补缺。勾选状态保存在本机浏览器中。</p>
+  </div>
+
+  <script>
+    const storagePrefix = "wenzhou-english-checklist:";
+    const boxes = Array.from(document.querySelectorAll('input[type="checkbox"][data-id]'));
+    const progressText = document.getElementById('progressText');
+    const progressBar = document.getElementById('progressBar');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function updateProgress() {
+      const done = boxes.filter(box => box.checked).length;
+      progressText.textContent = done + ' / ' + boxes.length;
+      progressBar.style.width = boxes.length ? Math.round(done / boxes.length * 100) + '%' : '0%';
+    }
+
+    boxes.forEach(box => {
+      box.checked = localStorage.getItem(storagePrefix + box.dataset.id) === '1';
+      box.addEventListener('change', () => {
+        localStorage.setItem(storagePrefix + box.dataset.id, box.checked ? '1' : '0');
+        updateProgress();
+      });
+    });
+
+    resetBtn.addEventListener('click', () => {
+      if (!confirm('确定清空本页所有勾选记录？')) return;
+      boxes.forEach(box => {
+        box.checked = false;
+        localStorage.removeItem(storagePrefix + box.dataset.id);
+      });
+      updateProgress();
+    });
+
+    updateProgress();
+  </script>
+</body>
+</html>
