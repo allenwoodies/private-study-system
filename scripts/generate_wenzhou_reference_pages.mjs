@@ -669,15 +669,20 @@ function countItems(page) {
   return page.sections.reduce((total, section) => total + section.groups.reduce((sum, group) => sum + group[1].length, 0), 0);
 }
 
-function renderRows(rows) {
-  return rows.map(([id, scope, point, check, risk]) => `
+function renderRows(rows, groupTitle) {
+  return rows.map(row => {
+    const [id, point, check, risk] = row.length === 4
+      ? row
+      : [row[0], row[2], row[3], row[4]];
+    return `
             <tr>
               <td><input type="checkbox" data-id="${esc(id)}"></td>
-              <td>${esc(scope)}</td>
+              <td>${esc(groupTitle)}</td>
               <td>${esc(point)}</td>
               <td>${esc(check)}</td>
-              <td>${esc(risk)}</td>
-            </tr>`).join("");
+              <td>${esc(risk || "")}</td>
+            </tr>`;
+  }).join("");
 }
 
 function renderSection(section) {
@@ -703,7 +708,7 @@ function renderSection(section) {
               <th>易错点</th>
             </tr>
           </thead>
-          <tbody>${renderRows(rows)}
+          <tbody>${renderRows(rows, title)}
           </tbody>
         </table>
       </div>`).join("")}
