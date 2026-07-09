@@ -1,0 +1,1230 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>浙江温州初中语文中考知识体系与提分策略</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --paper: #ffffff;
+      --ink: #1c2430;
+      --muted: #5f6b7a;
+      --line: #dce2eb;
+      --soft: #eef2f7;
+      --brand: #8a2f3b;
+      --brand-2: #6f4e22;
+      --green: #0f766e;
+      --shadow: 0 10px 30px rgba(28, 36, 48, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.62;
+    }
+
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .page {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    header, section, nav {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    header {
+      padding: 28px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 26px 0 10px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    p { margin: 8px 0; }
+    .subtitle { color: var(--muted); max-width: 920px; margin-bottom: 0; }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 12px;
+      align-items: center;
+      background: rgba(246, 247, 249, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 0;
+      margin-bottom: 18px;
+    }
+
+    .progress-wrap {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      min-width: 0;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .bar {
+      height: 10px;
+      overflow: hidden;
+      background: var(--soft);
+      border-radius: 999px;
+    }
+
+    .bar span {
+      display: block;
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      border-radius: 999px;
+      transition: width 180ms ease;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    button:hover { border-color: var(--brand); color: var(--brand); }
+
+    nav {
+      padding: 16px;
+      margin-bottom: 18px;
+      box-shadow: none;
+    }
+
+    nav strong { display: block; margin-bottom: 8px; }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 8px 14px;
+      font-size: 14px;
+    }
+
+    section {
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--soft);
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 3px 0 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      border: 1px solid #ead0d3;
+      border-radius: 999px;
+      background: #fff3f4;
+      color: var(--brand);
+      padding: 2px 10px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .note-box {
+      border-left: 4px solid var(--brand);
+      background: #fff7f7;
+      padding: 12px 14px;
+      border-radius: 6px;
+      color: #553039;
+      margin-top: 14px;
+    }
+
+    .mindmap {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background:
+        linear-gradient(90deg, rgba(138, 47, 59, 0.05) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(138, 47, 59, 0.05) 1px, transparent 1px),
+        #fbfcfe;
+      background-size: 26px 26px;
+      padding: 22px;
+      overflow-x: auto;
+    }
+
+    .map-root {
+      min-width: 980px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .map-center {
+      min-height: 188px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #e6c4c9;
+      border-radius: 10px;
+      background: #ffffff;
+      color: var(--brand);
+      text-align: center;
+      padding: 18px;
+      font-weight: 800;
+      box-shadow: 0 8px 18px rgba(138, 47, 59, 0.08);
+    }
+
+    .map-center span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .map-branches {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .map-node {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--brand);
+      border-radius: 8px;
+      padding: 14px 14px 12px;
+    }
+
+    .map-node:nth-child(2n) { border-left-color: var(--brand-2); }
+    .map-node h3 { margin: 0 0 8px; font-size: 16px; color: #263241; }
+    .map-node ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 13px; }
+    .map-node li { margin: 3px 0; }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin: 10px 0 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+      background: var(--paper);
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 10px 12px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th:last-child, td:last-child { border-right: 0; }
+    tr:last-child td { border-bottom: 0; }
+
+    th {
+      background: #f2f4f8;
+      color: #263241;
+      font-weight: 700;
+    }
+
+    td:first-child, th:first-child {
+      width: 56px;
+      text-align: center;
+    }
+
+    td:nth-child(2) { width: 150px; font-weight: 650; }
+    td:nth-child(3) { width: 320px; }
+
+    .compact td:nth-child(2), .compact td:nth-child(3) { width: auto; }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--green);
+      cursor: pointer;
+    }
+
+    .formula {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      background: #f7f8fb;
+      border: 1px solid #e1e5ec;
+      border-radius: 6px;
+      padding: 1px 5px;
+      white-space: nowrap;
+    }
+
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .strategy-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+      padding: 16px;
+    }
+
+    .strategy-card h3 {
+      margin: 0 0 8px;
+      color: var(--brand);
+      font-size: 16px;
+    }
+
+    .strategy-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .foot {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      margin-top: 28px;
+    }
+
+    @media (max-width: 720px) {
+      .page { width: min(100% - 20px, 1200px); padding-top: 16px; }
+      header, section { padding: 18px; }
+      .toolbar { grid-template-columns: 1fr; }
+      button { width: 100%; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { width: 100%; padding: 0; }
+      .toolbar, nav { display: none; }
+      header, section { box-shadow: none; border-radius: 0; break-inside: avoid; }
+      .table-wrap { overflow: visible; }
+      table { min-width: 0; font-size: 12px; }
+    }
+  
+/* mobile-foldable-study-start */
+    @media (max-width: 760px) {
+      body.mobile-table-cards .table-wrap {
+        overflow: visible;
+      }
+
+      body.mobile-table-cards .mobile-fold {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #fbfcfe;
+        margin: 10px 0;
+        overflow: hidden;
+      }
+
+      body.mobile-table-cards .mobile-fold > summary {
+        list-style: none;
+        cursor: pointer;
+        min-height: 48px;
+        padding: 12px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        align-items: center;
+        color: #174ea6;
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      body.mobile-table-cards .mobile-fold > summary::-webkit-details-marker {
+        display: none;
+      }
+
+      body.mobile-table-cards .mobile-fold > summary::after {
+        content: "收起";
+        border: 1px solid #cfe0ff;
+        border-radius: 999px;
+        background: var(--blue-soft, #eaf2ff);
+        color: #174ea6;
+        padding: 3px 8px;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      body.mobile-table-cards .mobile-fold:not([open]) > summary::after {
+        content: "展开";
+      }
+
+      body.mobile-table-cards .mobile-fold-body {
+        padding: 0 10px 10px;
+      }
+
+      body.mobile-table-cards .mobile-fold .group-title,
+      body.mobile-table-cards .mobile-fold > h3 {
+        display: none;
+      }
+
+      body.mobile-table-cards .mobile-fold .table-wrap {
+        border: 0;
+        border-radius: 0;
+        margin: 0;
+      }
+
+      body.mobile-table-cards .mobile-fold table,
+      body.mobile-table-cards .mobile-fold thead,
+      body.mobile-table-cards .mobile-fold tbody,
+      body.mobile-table-cards .mobile-fold tr,
+      body.mobile-table-cards .mobile-fold th,
+      body.mobile-table-cards .mobile-fold td {
+        display: block;
+        width: 100%;
+        min-width: 0;
+      }
+
+      body.mobile-table-cards .mobile-fold table {
+        border: 0;
+        background: transparent;
+      }
+
+      body.mobile-table-cards .mobile-fold thead {
+        display: none;
+      }
+
+      body.mobile-table-cards .mobile-fold tbody {
+        display: grid;
+        gap: 8px;
+      }
+
+      body.mobile-table-cards .mobile-fold tr {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #fff;
+        padding: 10px 10px 10px 40px;
+        box-shadow: 0 2px 8px rgba(20, 32, 43, .04);
+      }
+
+      body.mobile-table-cards .mobile-fold td {
+        border: 0;
+        padding: 0;
+        text-align: left;
+      }
+
+      body.mobile-table-cards .mobile-fold td:first-child {
+        position: absolute;
+        left: 10px;
+        top: 12px;
+        width: 20px;
+      }
+
+      body.mobile-table-cards .mobile-fold td:nth-child(2) {
+        color: #1d6443;
+        font-size: 12px;
+        font-weight: 900;
+        line-height: 1.35;
+      }
+
+      body.mobile-table-cards .mobile-fold td:nth-child(3) {
+        color: var(--ink);
+        font-size: 15px;
+        font-weight: 900;
+        line-height: 1.45;
+        margin-top: 3px;
+      }
+
+      body.mobile-table-cards .mobile-fold td:nth-child(n+4) {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.55;
+        margin-top: 6px;
+      }
+
+      body.mobile-table-cards .mobile-fold td:nth-child(n+4)::before {
+        content: attr(data-label);
+        display: block;
+        color: #506070;
+        font-size: 11px;
+        font-weight: 900;
+        line-height: 1.25;
+        margin-bottom: 2px;
+      }
+    }
+/* mobile-foldable-study-end */
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>浙江温州初中语文中考知识体系与提分策略</h1>
+      <p class="subtitle">
+        适用于温州市初中语文中考复习。内容按浙江省统一命题方向整理，覆盖语言积累、古诗文、现代文阅读、名著阅读、综合性学习、写作，以及最小时间提分策略。
+      </p>
+      <div class="note-box">
+        使用方式：先看整体思维导图，再按表格逐项勾选。能说出考点、能套用答题结构、能用文本依据支撑答案，才建议勾选。
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span>查漏补缺进度</span>
+          <span id="progressText">0 / 0</span>
+        </div>
+        <div class="bar"><span id="progressBar"></span></div>
+      </div>
+      <button id="resetBtn" type="button">清空勾选</button>
+      <button type="button" onclick="window.print()">打印或导出 PDF</button>
+    </div>
+
+    <nav>
+      <strong>目录</strong>
+      <div class="nav-grid">
+        <a href="#mindmap">整体思维导图</a>
+        <a href="#strategy">最小时间提分策略</a>
+        <a href="#overview">一、总知识框架</a>
+        <a href="#language">二、语言积累与运用</a>
+        <a href="#classic">三、古诗文阅读</a>
+        <a href="#modern">四、现代文阅读</a>
+        <a href="#book">五、名著与整本书阅读</a>
+        <a href="#activity">六、综合性学习</a>
+        <a href="#writing">七、写作</a>
+        <a href="#templates">八、答题模板</a>
+        <a href="#review">九、错因复盘</a>
+      </div>
+    </nav>
+
+    <section id="mindmap">
+      <div class="section-head">
+        <div>
+          <h2>整体思维导图</h2>
+          <p class="section-note">语文中考的主线不是“背知识”，而是“积累、理解、分析、整合、表达”。</p>
+        </div>
+        <span class="tag">知识脉络</span>
+      </div>
+      <div class="mindmap" aria-label="浙江温州中考语文知识思维导图">
+        <div class="map-root">
+          <div class="map-center">
+            浙江温州中考语文
+            <span>语言积累 · 古诗文 · 现代文 · 名著 · 综合学习 · 写作</span>
+          </div>
+          <div class="map-branches">
+            <div class="map-node">
+              <h3>语言积累与运用</h3>
+              <ul>
+                <li>字音字形、词语成语、病句标点</li>
+                <li>修辞句式、语段衔接、应用表达</li>
+                <li>文学文化常识、古诗文默写</li>
+              </ul>
+            </div>
+            <div class="map-node">
+              <h3>古诗文阅读</h3>
+              <ul>
+                <li>诗歌题材、意象、炼字、手法、情感</li>
+                <li>文言实词虚词、断句、翻译、句式</li>
+                <li>人物形象、内容理解、课内外迁移</li>
+              </ul>
+            </div>
+            <div class="map-node">
+              <h3>现代文阅读</h3>
+              <ul>
+                <li>小说、散文、记叙文、说明文、议论文</li>
+                <li>新闻、访谈、科普、非连续性文本</li>
+                <li>概括、赏析、作用、主旨、开放表达</li>
+              </ul>
+            </div>
+            <div class="map-node">
+              <h3>名著阅读</h3>
+              <ul>
+                <li>情节、人物、主题、艺术特色</li>
+                <li>专题探究、比较阅读、阅读方法</li>
+                <li>推荐语、人物评价、读后感表达</li>
+              </ul>
+            </div>
+            <div class="map-node">
+              <h3>综合性学习</h3>
+              <ul>
+                <li>活动设计、采访、辩论、口语交际</li>
+                <li>图文转换、材料探究、观点表达</li>
+                <li>传统文化、地方文化、项目化任务</li>
+              </ul>
+            </div>
+            <div class="map-node">
+              <h3>写作</h3>
+              <ul>
+                <li>审题立意、选材结构、细节描写</li>
+                <li>记叙抒情、议论思辨、故事创作</li>
+                <li>任务型表达、卷面书写、扣题升华</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="strategy">
+      <div class="section-head">
+        <div>
+          <h2>最小时间提分策略</h2>
+          <p class="section-note">目标是用最少时间减少固定失分点：先保基础，再拿阅读规范分，最后稳定作文。</p>
+        </div>
+        <span class="tag">提分策略</span>
+      </div>
+
+      <h3>高性价比优先级</h3>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>优先级</th>
+              <th>模块</th>
+              <th>提分理由</th>
+              <th>最低训练量</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="strategy-01"></td>
+              <td>1</td>
+              <td>古诗文默写</td>
+              <td>最容易拿满；短期见效最快；错别字是主要失分点。</td>
+              <td>每天 10 分钟，默写 + 订正易错字。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="strategy-02"></td>
+              <td>2</td>
+              <td>文言实词虚词与翻译</td>
+              <td>规律明确，迁移性强；翻译题容易通过关键词落实提分。</td>
+              <td>每天 10 个实词，翻译 2 句。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="strategy-03"></td>
+              <td>3</td>
+              <td>现代文阅读答题格式</td>
+              <td>很多失分不是看不懂，而是答不到点、没术语、没依据。</td>
+              <td>每天 2 道题，做完必须改写成标准答案。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="strategy-04"></td>
+              <td>4</td>
+              <td>作文结构与素材</td>
+              <td>结构稳定后分数波动会明显减小。</td>
+              <td>每周整理 2 个真实素材，每天练一个片段。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="strategy-05"></td>
+              <td>5</td>
+              <td>名著阅读</td>
+              <td>人物、情节、主题整理后可稳定基础题和简答题。</td>
+              <td>每天 8 分钟，复盘 1 个人物或 1 个情节。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="strategy-06"></td>
+              <td>6</td>
+              <td>字音字形病句</td>
+              <td>适合碎片化刷题，收益稳定但上限有限。</td>
+              <td>每天 5 分钟错题回看。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>每天 30 分钟与 60 分钟方案</h3>
+      <div class="strategy-grid">
+        <div class="strategy-card">
+          <h3>30 分钟最低方案</h3>
+          <ul>
+            <li>10 分钟：古诗文默写。</li>
+            <li>10 分钟：文言翻译 2 句。</li>
+            <li>10 分钟：现代文阅读 1 道题，按标准答案改写。</li>
+          </ul>
+        </div>
+        <div class="strategy-card">
+          <h3>60 分钟提分方案</h3>
+          <ul>
+            <li>10 分钟：默写与易错字。</li>
+            <li>15 分钟：文言实词虚词 + 翻译。</li>
+            <li>20 分钟：现代文 2 道题，重点复盘答案结构。</li>
+            <li>15 分钟：作文素材、开头、细节或结尾片段。</li>
+          </ul>
+        </div>
+        <div class="strategy-card">
+          <h3>四周节奏</h3>
+          <ul>
+            <li>第 1 周：基础积累和文言。</li>
+            <li>第 2 周：现代文题型和答题模板。</li>
+            <li>第 3 周：作文结构和 6 类真实素材。</li>
+            <li>第 4 周：套卷复盘，按错因补漏洞。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="overview">
+      <div class="section-head">
+        <div>
+          <h2>一、总知识框架</h2>
+          <p class="section-note">先掌握语文学科的六大板块，再逐项查漏。</p>
+        </div>
+        <span class="tag">总览</span>
+      </div>
+
+      <h3>1.1 六大板块</h3>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>领域</th>
+              <th>核心内容</th>
+              <th>中考核心任务</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="overview-01"></td>
+              <td>语言积累与运用</td>
+              <td>字词、病句、标点、修辞、语段表达、文化常识、默写</td>
+              <td>准确识记，规范表达，能根据语境解决语言任务。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="overview-02"></td>
+              <td>古诗文阅读</td>
+              <td>古诗鉴赏、文言实词虚词、断句、翻译、主旨理解</td>
+              <td>能迁移课内知识理解课外材料。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="overview-03"></td>
+              <td>现代文阅读</td>
+              <td>文学类文本、实用类文本、非连续性文本、多文本阅读</td>
+              <td>提取信息、概括内容、赏析语言、分析结构和主旨。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="overview-04"></td>
+              <td>名著与整本书阅读</td>
+              <td>情节、人物、主题、艺术特色、专题探究</td>
+              <td>能结合具体情节评价人物和理解作品价值。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="overview-05"></td>
+              <td>综合性学习</td>
+              <td>活动设计、图文转换、材料探究、口语交际、观点表达</td>
+              <td>把材料信息转化为清楚、得体、有依据的表达。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="overview-06"></td>
+              <td>写作</td>
+              <td>审题立意、选材结构、记叙抒情、议论思辨、任务型表达</td>
+              <td>写出扣题、有细节、有结构、有真实体验的文章。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>1.2 七到九年级脉络</h3>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>阶段</th>
+              <th>学习主线</th>
+              <th>关键内容</th>
+              <th>中考连接点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="overview-grade-07"></td>
+              <td>七年级</td>
+              <td>语文基础与文学阅读入门</td>
+              <td>字词积累、朗读默写、记叙文阅读、古诗文初步、写人记事。</td>
+              <td>基础积累、现代文概括、人物形象、古诗文默写。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="overview-grade-08"></td>
+              <td>八年级</td>
+              <td>文体意识与表达能力提升</td>
+              <td>新闻、散文、说明文、议论文初步、文言迁移、名著专题阅读。</td>
+              <td>信息筛选、说明方法、论证思路、文言翻译。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="overview-grade-09"></td>
+              <td>九年级</td>
+              <td>综合阅读与思辨表达</td>
+              <td>小说、议论性文本、古诗文比较、名著整合、任务型写作。</td>
+              <td>综合探究、开放表达、阅读鉴赏、作文立意。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="language">
+      <div class="section-head">
+        <div>
+          <h2>二、语言积累与运用</h2>
+          <p class="section-note">基础题要少丢分。重点是准确、得体、符合语境。</p>
+        </div>
+        <span class="tag">基础积累</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><input type="checkbox" data-id="lang-01"></td><td>字音</td><td>多音字、形声字、易误读字、方言易混字</td><td>必须结合语境辨音，尤其注意多音多义字。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-02"></td><td>字形</td><td>形近字、同音字、易错字、成语错别字</td><td>把错字放回词义里判断，不只凭读音。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-03"></td><td>词语</td><td>近义词辨析、感情色彩、语体色彩、搭配习惯</td><td>关注对象、范围、轻重、褒贬和使用场合。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-04"></td><td>成语</td><td>含义、对象、褒贬、望文生义、语义重复</td><td>先解释成语真实含义，再看语境是否匹配。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-05"></td><td>关联词</td><td>并列、递进、转折、因果、条件、假设、选择</td><td>判断前后分句逻辑关系，不机械套词。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-06"></td><td>病句</td><td>搭配不当、成分残缺、语序不当、重复赘余、结构混乱、表意不明、不合逻辑</td><td>先压缩主干，再看搭配、成分和逻辑。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-07"></td><td>标点</td><td>顿号、逗号、分号、冒号、引号、问号、破折号、省略号</td><td>问号看是否真疑问；分号用于并列分句内部已有逗号的情况。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-08"></td><td>修辞</td><td>比喻、拟人、排比、夸张、反问、设问、对偶、反复、引用</td><td>答作用时写“手法 + 内容 + 情感/效果”。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-09"></td><td>句式</td><td>陈述句、疑问句、祈使句、感叹句，长短句、整散句</td><td>句式转换不能改变原意；仿写要句式、修辞、语意一致。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-10"></td><td>衔接排序</td><td>话题一致、逻辑顺序、时间顺序、空间顺序、照应关系</td><td>先找首句和尾句，再抓代词、关联词和重复词。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-11"></td><td>语段压缩</td><td>提取关键词、概括主要内容、拟标题、一句话新闻</td><td>保留对象、事件、结果，删除修饰和例子。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-12"></td><td>语言得体</td><td>称谓、敬辞谦辞、场合、对象、语气</td><td>注意身份关系和场景，不用过硬、过随意或不得体表达。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-13"></td><td>应用表达</td><td>通知、倡议书、邀请函、留言、启事、推荐语、宣传语</td><td>格式、对象、时间地点、任务内容要完整。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-14"></td><td>文学常识</td><td>作家作品、文体、时代、传统文化、文化意象、书法常识</td><td>不要只背作者，要能和作品、文体、主题对应。</td></tr>
+            <tr><td><input type="checkbox" data-id="lang-15"></td><td>古诗文默写</td><td>直接默写、理解性默写、情境默写</td><td>错字、漏字、添字均扣分；高频易错字单独建表。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="classic">
+      <div class="section-head">
+        <div>
+          <h2>三、古诗文阅读</h2>
+          <p class="section-note">古诗文提分靠“高频知识 + 翻译落实 + 情感手法模板”。</p>
+        </div>
+        <span class="tag">古诗文</span>
+      </div>
+
+      <h3>3.1 古诗鉴赏</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>掌握</th><th>知识点</th><th>考点</th><th>关键点与易错点</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox" data-id="poem-01"></td><td>题材分类</td><td>山水田园、边塞、送别、羁旅、咏物、怀古、爱国、哲理诗</td><td>题材通常决定情感方向，但要以诗句为依据。</td></tr>
+            <tr><td><input type="checkbox" data-id="poem-02"></td><td>意象</td><td>月、柳、雁、梅、竹、菊、舟、酒、夕阳、流水、边关</td><td>意象不是固定答案，要结合全诗语境判断。</td></tr>
+            <tr><td><input type="checkbox" data-id="poem-03"></td><td>炼字</td><td>动词、形容词、副词、叠词、色彩词赏析</td><td>答“写出了什么画面/状态，表达什么情感”。</td></tr>
+            <tr><td><input type="checkbox" data-id="poem-04"></td><td>名句赏析</td><td>写景句、抒情句、哲理句、用典句</td><td>先解释诗句，再分析手法和情感。</td></tr>
+            <tr><td><input type="checkbox" data-id="poem-05"></td><td>表现手法</td><td>借景抒情、托物言志、动静结合、虚实结合、对比、衬托、白描、用典、想象</td><td>不能只写手法名称，必须结合诗句说明作用。</td></tr>
+            <tr><td><input type="checkbox" data-id="poem-06"></td><td>情感主旨</td><td>思乡、惜别、忧国、壮志、闲适、孤寂、豁达、感伤</td><td>关注标题、注释、尾联和情感词。</td></tr>
+            <tr><td><input type="checkbox" data-id="poem-07"></td><td>诗歌比较</td><td>同主题、同意象、同手法、同情感不同表达</td><td>比较题要写清“相同点 + 不同点 + 依据”。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>3.2 文言文</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>掌握</th><th>知识点</th><th>考点</th><th>关键点与易错点</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox" data-id="wenyan-01"></td><td>文言实词</td><td>古今异义、一词多义、通假字、词类活用</td><td>优先迁移课内常见义，再结合上下文判断。</td></tr>
+            <tr><td><input type="checkbox" data-id="wenyan-02"></td><td>文言虚词</td><td>之、其、而、以、于、为、乃、则、者、也、焉、乎、所</td><td>虚词看语法位置和前后关系，不孤立硬背。</td></tr>
+            <tr><td><input type="checkbox" data-id="wenyan-03"></td><td>文言句式</td><td>判断句、省略句、倒装句、被动句、固定句式</td><td>翻译时要补充省略、调整语序。</td></tr>
+            <tr><td><input type="checkbox" data-id="wenyan-04"></td><td>断句</td><td>主谓宾结构、虚词标志、对称句式、语意停顿</td><td>先读懂大意，再按语法和语意切分。</td></tr>
+            <tr><td><input type="checkbox" data-id="wenyan-05"></td><td>翻译</td><td>直译为主，留、删、补、换、调</td><td>关键词必须落实；人名地名官职年号一般保留。</td></tr>
+            <tr><td><input type="checkbox" data-id="wenyan-06"></td><td>内容理解</td><td>事件概括、原因结果、人物行为、作者观点</td><td>用“人物 + 行为 + 结果/品质”概括。</td></tr>
+            <tr><td><input type="checkbox" data-id="wenyan-07"></td><td>人物形象</td><td>言行、神态、侧面描写、他人评价</td><td>品质必须配具体事例，不空泛写“善良”“聪明”。</td></tr>
+            <tr><td><input type="checkbox" data-id="wenyan-08"></td><td>写法分析</td><td>对比、衬托、详略、借事说理、寓言讽喻</td><td>写法题要回答“突出什么、表达什么”。</td></tr>
+            <tr><td><input type="checkbox" data-id="wenyan-09"></td><td>课内外迁移</td><td>课内文言知识迁移到课外短文</td><td>课外文本的实词虚词多来自课内常见用法。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="modern">
+      <div class="section-head">
+        <div>
+          <h2>四、现代文阅读</h2>
+          <p class="section-note">阅读提分核心：题型识别、原文定位、术语表达、文本依据。</p>
+        </div>
+        <span class="tag">阅读理解</span>
+      </div>
+
+      <h3>4.1 文本类型</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>掌握</th><th>文本类型</th><th>考点</th><th>关键点与易错点</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox" data-id="modern-type-01"></td><td>小说</td><td>人物、情节、环境、主题</td><td>抓线索和冲突，人物形象必须结合情节。</td></tr>
+            <tr><td><input type="checkbox" data-id="modern-type-02"></td><td>散文</td><td>线索、情感、意象、语言、结构</td><td>重点看情感变化和托物、借景、以小见大。</td></tr>
+            <tr><td><input type="checkbox" data-id="modern-type-03"></td><td>记叙文</td><td>六要素、顺序、倒叙、插叙、详略</td><td>概括事件要写清人物、事件和结果。</td></tr>
+            <tr><td><input type="checkbox" data-id="modern-type-04"></td><td>说明文</td><td>说明对象、特征、顺序、方法、语言准确性</td><td>说明方法作用要写“具体说明了什么特征”。</td></tr>
+            <tr><td><input type="checkbox" data-id="modern-type-05"></td><td>议论文</td><td>论点、论据、论证方法、论证结构</td><td>论证思路按“先、再、接着、最后”梳理。</td></tr>
+            <tr><td><input type="checkbox" data-id="modern-type-06"></td><td>新闻类</td><td>标题、导语、主体、背景、结语</td><td>新闻概括要保留事实要素，不加入主观评价。</td></tr>
+            <tr><td><input type="checkbox" data-id="modern-type-07"></td><td>非连续性文本</td><td>图表、数据、文字材料、流程图</td><td>先分材料找信息，再整合共同结论。</td></tr>
+            <tr><td><input type="checkbox" data-id="modern-type-08"></td><td>科普文本</td><td>科学概念、说明逻辑、材料关系</td><td>关注限定词、数据和因果关系。</td></tr>
+            <tr><td><input type="checkbox" data-id="modern-type-09"></td><td>访谈/演讲</td><td>问答逻辑、观点态度、语言特色</td><td>抓被访者观点和主持人问题推进关系。</td></tr>
+            <tr><td><input type="checkbox" data-id="modern-type-10"></td><td>多文本阅读</td><td>材料比较、观点整合、任务解决</td><td>答案必须覆盖多则材料，不能只引用一则。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.2 文学类文本细化考点</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>掌握</th><th>模块</th><th>考点</th><th>关键点与易错点</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox" data-id="literary-01"></td><td>情节</td><td>开端、发展、高潮、结局、线索、悬念、伏笔、照应、铺垫、突转</td><td>情节作用常答推动情节、塑造人物、表现主题。</td></tr>
+            <tr><td><input type="checkbox" data-id="literary-02"></td><td>人物</td><td>外貌、语言、动作、心理、神态、细节、正面描写、侧面描写</td><td>人物特点必须从描写和事件中提炼。</td></tr>
+            <tr><td><input type="checkbox" data-id="literary-03"></td><td>环境</td><td>自然环境、社会环境</td><td>常见作用：交代背景、渲染气氛、烘托人物、推动情节、暗示主题。</td></tr>
+            <tr><td><input type="checkbox" data-id="literary-04"></td><td>标题</td><td>表层含义、深层含义、线索、象征、悬念、主题提示</td><td>标题题要分层回答，不只解释字面意思。</td></tr>
+            <tr><td><input type="checkbox" data-id="literary-05"></td><td>开头</td><td>开门见山、悬念、背景、引出下文、奠定基调</td><td>看是否照应标题、设置矛盾或引出人物。</td></tr>
+            <tr><td><input type="checkbox" data-id="literary-06"></td><td>结尾</td><td>点明中心、升华主题、照应前文、留白、突转</td><td>“出人意料又在情理之中”要指出前文铺垫。</td></tr>
+            <tr><td><input type="checkbox" data-id="literary-07"></td><td>语言</td><td>修辞效果、词语含义、句子含义、人物语言个性、叙述风格</td><td>赏析不能只写“生动形象”，要写具体内容和情感。</td></tr>
+            <tr><td><input type="checkbox" data-id="literary-08"></td><td>主旨</td><td>作者态度、人物命运、社会意义、人生思考、情感价值</td><td>主旨答案要高于情节，但不能脱离文本。</td></tr>
+            <tr><td><input type="checkbox" data-id="literary-09"></td><td>表达方式</td><td>记叙、描写、抒情、议论、说明</td><td>抒情议论句往往提示中心。</td></tr>
+            <tr><td><input type="checkbox" data-id="literary-10"></td><td>表现手法</td><td>对比、衬托、象征、欲扬先抑、托物言志、借景抒情、以小见大</td><td>手法题要结合“谁和谁对比”“用什么衬托什么”。</td></tr>
+            <tr><td><input type="checkbox" data-id="literary-11"></td><td>开放题</td><td>补写、续写、评价人物、联系生活、谈启示</td><td>观点明确，结合文本，再联系生活，避免空话。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.3 实用类与思辨类文本</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>掌握</th><th>模块</th><th>考点</th><th>关键点与易错点</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox" data-id="practical-01"></td><td>信息筛选</td><td>关键词、中心句、限定词、数据、因果关系</td><td>注意“可能、主要、之一、目前”等限制词。</td></tr>
+            <tr><td><input type="checkbox" data-id="practical-02"></td><td>信息整合</td><td>共同点、差异点、趋势、结论</td><td>整合题不能照抄，要归纳上位概念。</td></tr>
+            <tr><td><input type="checkbox" data-id="practical-03"></td><td>图表转换</td><td>表格、柱状图、折线图、饼图、流程图转文字</td><td>结论要包含对象、变化、比例或趋势。</td></tr>
+            <tr><td><input type="checkbox" data-id="practical-04"></td><td>说明方法</td><td>举例子、列数字、作比较、打比方、分类别、下定义、作诠释、引资料、画图表</td><td>答法：方法 + 准确/具体/生动说明了对象的某特征。</td></tr>
+            <tr><td><input type="checkbox" data-id="practical-05"></td><td>说明顺序</td><td>时间顺序、空间顺序、逻辑顺序</td><td>说明事理多用逻辑顺序，说明建筑空间多用空间顺序。</td></tr>
+            <tr><td><input type="checkbox" data-id="practical-06"></td><td>说明语言</td><td>准确性、严密性、限制词作用</td><td>答“不能删”的题：解释词义 + 说明限制 + 删后不准确。</td></tr>
+            <tr><td><input type="checkbox" data-id="practical-07"></td><td>论点</td><td>中心论点、分论点、作者观点</td><td>论点是明确判断句，不是话题。</td></tr>
+            <tr><td><input type="checkbox" data-id="practical-08"></td><td>论据</td><td>事实论据、道理论据、材料与观点关系</td><td>补充论据要能直接支撑论点。</td></tr>
+            <tr><td><input type="checkbox" data-id="practical-09"></td><td>论证方法</td><td>举例论证、道理论证、对比论证、比喻论证、引用论证</td><td>答作用时写“有力/具体/鲜明地论证了什么观点”。</td></tr>
+            <tr><td><input type="checkbox" data-id="practical-10"></td><td>论证思路</td><td>提出问题、分析问题、解决问题；总分总、并列、递进、对照</td><td>用“首先、接着、然后、最后”组织答案。</td></tr>
+            <tr><td><input type="checkbox" data-id="practical-11"></td><td>观点表达</td><td>亮明观点、结合材料、理由充分、条理清楚</td><td>观点不能摇摆，理由至少两点，必须引用材料。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="book">
+      <div class="section-head">
+        <div>
+          <h2>五、名著与整本书阅读</h2>
+          <p class="section-note">名著复习要从“死记情节”转向“人物、主题、专题探究”。</p>
+        </div>
+        <span class="tag">名著阅读</span>
+      </div>
+
+      <h3>5.1 统编教材常见名著</h3>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead><tr><th>掌握</th><th>年级</th><th>重点名著</th><th>复习重点</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox" data-id="book-list-01"></td><td>七上</td><td>《朝花夕拾》《西游记》</td><td>童年记忆、人物形象、讽刺批判、神魔想象、取经团队。</td></tr>
+            <tr><td><input type="checkbox" data-id="book-list-02"></td><td>七下</td><td>《骆驼祥子》《海底两万里》</td><td>人物命运、社会原因、科幻想象、探险精神。</td></tr>
+            <tr><td><input type="checkbox" data-id="book-list-03"></td><td>八上</td><td>《红星照耀中国》《昆虫记》</td><td>纪实作品、人物事迹、科学观察、语言特色。</td></tr>
+            <tr><td><input type="checkbox" data-id="book-list-04"></td><td>八下</td><td>《傅雷家书》《钢铁是怎样炼成的》</td><td>家书教育、艺术修养、成长意志、理想信念。</td></tr>
+            <tr><td><input type="checkbox" data-id="book-list-05"></td><td>九上</td><td>《艾青诗选》《水浒传》</td><td>诗歌意象、爱国情怀、英雄群像、反抗主题。</td></tr>
+            <tr><td><input type="checkbox" data-id="book-list-06"></td><td>九下</td><td>《儒林外史》《简·爱》</td><td>讽刺艺术、科举批判、女性成长、自尊独立。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>5.2 名著考点</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>掌握</th><th>知识点</th><th>考点</th><th>关键点与易错点</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox" data-id="book-01"></td><td>作者作品</td><td>作者、国别、时代、体裁、主要内容</td><td>作品信息要和具体情节、主题关联。</td></tr>
+            <tr><td><input type="checkbox" data-id="book-02"></td><td>情节识记</td><td>重要情节、关键事件、情节先后关系</td><td>不能只背名称，要知道事件前因后果。</td></tr>
+            <tr><td><input type="checkbox" data-id="book-03"></td><td>人物形象</td><td>性格特点、成长变化、典型事例</td><td>人物评价必须配具体情节。</td></tr>
+            <tr><td><input type="checkbox" data-id="book-04"></td><td>主题理解</td><td>作品主题、时代背景、思想价值</td><td>主题不要泛化，要能落到作品核心矛盾。</td></tr>
+            <tr><td><input type="checkbox" data-id="book-05"></td><td>艺术特色</td><td>语言风格、叙事方式、讽刺手法、想象手法</td><td>答特色要举例，不写空泛评价。</td></tr>
+            <tr><td><input type="checkbox" data-id="book-06"></td><td>专题探究</td><td>人物专题、主题专题、情节专题、阅读方法专题</td><td>围绕一个专题整理证据链。</td></tr>
+            <tr><td><input type="checkbox" data-id="book-07"></td><td>比较阅读</td><td>不同人物比较、不同作品主题比较</td><td>比较题要分别举例，再归纳异同。</td></tr>
+            <tr><td><input type="checkbox" data-id="book-08"></td><td>阅读方法</td><td>圈点批注、摘抄、思维导图、专题阅读、选择性阅读</td><td>要能说明为什么使用这种阅读方法。</td></tr>
+            <tr><td><input type="checkbox" data-id="book-09"></td><td>情境表达</td><td>推荐语、读后感、人物评价、书信、演讲稿</td><td>有对象意识和文体意识。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="activity">
+      <div class="section-head">
+        <div>
+          <h2>六、综合性学习</h2>
+          <p class="section-note">综合性学习看的是信息处理和情境表达能力。</p>
+        </div>
+        <span class="tag">任务表达</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>掌握</th><th>知识点</th><th>常见任务</th><th>关键点与易错点</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox" data-id="activity-01"></td><td>活动设计</td><td>拟活动主题、设计流程、安排栏目</td><td>主题要明确，流程要可执行。</td></tr>
+            <tr><td><input type="checkbox" data-id="activity-02"></td><td>宣传表达</td><td>标语、海报文案、推荐语、倡议语</td><td>语言简洁，有感染力，符合活动目的。</td></tr>
+            <tr><td><input type="checkbox" data-id="activity-03"></td><td>采访任务</td><td>采访对象、采访问题、采访提纲</td><td>问题要开放、具体、符合对象身份。</td></tr>
+            <tr><td><input type="checkbox" data-id="activity-04"></td><td>口语交际</td><td>劝说、邀请、转述、主持词、开场白、结束语</td><td>称呼、目的、理由、语气都要得体。</td></tr>
+            <tr><td><input type="checkbox" data-id="activity-05"></td><td>辩论表达</td><td>正反观点、论据支撑、反驳理由</td><td>先亮观点，再给理由，再回应对方漏洞。</td></tr>
+            <tr><td><input type="checkbox" data-id="activity-06"></td><td>材料探究</td><td>提炼观点、概括现象、分析原因、提出建议</td><td>结论必须来自材料，不能凭空发挥。</td></tr>
+            <tr><td><input type="checkbox" data-id="activity-07"></td><td>图文转换</td><td>漫画寓意、徽标含义、图表结论</td><td>先描述画面，再揭示寓意或趋势。</td></tr>
+            <tr><td><input type="checkbox" data-id="activity-08"></td><td>传统文化</td><td>节日、习俗、诗词、书法、对联、文化遗产</td><td>注意文化常识和表达场景。</td></tr>
+            <tr><td><input type="checkbox" data-id="activity-09"></td><td>地方文化</td><td>温州地方文化、瓯越文化、非遗、家乡建设</td><td>可作为材料背景，回答仍要扣题。</td></tr>
+            <tr><td><input type="checkbox" data-id="activity-10"></td><td>项目化学习</td><td>展板、读书会、调查问卷、研究结论</td><td>方案要有对象、步骤、成果呈现。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="writing">
+      <div class="section-head">
+        <div>
+          <h2>七、写作</h2>
+          <p class="section-note">作文短期提分不靠华丽辞藻，靠审题、结构、细节和扣题。</p>
+        </div>
+        <span class="tag">写作</span>
+      </div>
+
+      <h3>7.1 写作考点</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>掌握</th><th>知识点</th><th>考点</th><th>关键点与易错点</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox" data-id="writing-01"></td><td>审题</td><td>抓关键词、限制条件、材料寓意、写作任务</td><td>审题先圈关键词，再写中心句，避免偏题。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-02"></td><td>立意</td><td>观点明确、积极健康、有深度、有个人体验</td><td>不要空喊大主题，要从具体经历提炼。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-03"></td><td>选材</td><td>真实、典型、新颖，服务中心</td><td>材料不是越大越好，关键是有细节、有变化。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-04"></td><td>结构</td><td>开头、发展、高潮、结尾；总分总；并列；递进</td><td>每段都要服务中心，避免流水账。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-05"></td><td>记叙文</td><td>人物、事件、细节、线索、情感变化</td><td>一件事写透，比多件事堆砌更稳。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-06"></td><td>写人</td><td>典型事件、动作、语言、心理、神态</td><td>人物特点要通过行为表现，不直接贴标签。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-07"></td><td>叙事</td><td>起因、经过、结果，有波澜，有细节</td><td>冲突和变化是叙事得分点。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-08"></td><td>抒情</td><td>借景、借物、借事表达情感</td><td>情感要自然生成，避免结尾突然喊口号。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-09"></td><td>议论</td><td>观点、论据、论证、联系现实</td><td>议论段要有具体例证，不空谈道理。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-10"></td><td>故事创作</td><td>情节完整，人物鲜明，想象合理</td><td>想象要服务主题，不能失控。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-11"></td><td>任务型写作</td><td>演讲稿、书信、倡议书、推荐稿、发言稿、读后感</td><td>格式、对象、语气、任务要求必须匹配。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-12"></td><td>语言</td><td>准确、连贯、生动，有文体意识</td><td>优先清楚和具体，不盲目堆修辞。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-13"></td><td>书写</td><td>卷面整洁、标点规范、不写错别字</td><td>卷面稳定影响阅卷第一印象。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-14"></td><td>扣题</td><td>开头点题、过程扣题、结尾回应主题</td><td>每 2 到 3 段要有一次与题目关键词的呼应。</td></tr>
+            <tr><td><input type="checkbox" data-id="writing-15"></td><td>思辨</td><td>多角度看问题，避免单薄和绝对化</td><td>可以写“不是……而是……”或“表面……深层……”。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>7.2 六类高复用素材</h3>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead><tr><th>掌握</th><th>素材类型</th><th>可覆盖主题</th><th>训练重点</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox" data-id="material-01"></td><td>一次失败后的调整</td><td>成长、坚持、改变、选择</td><td>写清失败前后认知变化。</td></tr>
+            <tr><td><input type="checkbox" data-id="material-02"></td><td>一次被理解或被帮助</td><td>温暖、陪伴、感动、亲情友情</td><td>写具体细节，不写泛泛感谢。</td></tr>
+            <tr><td><input type="checkbox" data-id="material-03"></td><td>一次主动承担责任</td><td>责任、勇气、担当</td><td>写犹豫、选择、行动和结果。</td></tr>
+            <tr><td><input type="checkbox" data-id="material-04"></td><td>一次努力后看到结果</td><td>奋斗、目标、热爱</td><td>写过程中的困难和坚持方式。</td></tr>
+            <tr><td><input type="checkbox" data-id="material-05"></td><td>一次误解后的和解</td><td>沟通、理解、反思</td><td>写双方变化，不只写“我懂了”。</td></tr>
+            <tr><td><input type="checkbox" data-id="material-06"></td><td>一个普通人的影响</td><td>榜样、善意、生命力量</td><td>人物要具体，有动作和语言细节。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="templates">
+      <div class="section-head">
+        <div>
+          <h2>八、答题模板</h2>
+          <p class="section-note">模板不是套话，是帮助答案完整覆盖“术语、内容、作用、依据”。</p>
+        </div>
+        <span class="tag">答题规范</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>掌握</th><th>题型</th><th>答题结构</th><th>注意事项</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox" data-id="template-01"></td><td>概括事件</td><td>人物 + 事件 + 结果</td><td>不要写评价词，先把事情说清楚。</td></tr>
+            <tr><td><input type="checkbox" data-id="template-02"></td><td>分析人物</td><td>性格特点 + 具体情节依据</td><td>一个特点配一个依据。</td></tr>
+            <tr><td><input type="checkbox" data-id="template-03"></td><td>赏析句子</td><td>手法 + 内容 + 情感/作用</td><td>修辞、描写、词语、句式都可作为赏析角度。</td></tr>
+            <tr><td><input type="checkbox" data-id="template-04"></td><td>标题作用</td><td>表层含义 + 深层含义 + 线索/主题/悬念作用</td><td>标题题通常至少答两层。</td></tr>
+            <tr><td><input type="checkbox" data-id="template-05"></td><td>环境描写</td><td>交代背景 + 渲染气氛 + 烘托人物 + 推动情节 + 暗示主题</td><td>按文本实际选择，不全都写。</td></tr>
+            <tr><td><input type="checkbox" data-id="template-06"></td><td>结尾作用</td><td>照应前文 + 点明/深化主题 + 引发思考 + 留白</td><td>突转结尾要指出前文伏笔。</td></tr>
+            <tr><td><input type="checkbox" data-id="template-07"></td><td>说明方法</td><td>方法 + 具体说明了什么 + 表达效果</td><td>“列数字”要突出准确，“打比方”突出形象。</td></tr>
+            <tr><td><input type="checkbox" data-id="template-08"></td><td>论证思路</td><td>先提出什么 + 再论证什么 + 最后得出什么</td><td>按段落顺序组织，不能跳读。</td></tr>
+            <tr><td><input type="checkbox" data-id="template-09"></td><td>开放表达</td><td>观点 + 文本依据 + 生活联系 + 总结</td><td>观点要明确，不能两边摇摆。</td></tr>
+            <tr><td><input type="checkbox" data-id="template-10"></td><td>文言翻译</td><td>落实关键词 + 补省略 + 调语序 + 保持通顺</td><td>人名地名官职年号通常保留。</td></tr>
+            <tr><td><input type="checkbox" data-id="template-11"></td><td>古诗炼字</td><td>解释字义 + 描绘画面 + 分析效果 + 表达情感</td><td>不要只说“生动形象”。</td></tr>
+            <tr><td><input type="checkbox" data-id="template-12"></td><td>材料探究</td><td>分材料提取信息 + 归纳共同结论 + 提出建议</td><td>建议要对应材料中的问题。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="review">
+      <div class="section-head">
+        <div>
+          <h2>九、错因复盘</h2>
+          <p class="section-note">语文提分的关键不是多做题，而是把失分原因分类清掉。</p>
+        </div>
+        <span class="tag">复盘</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>掌握</th><th>错因</th><th>表现</th><th>处理方式</th></tr></thead>
+          <tbody>
+            <tr><td><input type="checkbox" data-id="review-01"></td><td>没看懂题</td><td>答非所问，漏掉题干限定</td><td>圈出题干关键词，判断题型和答题对象。</td></tr>
+            <tr><td><input type="checkbox" data-id="review-02"></td><td>找不到原文</td><td>凭感觉作答，答案脱离文本</td><td>标出答案所在段落和关键词。</td></tr>
+            <tr><td><input type="checkbox" data-id="review-03"></td><td>答案太空</td><td>只写“表达情感”“突出主题”，没有依据</td><td>补上具体词句、情节或材料信息。</td></tr>
+            <tr><td><input type="checkbox" data-id="review-04"></td><td>没有术语</td><td>明白意思但表达不规范</td><td>补充修辞、描写、结构、论证、说明等术语。</td></tr>
+            <tr><td><input type="checkbox" data-id="review-05"></td><td>文言漏关键词</td><td>翻译大意对，但丢分</td><td>逐词落实实词虚词，补省略，调语序。</td></tr>
+            <tr><td><input type="checkbox" data-id="review-06"></td><td>默写错字</td><td>会背但写错</td><td>建立易错字清单，按句子反复默写。</td></tr>
+            <tr><td><input type="checkbox" data-id="review-07"></td><td>作文偏题</td><td>素材能写，但中心不扣题</td><td>重写标题对应的中心句，并在开头结尾回扣。</td></tr>
+            <tr><td><input type="checkbox" data-id="review-08"></td><td>作文空泛</td><td>道理多，事件少，细节少</td><td>补动作、语言、心理、场景和变化。</td></tr>
+            <tr><td><input type="checkbox" data-id="review-09"></td><td>卷面失分</td><td>错别字、标点混乱、字迹不清</td><td>控制字距行距，标点占格，减少涂改。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="foot">本表用于浙江温州初中语文中考查漏补缺。勾选状态保存在本机浏览器中。</p>
+  </div>
+
+  <script>
+    const boxes = Array.from(document.querySelectorAll('input[type="checkbox"][data-id]'));
+    const progressText = document.getElementById('progressText');
+    const progressBar = document.getElementById('progressBar');
+    const storagePrefix = 'wenzhou-chinese-checklist:';
+
+    function updateProgress() {
+      const total = boxes.length;
+      const done = boxes.filter((box) => box.checked).length;
+      const percent = total ? Math.round((done / total) * 100) : 0;
+      progressText.textContent = `${done} / ${total}，${percent}%`;
+      progressBar.style.width = `${percent}%`;
+    }
+
+    boxes.forEach((box) => {
+      const saved = localStorage.getItem(storagePrefix + box.dataset.id);
+      box.checked = saved === '1';
+      box.addEventListener('change', () => {
+        localStorage.setItem(storagePrefix + box.dataset.id, box.checked ? '1' : '0');
+        updateProgress();
+      });
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      const confirmed = window.confirm('确认清空所有勾选状态？');
+      if (!confirmed) return;
+      boxes.forEach((box) => {
+        box.checked = false;
+        localStorage.removeItem(storagePrefix + box.dataset.id);
+      });
+      updateProgress();
+    });
+
+    updateProgress();
+  </script>
+<!-- mobile-foldable-study-start -->
+  <script>
+    (function () {
+      const mobileQuery = window.matchMedia("(max-width: 760px)");
+      if (!mobileQuery.matches) return;
+
+      document.body.classList.add("mobile-table-cards");
+
+      document.querySelectorAll("table").forEach(table => {
+        const labels = Array.from(table.querySelectorAll("thead th")).map(th => th.textContent.trim());
+        table.querySelectorAll("tbody tr").forEach(row => {
+          Array.from(row.children).forEach((cell, index) => {
+            cell.setAttribute("data-label", labels[index] || "");
+          });
+        });
+      });
+
+      document.querySelectorAll("section").forEach(section => {
+        Array.from(section.querySelectorAll(":scope > .table-wrap")).forEach((tableWrap, index) => {
+          if (tableWrap.closest(".mobile-fold")) return;
+
+          const previous = tableWrap.previousElementSibling;
+          const titleNode = previous && previous.tagName === "H3" ? previous : null;
+          const title = (titleNode?.textContent || section.querySelector(".section-head h2, h2")?.textContent || "章节").trim();
+
+          const details = document.createElement("details");
+          details.className = "mobile-fold";
+          details.open = true;
+
+          const summary = document.createElement("summary");
+          summary.textContent = title;
+
+          const body = document.createElement("div");
+          body.className = "mobile-fold-body";
+
+          const anchor = titleNode || tableWrap;
+          anchor.before(details);
+          details.append(summary, body);
+          if (titleNode) body.appendChild(titleNode);
+          body.appendChild(tableWrap);
+        });
+      });
+    })();
+  </script>
+<!-- mobile-foldable-study-end -->
+</body>
+</html>

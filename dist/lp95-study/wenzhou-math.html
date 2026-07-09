@@ -1,0 +1,2997 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>浙江温州初中数学中考知识体系查漏补缺表</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --paper: #ffffff;
+      --ink: #18202a;
+      --muted: #5f6b7a;
+      --line: #d9dee7;
+      --soft: #eef2f7;
+      --brand: #1d5f8f;
+      --brand-2: #0f766e;
+      --warn: #9a3412;
+      --shadow: 0 10px 30px rgba(24, 32, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.58;
+    }
+
+    a {
+      color: var(--brand);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    header {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 26px 0 10px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      max-width: 900px;
+      margin-bottom: 0;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 12px;
+      align-items: center;
+      background: rgba(246, 247, 249, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 0;
+      margin-bottom: 18px;
+    }
+
+    .progress-wrap {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      min-width: 0;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .bar {
+      height: 10px;
+      overflow: hidden;
+      background: var(--soft);
+      border-radius: 999px;
+    }
+
+    .bar span {
+      display: block;
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      border-radius: 999px;
+      transition: width 180ms ease;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    button:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+
+    nav {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    nav strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 8px 14px;
+      font-size: 14px;
+    }
+
+    section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--soft);
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 3px 0 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      border: 1px solid #c7d7ea;
+      border-radius: 999px;
+      background: #f0f7ff;
+      color: var(--brand);
+      padding: 2px 10px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin: 10px 0 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 880px;
+      background: var(--paper);
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      padding: 10px 12px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th:last-child,
+    td:last-child {
+      border-right: 0;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    th {
+      background: #f0f3f8;
+      color: #263241;
+      font-weight: 700;
+    }
+
+    td:first-child,
+    th:first-child {
+      width: 56px;
+      text-align: center;
+    }
+
+    td:nth-child(2) {
+      width: 140px;
+      font-weight: 650;
+    }
+
+    td:nth-child(3) {
+      width: 300px;
+    }
+
+    .compact td:nth-child(2) {
+      width: auto;
+      font-weight: 650;
+    }
+
+    .compact td:nth-child(3) {
+      width: auto;
+    }
+
+    .formula {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      background: #f7f8fb;
+      border: 1px solid #e1e5ec;
+      border-radius: 6px;
+      padding: 1px 5px;
+      white-space: nowrap;
+    }
+
+    .level {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--brand-2);
+      cursor: pointer;
+    }
+
+    .note-box {
+      border-left: 4px solid var(--brand);
+      background: #f3f8ff;
+      padding: 12px 14px;
+      border-radius: 6px;
+      color: #28415f;
+      margin-top: 14px;
+    }
+
+    .mindmap {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background:
+        linear-gradient(90deg, rgba(29, 95, 143, 0.05) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(29, 95, 143, 0.05) 1px, transparent 1px),
+        #fbfcfe;
+      background-size: 26px 26px;
+      padding: 22px;
+      overflow-x: auto;
+    }
+
+    .map-root {
+      min-width: 980px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .map-center {
+      min-height: 180px;
+      display: grid;
+      place-items: center;
+      border: 2px solid #b8d1e6;
+      border-radius: 10px;
+      background: #ffffff;
+      color: var(--brand);
+      text-align: center;
+      padding: 18px;
+      font-weight: 800;
+      box-shadow: 0 8px 18px rgba(29, 95, 143, 0.08);
+    }
+
+    .map-center span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .map-branches {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .map-node {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--brand);
+      border-radius: 8px;
+      padding: 14px 14px 12px;
+    }
+
+    .map-node:nth-child(2n) {
+      border-left-color: var(--brand-2);
+    }
+
+    .map-node h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: #263241;
+    }
+
+    .map-node ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .map-node li {
+      margin: 3px 0;
+    }
+
+    .foot {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      margin-top: 28px;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(100% - 20px, 1200px);
+        padding-top: 16px;
+      }
+
+      header,
+      section {
+        padding: 18px;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page {
+        width: 100%;
+        padding: 0;
+      }
+
+      .toolbar,
+      nav {
+        display: none;
+      }
+
+      header,
+      section {
+        box-shadow: none;
+        border-radius: 0;
+        break-inside: avoid;
+      }
+
+      .table-wrap {
+        overflow: visible;
+      }
+
+      table {
+        min-width: 0;
+        font-size: 12px;
+      }
+    }
+  
+/* mobile-foldable-study-start */
+    @media (max-width: 760px) {
+      body.mobile-table-cards .table-wrap {
+        overflow: visible;
+      }
+
+      body.mobile-table-cards .mobile-fold {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #fbfcfe;
+        margin: 10px 0;
+        overflow: hidden;
+      }
+
+      body.mobile-table-cards .mobile-fold > summary {
+        list-style: none;
+        cursor: pointer;
+        min-height: 48px;
+        padding: 12px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        align-items: center;
+        color: #174ea6;
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      body.mobile-table-cards .mobile-fold > summary::-webkit-details-marker {
+        display: none;
+      }
+
+      body.mobile-table-cards .mobile-fold > summary::after {
+        content: "收起";
+        border: 1px solid #cfe0ff;
+        border-radius: 999px;
+        background: var(--blue-soft, #eaf2ff);
+        color: #174ea6;
+        padding: 3px 8px;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      body.mobile-table-cards .mobile-fold:not([open]) > summary::after {
+        content: "展开";
+      }
+
+      body.mobile-table-cards .mobile-fold-body {
+        padding: 0 10px 10px;
+      }
+
+      body.mobile-table-cards .mobile-fold .group-title,
+      body.mobile-table-cards .mobile-fold > h3 {
+        display: none;
+      }
+
+      body.mobile-table-cards .mobile-fold .table-wrap {
+        border: 0;
+        border-radius: 0;
+        margin: 0;
+      }
+
+      body.mobile-table-cards .mobile-fold table,
+      body.mobile-table-cards .mobile-fold thead,
+      body.mobile-table-cards .mobile-fold tbody,
+      body.mobile-table-cards .mobile-fold tr,
+      body.mobile-table-cards .mobile-fold th,
+      body.mobile-table-cards .mobile-fold td {
+        display: block;
+        width: 100%;
+        min-width: 0;
+      }
+
+      body.mobile-table-cards .mobile-fold table {
+        border: 0;
+        background: transparent;
+      }
+
+      body.mobile-table-cards .mobile-fold thead {
+        display: none;
+      }
+
+      body.mobile-table-cards .mobile-fold tbody {
+        display: grid;
+        gap: 8px;
+      }
+
+      body.mobile-table-cards .mobile-fold tr {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: #fff;
+        padding: 10px 10px 10px 40px;
+        box-shadow: 0 2px 8px rgba(20, 32, 43, .04);
+      }
+
+      body.mobile-table-cards .mobile-fold td {
+        border: 0;
+        padding: 0;
+        text-align: left;
+      }
+
+      body.mobile-table-cards .mobile-fold td:first-child {
+        position: absolute;
+        left: 10px;
+        top: 12px;
+        width: 20px;
+      }
+
+      body.mobile-table-cards .mobile-fold td:nth-child(2) {
+        color: #1d6443;
+        font-size: 12px;
+        font-weight: 900;
+        line-height: 1.35;
+      }
+
+      body.mobile-table-cards .mobile-fold td:nth-child(3) {
+        color: var(--ink);
+        font-size: 15px;
+        font-weight: 900;
+        line-height: 1.45;
+        margin-top: 3px;
+      }
+
+      body.mobile-table-cards .mobile-fold td:nth-child(n+4) {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.55;
+        margin-top: 6px;
+      }
+
+      body.mobile-table-cards .mobile-fold td:nth-child(n+4)::before {
+        content: attr(data-label);
+        display: block;
+        color: #506070;
+        font-size: 11px;
+        font-weight: 900;
+        line-height: 1.25;
+        margin-bottom: 2px;
+      }
+    }
+/* mobile-foldable-study-end */
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>浙江温州初中数学中考知识体系查漏补缺表</h1>
+      <p class="subtitle">
+        适用于温州市初中数学中考复习。框架依据《义务教育数学课程标准（2022年版）》和浙江省初中学业水平考试省级统一命题方向整理。内容按“章节、知识点、考点、关键方法”组织。
+      </p>
+      <div class="note-box">
+        使用方式：逐项检查“是否掌握”。能独立说出概念、完成典型题、解释易错点，才建议勾选。
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span>查漏补缺进度</span>
+          <span id="progressText">0 / 0</span>
+        </div>
+        <div class="bar"><span id="progressBar"></span></div>
+      </div>
+      <button id="resetBtn" type="button">清空勾选</button>
+      <button type="button" onclick="window.print()">打印或导出 PDF</button>
+    </div>
+
+    <nav>
+      <strong>目录</strong>
+      <div class="nav-grid">
+        <a href="#map">一、总知识地图</a>
+        <a href="#mindmap">整体思维导图</a>
+        <a href="#number-algebra">二、数与代数</a>
+        <a href="#function">三、函数</a>
+        <a href="#geometry">四、图形与几何</a>
+        <a href="#statistics">五、统计与概率</a>
+        <a href="#practice">六、综合与实践</a>
+        <a href="#methods">七、数学思想方法</a>
+        <a href="#formula">八、公式与结论速查</a>
+      </div>
+    </nav>
+
+    <section id="mindmap">
+      <div class="section-head">
+        <div>
+          <h2>整体思维导图</h2>
+          <p class="section-note">用一张总图把中考数学主干关系串起来。复习时先定位领域，再下钻到后面的表格考点。</p>
+        </div>
+        <span class="tag">知识脉络</span>
+      </div>
+
+      <div class="mindmap" aria-label="浙江温州中考数学知识思维导图">
+        <div class="map-root">
+          <div class="map-center">
+            浙江温州中考数学
+            <span>数与代数 · 函数 · 图形几何 · 统计概率 · 综合实践</span>
+          </div>
+          <div class="map-branches">
+            <div class="map-node">
+              <h3>数与代数</h3>
+              <ul>
+                <li>实数、数轴、绝对值、平方根、立方根</li>
+                <li>整式、乘法公式、因式分解、分式、二次根式</li>
+                <li>方程、方程组、不等式、一元二次方程</li>
+              </ul>
+            </div>
+            <div class="map-node">
+              <h3>函数</h3>
+              <ul>
+                <li>坐标系、函数表示法、自变量范围</li>
+                <li>一次函数、反比例函数、二次函数</li>
+                <li>函数图象、交点、最值、实际建模</li>
+              </ul>
+            </div>
+            <div class="map-node">
+              <h3>图形与几何</h3>
+              <ul>
+                <li>线角、平行线、三角形、全等、等腰、直角</li>
+                <li>相似、三角函数、四边形、圆、图形变换</li>
+                <li>投影视图、面积计算、几何最值、动点问题</li>
+              </ul>
+            </div>
+            <div class="map-node">
+              <h3>统计与概率</h3>
+              <ul>
+                <li>全面调查、抽样调查、样本与总体</li>
+                <li>统计图表、平均数、中位数、众数、方差</li>
+                <li>随机事件、列表法、树状图法、游戏公平性</li>
+              </ul>
+            </div>
+            <div class="map-node">
+              <h3>综合与实践</h3>
+              <ul>
+                <li>销售利润、行程工程、方案选择、测量应用</li>
+                <li>阅读理解、新定义、规律探究、项目化情境</li>
+                <li>函数压轴、几何压轴、参数讨论、存在性问题</li>
+              </ul>
+            </div>
+            <div class="map-node">
+              <h3>核心方法</h3>
+              <ul>
+                <li>数形结合、分类讨论、方程思想、函数思想</li>
+                <li>转化思想、整体思想、建模思想、逆向思维</li>
+                <li>特殊到一般、从目标倒推条件、检验取值范围</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="map">
+      <div class="section-head">
+        <div>
+          <h2>一、总知识地图</h2>
+          <p class="section-note">先看全局结构，再进入细项清单。</p>
+        </div>
+        <span class="tag">总览</span>
+      </div>
+
+      <h3>1.1 四大领域</h3>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>领域</th>
+              <th>核心内容</th>
+              <th>中考核心任务</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="map-01"></td>
+              <td>数与代数</td>
+              <td>实数、代数式、整式、分式、二次根式、方程、不等式</td>
+              <td>会算、会化简、会列方程、会处理参数和取值范围</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="map-02"></td>
+              <td>函数</td>
+              <td>坐标系、一次函数、反比例函数、二次函数、函数综合</td>
+              <td>会读图、会建模、会求解析式、会处理最值和交点</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="map-03"></td>
+              <td>图形与几何</td>
+              <td>线角、三角形、四边形、相似、圆、三角函数、图形变换</td>
+              <td>会识图、会证明、会计算、会作辅助线、会处理动点</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="map-04"></td>
+              <td>统计与概率</td>
+              <td>调查、统计图表、平均数、中位数、众数、方差、概率</td>
+              <td>会读数据、会补图表、会评价数据、会计算简单概率</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="map-05"></td>
+              <td>综合与实践</td>
+              <td>实际问题建模、方案设计、阅读理解、新定义、项目化情境</td>
+              <td>把现实语言转成数学式、图、表和函数模型，并能解释结论</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>1.2 年级脉络</h3>
+      <div class="table-wrap">
+        <table class="compact">
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>阶段</th>
+              <th>知识主线</th>
+              <th>重点模块</th>
+              <th>中考连接点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="map-grade-07"></td>
+              <td>七年级</td>
+              <td>从数、式、方程和基础图形入门</td>
+              <td>有理数、实数初步、代数式、整式、一元一次方程、相交线与平行线、三角形、数据整理</td>
+              <td>基础计算、角度计算、方程建模、统计图表入门</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="map-grade-08"></td>
+              <td>八年级</td>
+              <td>从运算走向函数和几何证明</td>
+              <td>整式乘法、因式分解、分式、二次根式、方程组、不等式、一次函数、反比例函数、全等、四边形</td>
+              <td>中档题主体，函数图象和几何证明的基础</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="map-grade-09"></td>
+              <td>九年级</td>
+              <td>综合函数、圆、相似、三角函数与应用</td>
+              <td>一元二次方程、二次函数、相似三角形、锐角三角函数、圆、概率、投影与视图、综合建模</td>
+              <td>压轴题、综合题、实际应用题的主要来源</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="number-algebra">
+      <div class="section-head">
+        <div>
+          <h2>二、数与代数</h2>
+          <p class="section-note">中考基础分和中档分的主要来源。要求准确、熟练、少失误。</p>
+        </div>
+        <span class="tag">计算与方程</span>
+      </div>
+
+      <h3>2.1 实数与数轴</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="na-real-01"></td>
+              <td>有理数</td>
+              <td>正数、负数、整数、分数、0 的意义和分类</td>
+              <td>0 既不是正数也不是负数；负数常用于温度、盈亏、海拔、方向等情境。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-real-02"></td>
+              <td>数轴</td>
+              <td>用数轴表示实数，判断大小，理解原点、正方向、单位长度</td>
+              <td>右边的数大于左边的数；数轴上的点和实数一一对应。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-real-03"></td>
+              <td>相反数</td>
+              <td>求相反数，识别互为相反数，利用相反数化简</td>
+              <td><span class="formula">a</span> 的相反数是 <span class="formula">-a</span>；不要把“相反数”和“倒数”混淆。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-real-04"></td>
+              <td>绝对值</td>
+              <td>求绝对值，绝对值的几何意义，含绝对值式子的简单化简</td>
+              <td><span class="formula">|a|</span> 表示数轴上点 <span class="formula">a</span> 到原点的距离，结果非负。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-real-05"></td>
+              <td>倒数</td>
+              <td>求倒数，判断互为倒数</td>
+              <td>乘积为 1 的两个数互为倒数；0 没有倒数。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-real-06"></td>
+              <td>平方根</td>
+              <td>平方根、算术平方根、开平方运算</td>
+              <td>正数有两个平方根，0 的平方根是 0，负数没有实数平方根；算术平方根非负。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-real-07"></td>
+              <td>立方根</td>
+              <td>求立方根，理解正负数都有唯一立方根</td>
+              <td>负数的立方根是负数；<span class="formula">∛(-a)=-∛a</span>。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-real-08"></td>
+              <td>无理数</td>
+              <td>识别无理数，实数分类</td>
+              <td>无限不循环小数是无理数；常见如 <span class="formula">π</span>、开方开不尽的数。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-real-09"></td>
+              <td>实数大小比较</td>
+              <td>利用数轴、绝对值、估算、平方比较大小</td>
+              <td>比较二次根式大小时可平方比较，但要注意两边非负。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-real-10"></td>
+              <td>估算</td>
+              <td>估计无理数范围，确定整数部分、小数范围</td>
+              <td>常用相邻平方数、立方数定位，如 <span class="formula">2&lt;√5&lt;3</span>。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>2.2 实数运算与近似</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="na-calc-01"></td>
+              <td>有理数运算</td>
+              <td>加、减、乘、除、乘方混合运算</td>
+              <td>先乘方，再乘除，后加减；有括号先算括号；注意负号和幂的结合。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-calc-02"></td>
+              <td>运算律</td>
+              <td>交换律、结合律、分配律简算</td>
+              <td>分配律既可展开也可提取公因数；注意符号随项移动。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-calc-03"></td>
+              <td>科学记数法</td>
+              <td>把大数或小数写成 <span class="formula">a×10^n</span></td>
+              <td><span class="formula">1≤|a|&lt;10</span>；小于 1 的正数指数为负。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-calc-04"></td>
+              <td>近似数</td>
+              <td>按要求取近似值，理解精确到某位</td>
+              <td>“精确到 0.01”和“保留两位小数”含义一致；注意四舍五入后的末尾 0。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-calc-05"></td>
+              <td>实数混合运算</td>
+              <td>含绝对值、乘方、开方、负整数指数的综合计算</td>
+              <td>常见中考基础题，要求一遍算对；先化简特殊项再合并。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>2.3 代数式、整式与乘法公式</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="na-exp-01"></td>
+              <td>列代数式</td>
+              <td>用字母表示数量关系、规律、面积、周长、价格</td>
+              <td>先确定变量含义，再写数量关系；单位要一致。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-exp-02"></td>
+              <td>代数式求值</td>
+              <td>直接代入、整体代入、条件求值</td>
+              <td>含负数代入时必须加括号；整体代入常比展开更稳。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-exp-03"></td>
+              <td>单项式与多项式</td>
+              <td>系数、次数、项数、同类项</td>
+              <td>单项式次数是所有字母指数和；多项式次数取最高次项次数。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-exp-04"></td>
+              <td>合并同类项</td>
+              <td>整式加减、去括号、添括号</td>
+              <td>同类项字母和指数完全相同；去括号时括号前是负号要变号。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-exp-05"></td>
+              <td>幂的运算</td>
+              <td>同底数幂乘除、幂的乘方、积的乘方</td>
+              <td><span class="formula">a^m·a^n=a^(m+n)</span>，<span class="formula">(a^m)^n=a^(mn)</span>，<span class="formula">(ab)^n=a^n b^n</span>。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-exp-06"></td>
+              <td>整式乘法</td>
+              <td>单项式乘单项式、单项式乘多项式、多项式乘多项式</td>
+              <td>多项式乘法要每项相乘，最后合并同类项。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-exp-07"></td>
+              <td>乘法公式</td>
+              <td>平方差公式、完全平方公式</td>
+              <td><span class="formula">(a+b)(a-b)=a²-b²</span>；<span class="formula">(a±b)²=a²±2ab+b²</span>。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-exp-08"></td>
+              <td>整式化简求值</td>
+              <td>先展开或因式分解，再代入求值</td>
+              <td>能用公式优先用公式；复杂条件题优先观察整体结构。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>2.4 因式分解</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="na-factor-01"></td>
+              <td>提公因式法</td>
+              <td>提取数字、字母、单项式、多项式公因式</td>
+              <td>先提公因式是基本顺序；提负号后括号内各项变号。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-factor-02"></td>
+              <td>公式法</td>
+              <td>平方差、完全平方三项式</td>
+              <td>分解到不能再分解为止；完全平方中间项必须是 <span class="formula">±2ab</span>。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-factor-03"></td>
+              <td>分组分解</td>
+              <td>四项或多项式分组后提公因式</td>
+              <td>分组后通常要出现相同括号或可用公式的结构。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-factor-04"></td>
+              <td>十字相乘思想</td>
+              <td>二次三项式分解</td>
+              <td>浙江中考常以熟练因式分解为基础，不建议依赖死记，应会反向检查。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-factor-05"></td>
+              <td>因式分解应用</td>
+              <td>解方程、化简分式、证明整除、求值</td>
+              <td>因式分解是工具，常和方程、分式、函数交点结合。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>2.5 分式</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="na-frac-01"></td>
+              <td>分式概念</td>
+              <td>判断分式，求分式有意义条件</td>
+              <td>分母不能为 0；含参数时要写出限制条件。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-frac-02"></td>
+              <td>分式基本性质</td>
+              <td>约分、通分、最简分式</td>
+              <td>约分约的是因式，不是项；先因式分解再约分。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-frac-03"></td>
+              <td>分式运算</td>
+              <td>加、减、乘、除、混合运算</td>
+              <td>除法先转乘倒数；加减必须通分；最后要化为最简。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-frac-04"></td>
+              <td>分式化简求值</td>
+              <td>化简后代入，结合条件求值</td>
+              <td>代入值不能使原式分母为 0；不能只看化简后的分母。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-frac-05"></td>
+              <td>分式方程</td>
+              <td>去分母解方程，实际问题应用</td>
+              <td>必须验根，增根是高频扣分点。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>2.6 二次根式</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="na-root-01"></td>
+              <td>二次根式概念</td>
+              <td>有意义条件，最简二次根式</td>
+              <td>被开方数非负；分母不含根号，根号内不含能开方的因数。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-root-02"></td>
+              <td>二次根式性质</td>
+              <td><span class="formula">√a²=|a|</span>，积商性质</td>
+              <td><span class="formula">√a²</span> 不是恒等于 <span class="formula">a</span>，要看 <span class="formula">a</span> 的符号。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-root-03"></td>
+              <td>二次根式化简</td>
+              <td>开方、化最简、分母有理化</td>
+              <td>先分解被开方数；同类二次根式才能合并。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-root-04"></td>
+              <td>二次根式运算</td>
+              <td>加减乘除和混合运算</td>
+              <td>乘除按性质处理，加减先化简再合并。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-root-05"></td>
+              <td>根式估算</td>
+              <td>比较大小，确定范围</td>
+              <td>常和数轴、面积、函数图象结合。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>2.7 方程与方程组</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="na-eq-01"></td>
+              <td>一元一次方程</td>
+              <td>去分母、去括号、移项、合并、系数化为 1</td>
+              <td>去分母时每一项都要乘最小公倍数；移项要变号。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-eq-02"></td>
+              <td>二元一次方程组</td>
+              <td>代入消元法、加减消元法</td>
+              <td>根据系数特点选方法；应用题要设清两个未知数。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-eq-03"></td>
+              <td>分式方程</td>
+              <td>实际问题、工程问题、行程问题、比例问题</td>
+              <td>去分母后解出的根必须代回最简公分母验根。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-eq-04"></td>
+              <td>方程建模</td>
+              <td>销售、增长率、行程、工程、几何面积</td>
+              <td>找等量关系是核心；答案要符合实际意义和题设范围。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-eq-05"></td>
+              <td>参数方程</td>
+              <td>已知解求参数，讨论解的情况</td>
+              <td>参数题要注意特殊值导致方程类型变化。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>2.8 不等式与不等式组</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="na-ineq-01"></td>
+              <td>不等式性质</td>
+              <td>不等式变形、判断变号</td>
+              <td>两边同乘或同除负数时，不等号方向必须改变。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-ineq-02"></td>
+              <td>一元一次不等式</td>
+              <td>解不等式，在数轴上表示解集</td>
+              <td>空心点和实心点不要混；方向按大小关系画。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-ineq-03"></td>
+              <td>不等式组</td>
+              <td>求公共解集，整数解，参数取值</td>
+              <td>口诀只是辅助，最终要看数轴交集。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-ineq-04"></td>
+              <td>不等式应用</td>
+              <td>方案选择、费用控制、产量范围、利润范围</td>
+              <td>“至少”“至多”“不少于”“不超过”对应不等号要准确。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>2.9 一元二次方程</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="na-quad-01"></td>
+              <td>概念与一般式</td>
+              <td>判断一元二次方程，写成 <span class="formula">ax²+bx+c=0</span></td>
+              <td><span class="formula">a≠0</span>；含参数时要先保证二次项系数不为 0。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-quad-02"></td>
+              <td>解法</td>
+              <td>直接开平方法、配方法、公式法、因式分解法</td>
+              <td>根据方程结构选方法；公式法注意判别式和符号。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-quad-03"></td>
+              <td>根的判别式</td>
+              <td>判断根的个数，求参数范围</td>
+              <td><span class="formula">Δ=b²-4ac</span>；两个不相等实根、两个相等实根、无实根分别对应 <span class="formula">Δ&gt;0</span>、<span class="formula">Δ=0</span>、<span class="formula">Δ&lt;0</span>。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-quad-04"></td>
+              <td>根与系数关系</td>
+              <td>两根和、两根积、构造方程</td>
+              <td><span class="formula">x₁+x₂=-b/a</span>，<span class="formula">x₁x₂=c/a</span>；前提是方程有实根且 <span class="formula">a≠0</span>。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="na-quad-05"></td>
+              <td>实际应用</td>
+              <td>面积、增长率、利润、几何动点</td>
+              <td>二次方程的两个根不一定都符合实际，要检验范围和意义。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="function">
+      <div class="section-head">
+        <div>
+          <h2>三、函数</h2>
+          <p class="section-note">浙江中考中后段题的核心板块。重点是图象、性质、模型和综合应用。</p>
+        </div>
+        <span class="tag">数形结合</span>
+      </div>
+
+      <h3>3.1 平面直角坐标系</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="fn-coord-01"></td>
+              <td>坐标系</td>
+              <td>象限、坐标轴、点的坐标</td>
+              <td>坐标轴上的点不属于任何象限；横坐标在前，纵坐标在后。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-coord-02"></td>
+              <td>坐标符号</td>
+              <td>根据象限判断点坐标符号</td>
+              <td>第一象限 <span class="formula">(+,+)</span>，第二象限 <span class="formula">(-,+)</span>，第三象限 <span class="formula">(-,-)</span>，第四象限 <span class="formula">(+,-)</span>。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-coord-03"></td>
+              <td>坐标变换</td>
+              <td>关于坐标轴、原点对称；平移点的坐标</td>
+              <td>关于 x 轴纵坐标变号，关于 y 轴横坐标变号，关于原点两坐标都变号。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-coord-04"></td>
+              <td>距离与面积</td>
+              <td>水平距离、竖直距离、坐标三角形面积</td>
+              <td>坐标差取绝对值；常用割补法求面积。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>3.2 函数基础</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="fn-basic-01"></td>
+              <td>变量与函数</td>
+              <td>常量、变量、自变量、因变量、函数关系</td>
+              <td>一个自变量取值对应唯一函数值才是函数。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-basic-02"></td>
+              <td>自变量取值范围</td>
+              <td>分母不为 0、根号内非负、实际意义限制</td>
+              <td>实际问题中常还要满足时间、长度、数量为非负或整数。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-basic-03"></td>
+              <td>函数表示法</td>
+              <td>解析式、表格、图象、文字描述互相转化</td>
+              <td>中考常要求从图象读信息，再转成方程或不等式。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-basic-04"></td>
+              <td>函数图象</td>
+              <td>读坐标、读交点、读增减、读最值、读分段关系</td>
+              <td>图象上的点满足解析式；交点坐标满足两个函数解析式。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>3.3 一次函数</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="fn-linear-01"></td>
+              <td>表达式</td>
+              <td><span class="formula">y=kx+b</span>，正比例函数 <span class="formula">y=kx</span></td>
+              <td><span class="formula">k≠0</span>；正比例函数图象过原点。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-linear-02"></td>
+              <td>图象性质</td>
+              <td>斜率、截距、增减性、经过象限</td>
+              <td><span class="formula">k&gt;0</span> 随 x 增大而增大，<span class="formula">k&lt;0</span> 随 x 增大而减小。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-linear-03"></td>
+              <td>待定系数法</td>
+              <td>由一点和斜率、两点、图象信息求解析式</td>
+              <td>求出解析式后代回已知点检查。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-linear-04"></td>
+              <td>交点问题</td>
+              <td>一次函数与坐标轴交点，两直线交点</td>
+              <td>与 x 轴交点令 <span class="formula">y=0</span>，与 y 轴交点令 <span class="formula">x=0</span>。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-linear-05"></td>
+              <td>一次函数应用</td>
+              <td>费用、行程、方案选择、分段计费</td>
+              <td>分段函数要写清每段自变量范围；比较方案常转化为解不等式。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>3.4 反比例函数</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="fn-inverse-01"></td>
+              <td>表达式</td>
+              <td><span class="formula">y=k/x</span> 或 <span class="formula">xy=k</span></td>
+              <td><span class="formula">k≠0</span>，自变量 <span class="formula">x≠0</span>。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-inverse-02"></td>
+              <td>图象性质</td>
+              <td>双曲线位置、增减性、对称性</td>
+              <td><span class="formula">k&gt;0</span> 在一、三象限；<span class="formula">k&lt;0</span> 在二、四象限。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-inverse-03"></td>
+              <td>k 的几何意义</td>
+              <td>矩形面积、三角形面积</td>
+              <td>点到两坐标轴构成矩形面积为 <span class="formula">|k|</span>。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-inverse-04"></td>
+              <td>待定系数法</td>
+              <td>由图象上一点求解析式</td>
+              <td>把点坐标代入 <span class="formula">xy=k</span> 最快。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-inverse-05"></td>
+              <td>函数综合</td>
+              <td>一次函数与反比例函数交点、面积、取值范围</td>
+              <td>交点由方程组求；图象比较大小要分区间。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>3.5 二次函数</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="fn-quadratic-01"></td>
+              <td>表达式形式</td>
+              <td>一般式、顶点式、交点式</td>
+              <td>一般式 <span class="formula">y=ax²+bx+c</span>；顶点式 <span class="formula">y=a(x-h)²+k</span>；交点式 <span class="formula">y=a(x-x₁)(x-x₂)</span>。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-quadratic-02"></td>
+              <td>图象特征</td>
+              <td>开口方向、对称轴、顶点、最值</td>
+              <td><span class="formula">a&gt;0</span> 开口向上有最小值；<span class="formula">a&lt;0</span> 开口向下有最大值。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-quadratic-03"></td>
+              <td>对称轴</td>
+              <td>求 <span class="formula">x=-b/(2a)</span>，利用对称点</td>
+              <td>两个等高点的横坐标平均数就是对称轴。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-quadratic-04"></td>
+              <td>与坐标轴交点</td>
+              <td>与 y 轴交点、与 x 轴交点、根的判别式</td>
+              <td>与 x 轴交点个数等价于对应一元二次方程实根个数。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-quadratic-05"></td>
+              <td>平移变换</td>
+              <td>抛物线左右上下平移</td>
+              <td>顶点式最适合处理平移；“左加右减，上加下减”。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-quadratic-06"></td>
+              <td>待定系数法</td>
+              <td>由三点、顶点和一点、交点和一点求解析式</td>
+              <td>根据已知条件选择最简表达式，减少计算量。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-quadratic-07"></td>
+              <td>二次函数最值</td>
+              <td>销售利润、面积、距离、方案优化</td>
+              <td>实际问题要考虑自变量范围，区间最值不一定在顶点。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-quadratic-08"></td>
+              <td>二次函数综合</td>
+              <td>与一次函数、几何图形、面积、动点结合</td>
+              <td>压轴常用“设点坐标、表示线段、列面积或相似关系”。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>3.6 函数综合考法</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>题型</th>
+              <th>考点</th>
+              <th>关键方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="fn-combo-01"></td>
+              <td>图象信息题</td>
+              <td>读交点、斜率、面积、最值、增减性</td>
+              <td>先标关键点坐标，再把图象语言转成方程、不等式或函数值比较。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-combo-02"></td>
+              <td>函数与方程</td>
+              <td>函数交点与方程组、二次函数与一元二次方程</td>
+              <td>交点问题本质是“同一个 x 下 y 相等”。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-combo-03"></td>
+              <td>函数与不等式</td>
+              <td>根据图象解不等式，比较两个函数大小</td>
+              <td>观察哪条图象在上方，并写清区间端点是否取到。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-combo-04"></td>
+              <td>函数与几何</td>
+              <td>坐标三角形、面积、相似、平行、垂直</td>
+              <td>将几何点设为坐标，用代数表示长度和面积。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="fn-combo-05"></td>
+              <td>函数建模</td>
+              <td>利润、费用、行程、抛物线情境、最值优化</td>
+              <td>必须写自变量范围；求完后解释实际意义。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="geometry">
+      <div class="section-head">
+        <div>
+          <h2>四、图形与几何</h2>
+          <p class="section-note">重点是基本图形、证明链条、计算能力、辅助线和动点综合。</p>
+        </div>
+        <span class="tag">证明与计算</span>
+      </div>
+
+      <h3>4.1 线、角与平行线</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="geo-line-01"></td>
+              <td>线段、射线、直线</td>
+              <td>基本概念、线段和差、线段中点</td>
+              <td>线段有长度，射线和直线没有长度；中点产生相等线段。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-line-02"></td>
+              <td>角</td>
+              <td>角的分类、角平分线、余角、补角</td>
+              <td>余角和为 90°，补角和为 180°；同角或等角的余角、补角相等。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-line-03"></td>
+              <td>相交线</td>
+              <td>对顶角、邻补角、垂线</td>
+              <td>对顶角相等；垂线段最短。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-line-04"></td>
+              <td>平行线性质</td>
+              <td>同位角、内错角、同旁内角</td>
+              <td>两直线平行，同位角相等，内错角相等，同旁内角互补。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-line-05"></td>
+              <td>平行线判定</td>
+              <td>由角关系证明两直线平行</td>
+              <td>性质和判定方向不能写反；证明题要表达清楚“因为角相等，所以线平行”。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.2 三角形基础</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="geo-tri-01"></td>
+              <td>三角形三边关系</td>
+              <td>判断能否构成三角形，求边长范围</td>
+              <td>两边之和大于第三边，两边之差小于第三边。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-tri-02"></td>
+              <td>三角形内外角</td>
+              <td>内角和、外角性质、角度计算</td>
+              <td>三角形内角和 180°；外角等于不相邻两个内角之和。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-tri-03"></td>
+              <td>三角形重要线段</td>
+              <td>高、中线、角平分线、中位线</td>
+              <td>中位线平行第三边且等于第三边一半；高的位置随三角形类型变化。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-tri-04"></td>
+              <td>面积</td>
+              <td>底高公式、等底等高、割补法</td>
+              <td>同底等高面积相等；坐标题常用水平底和竖直高。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-tri-05"></td>
+              <td>三角形稳定性</td>
+              <td>实际情境、结构判断</td>
+              <td>常出现在选择、填空或项目化情境中。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.3 全等三角形</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="geo-cong-01"></td>
+              <td>全等判定</td>
+              <td>SSS、SAS、ASA、AAS、HL</td>
+              <td>SSA 不能作为一般三角形全等判定；HL 只用于直角三角形。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-cong-02"></td>
+              <td>全等性质</td>
+              <td>对应边相等、对应角相等</td>
+              <td>证明前要找准对应关系，避免把非对应边角写相等。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-cong-03"></td>
+              <td>证明线段相等</td>
+              <td>通过全等证明边相等、中点、垂直、平行</td>
+              <td>先证明三角形全等，再推出目标结论。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-cong-04"></td>
+              <td>构造全等</td>
+              <td>作辅助线、倍长中线、截取相等线段</td>
+              <td>中档和压轴题常需要主动构造基本全等模型。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.4 等腰三角形与等边三角形</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="geo-iso-01"></td>
+              <td>等腰三角形性质</td>
+              <td>等边对等角，三线合一</td>
+              <td>顶角平分线、底边中线、底边高在等腰三角形中重合。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-iso-02"></td>
+              <td>等腰三角形判定</td>
+              <td>等角对等边</td>
+              <td>先证明角相等，再推出边相等。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-iso-03"></td>
+              <td>等边三角形</td>
+              <td>性质与判定，60°角模型</td>
+              <td>三边相等、三角相等且均为 60°；常与旋转、全等、最值结合。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-iso-04"></td>
+              <td>特殊角构造</td>
+              <td>30°、45°、60°相关计算</td>
+              <td>等边三角形和等腰直角三角形是几何计算的重要模型。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.5 直角三角形与勾股定理</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="geo-right-01"></td>
+              <td>勾股定理</td>
+              <td>直角三角形边长计算</td>
+              <td><span class="formula">a²+b²=c²</span>，其中 <span class="formula">c</span> 是斜边。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-right-02"></td>
+              <td>勾股定理逆定理</td>
+              <td>判断直角三角形</td>
+              <td>先找最长边，再判断是否满足最长边平方等于另外两边平方和。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-right-03"></td>
+              <td>斜边中线</td>
+              <td>直角三角形斜边中线等于斜边一半</td>
+              <td>反过来常用于证明直角或构造圆。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-right-04"></td>
+              <td>HL 全等</td>
+              <td>直角三角形斜边和一条直角边对应相等</td>
+              <td>必须先确认两个三角形都是直角三角形。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-right-05"></td>
+              <td>实际应用</td>
+              <td>距离、梯子、测量、最短路径</td>
+              <td>先画直角三角形模型，再代入计算。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.6 相似三角形与位似</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="geo-sim-01"></td>
+              <td>比例线段</td>
+              <td>比例性质、平行线分线段成比例</td>
+              <td>写比例时要保持对应顺序一致。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-sim-02"></td>
+              <td>相似判定</td>
+              <td>AA、SAS、SSS 相似</td>
+              <td>最常用 AA；角相等可来自平行线、圆周角、对顶角、公共角。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-sim-03"></td>
+              <td>相似性质</td>
+              <td>对应边成比例、对应角相等、周长比、面积比</td>
+              <td>面积比等于相似比平方。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-sim-04"></td>
+              <td>位似</td>
+              <td>位似中心、位似比、坐标放缩</td>
+              <td>以原点为位似中心时，点坐标按同一倍数变化。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-sim-05"></td>
+              <td>相似应用</td>
+              <td>测高、影长、函数几何、圆中比例</td>
+              <td>压轴题常把线段关系转化为相似比例或坐标比例。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.7 锐角三角函数</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="geo-trig-01"></td>
+              <td>三角函数定义</td>
+              <td><span class="formula">sinA</span>、<span class="formula">cosA</span>、<span class="formula">tanA</span></td>
+              <td>在直角三角形中定义；先确认角 A，再找对边、邻边、斜边。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-trig-02"></td>
+              <td>特殊角值</td>
+              <td>30°、45°、60°的三角函数值</td>
+              <td>必须熟记，并能和特殊直角三角形互相转化。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-trig-03"></td>
+              <td>解直角三角形</td>
+              <td>已知边角求其他边角</td>
+              <td>选合适函数关系，避免把对边和邻边弄反。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-trig-04"></td>
+              <td>测量应用</td>
+              <td>测高、坡度、仰角俯角、航行距离</td>
+              <td>先把实际问题抽象为直角三角形或多个直角三角形。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.8 四边形与特殊四边形</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="geo-quad-01"></td>
+              <td>多边形</td>
+              <td>内角和、外角和</td>
+              <td>n 边形内角和 <span class="formula">(n-2)·180°</span>；外角和恒为 360°。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-quad-02"></td>
+              <td>平行四边形</td>
+              <td>性质与判定</td>
+              <td>对边平行且相等，对角相等，对角线互相平分。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-quad-03"></td>
+              <td>矩形</td>
+              <td>性质与判定</td>
+              <td>四角为直角，对角线相等且互相平分。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-quad-04"></td>
+              <td>菱形</td>
+              <td>性质与判定</td>
+              <td>四边相等，对角线互相垂直且平分对角。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-quad-05"></td>
+              <td>正方形</td>
+              <td>矩形和菱形性质综合</td>
+              <td>正方形既是矩形又是菱形；常与旋转、全等、等腰直角三角形结合。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-quad-06"></td>
+              <td>梯形</td>
+              <td>等腰梯形、中位线、面积</td>
+              <td>等腰梯形同一底上的两个角相等；中位线等于两底和的一半。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-quad-07"></td>
+              <td>四边形综合</td>
+              <td>证明特殊四边形、求面积、动点形成图形</td>
+              <td>先判断平行四边形，再追加条件判断矩形、菱形或正方形。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.9 圆</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="geo-circle-01"></td>
+              <td>圆的基本元素</td>
+              <td>圆心、半径、直径、弦、弧、圆心角</td>
+              <td>同圆或等圆中，相等的弧、弦、圆心角可互相推出。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-circle-02"></td>
+              <td>垂径定理</td>
+              <td>垂直于弦的直径平分弦和弦所对的弧</td>
+              <td>常构造半径、半弦、弦心距组成直角三角形。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-circle-03"></td>
+              <td>圆周角定理</td>
+              <td>圆周角与圆心角关系，同弧所对圆周角相等</td>
+              <td>直径所对圆周角是 90°；这是构造直角的重要来源。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-circle-04"></td>
+              <td>点与圆的位置关系</td>
+              <td>点在圆内、圆上、圆外</td>
+              <td>比较点到圆心距离和半径。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-circle-05"></td>
+              <td>直线与圆的位置关系</td>
+              <td>相交、相切、相离，切线性质与判定</td>
+              <td>切线垂直于过切点的半径；证明切线常证明半径垂直直线。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-circle-06"></td>
+              <td>切线长定理</td>
+              <td>从圆外一点引两条切线，切线长相等</td>
+              <td>常和角平分、全等三角形、周长计算结合。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-circle-07"></td>
+              <td>圆内接四边形</td>
+              <td>对角互补，外角等于内对角</td>
+              <td>用于角度转换和相似证明。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-circle-08"></td>
+              <td>弧长与扇形面积</td>
+              <td>求弧长、扇形面积、阴影面积</td>
+              <td><span class="formula">l=nπr/180</span>，<span class="formula">S=nπr²/360</span>；阴影常用割补。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-circle-09"></td>
+              <td>圆综合</td>
+              <td>圆与相似、三角函数、函数、最值结合</td>
+              <td>先找半径相等、圆周角、切线垂直、直径构直角四类线索。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.10 图形变换</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="geo-trans-01"></td>
+              <td>平移</td>
+              <td>图形平移、坐标平移</td>
+              <td>形状大小不变，对应点连线平行且相等。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-trans-02"></td>
+              <td>轴对称</td>
+              <td>对称轴、对称点、最短路径</td>
+              <td>对应点连线被对称轴垂直平分；将军饮马常用轴对称转化。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-trans-03"></td>
+              <td>中心对称</td>
+              <td>中心对称图形、关于原点对称坐标</td>
+              <td>对应点连线经过对称中心且被平分。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-trans-04"></td>
+              <td>旋转</td>
+              <td>旋转中心、旋转角、旋转前后对应边角</td>
+              <td>旋转保持长度和角度不变；常构造全等和等边三角形。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-trans-05"></td>
+              <td>相似变换</td>
+              <td>放大、缩小、位似</td>
+              <td>角不变，边长按比例变化，面积按比例平方变化。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-trans-06"></td>
+              <td>作图题</td>
+              <td>平移、旋转、对称、位似作图</td>
+              <td>关键是找对应点，再连线成图。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.11 投影、视图与立体图形</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="geo-solid-01"></td>
+              <td>三视图</td>
+              <td>主视图、左视图、俯视图</td>
+              <td>从不同方向看同一物体；注意遮挡关系和小正方体数量。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-solid-02"></td>
+              <td>展开图</td>
+              <td>正方体、圆柱、圆锥展开图</td>
+              <td>正方体展开图要能判断相对面；圆锥侧面是扇形。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-solid-03"></td>
+              <td>表面积与体积</td>
+              <td>柱体、锥体、球的相关计算</td>
+              <td>中考通常考常见几何体，注意单位和组合体割补。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-solid-04"></td>
+              <td>投影</td>
+              <td>中心投影、平行投影、影长问题</td>
+              <td>影长测高常用相似三角形。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>4.12 几何最值与动点</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>模型</th>
+              <th>考点</th>
+              <th>关键方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="geo-max-01"></td>
+              <td>垂线段最短</td>
+              <td>点到直线最短距离</td>
+              <td>作垂线，把最短问题转化为直角三角形计算。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-max-02"></td>
+              <td>两点之间线段最短</td>
+              <td>路径最短、折线转直线</td>
+              <td>利用对称或展开，把折线路径拉直。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-max-03"></td>
+              <td>三角形两边关系</td>
+              <td>线段和差的范围</td>
+              <td>两边之和大于第三边，两边之差小于第三边；等号通常在共线极限情形出现。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-max-04"></td>
+              <td>圆中最值</td>
+              <td>点到圆上点距离最大最小</td>
+              <td>连接圆心和定点，最大最小通常在圆心连线与圆的交点处。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-max-05"></td>
+              <td>面积最值</td>
+              <td>三角形、四边形、函数图象围成面积</td>
+              <td>用变量表示底或高，转化为一次或二次函数最值。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="geo-max-06"></td>
+              <td>动点分类</td>
+              <td>点在线段、射线、圆、抛物线或边界上运动</td>
+              <td>先写运动范围，再按位置变化分类讨论。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="statistics">
+      <div class="section-head">
+        <div>
+          <h2>五、统计与概率</h2>
+          <p class="section-note">通常难度不高，但容易因读图、单位、百分比和样本概念失分。</p>
+        </div>
+        <span class="tag">数据分析</span>
+      </div>
+
+      <h3>5.1 数据收集与调查</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="stat-survey-01"></td>
+              <td>全面调查</td>
+              <td>适用情境判断</td>
+              <td>对象少、要求准确、调查不具破坏性时适合全面调查。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="stat-survey-02"></td>
+              <td>抽样调查</td>
+              <td>适用情境判断，样本代表性</td>
+              <td>对象多、调查有破坏性或成本高时适合抽样调查；样本要随机、有代表性。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="stat-survey-03"></td>
+              <td>总体、个体、样本</td>
+              <td>识别总体、个体、样本、样本容量</td>
+              <td>样本容量是数量，不带单位名称。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="stat-survey-04"></td>
+              <td>频数与频率</td>
+              <td>计算频数、频率、百分比</td>
+              <td>频率等于频数除以总数；各组频率和为 1。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>5.2 统计图表</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="stat-chart-01"></td>
+              <td>条形统计图</td>
+              <td>比较数量大小，读频数</td>
+              <td>看清纵轴单位和刻度。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="stat-chart-02"></td>
+              <td>折线统计图</td>
+              <td>分析变化趋势</td>
+              <td>适合表示随时间变化的数据。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="stat-chart-03"></td>
+              <td>扇形统计图</td>
+              <td>计算百分比、圆心角、总量或部分量</td>
+              <td>圆心角 = 百分比 × 360°。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="stat-chart-04"></td>
+              <td>频数分布表</td>
+              <td>分组、组距、频数、频率</td>
+              <td>注意端点是否包含，分组不能重叠或遗漏。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="stat-chart-05"></td>
+              <td>频数直方图</td>
+              <td>补图、读图、估计分布</td>
+              <td>横轴是组别，纵轴常为频数；补图先算缺失频数。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="stat-chart-06"></td>
+              <td>统计图综合</td>
+              <td>多个图表互相补全</td>
+              <td>先用已知百分比和频数求总数，再补其他数据。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>5.3 数据代表与波动</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="stat-data-01"></td>
+              <td>平均数</td>
+              <td>算术平均数、加权平均数</td>
+              <td>加权平均数要乘权重；平均数受极端值影响。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="stat-data-02"></td>
+              <td>中位数</td>
+              <td>求中位数，比较数据中间水平</td>
+              <td>必须先排序；偶数个数据取中间两个数的平均数。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="stat-data-03"></td>
+              <td>众数</td>
+              <td>求出现次数最多的数据</td>
+              <td>众数可以不唯一，也可能没有明显代表性。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="stat-data-04"></td>
+              <td>极差</td>
+              <td>最大值减最小值</td>
+              <td>反映数据跨度，但不能全面反映稳定性。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="stat-data-05"></td>
+              <td>方差</td>
+              <td>比较数据波动大小</td>
+              <td>方差越小，数据越稳定；中考常考比较而非复杂计算。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="stat-data-06"></td>
+              <td>数据评价</td>
+              <td>选择合适统计量说明问题</td>
+              <td>评价“水平”常看平均数、中位数；评价“稳定”常看方差。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>5.4 概率</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>知识点</th>
+              <th>考点</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="prob-01"></td>
+              <td>事件分类</td>
+              <td>必然事件、不可能事件、随机事件</td>
+              <td>随机事件在一定条件下可能发生也可能不发生。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prob-02"></td>
+              <td>概率意义</td>
+              <td>概率范围和可能性大小</td>
+              <td>概率在 0 到 1 之间；概率大不代表一定发生。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prob-03"></td>
+              <td>等可能概率</td>
+              <td><span class="formula">P(A)=m/n</span></td>
+              <td>前提是所有基本结果等可能。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prob-04"></td>
+              <td>列表法</td>
+              <td>两步试验、摸球、转盘、抽卡</td>
+              <td>列表要列全所有等可能结果。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prob-05"></td>
+              <td>树状图法</td>
+              <td>两步或多步试验概率</td>
+              <td>不放回抽取时第二步数量会变化。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prob-06"></td>
+              <td>频率估计概率</td>
+              <td>大量重复试验，频率趋近概率</td>
+              <td>试验次数越多，频率通常越接近概率，但不是完全等于。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prob-07"></td>
+              <td>游戏公平性</td>
+              <td>比较双方获胜概率或期望结果</td>
+              <td>双方获胜概率相等才公平；必要时列出全部结果。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="practice">
+      <div class="section-head">
+        <div>
+          <h2>六、综合与实践</h2>
+          <p class="section-note">浙江中考强调情境化和综合应用。这里不增加课外拓展，只列中考常见综合考点。</p>
+        </div>
+        <span class="tag">建模应用</span>
+      </div>
+
+      <h3>6.1 实际应用建模</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>题型</th>
+              <th>涉及考点</th>
+              <th>关键方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="prac-model-01"></td>
+              <td>方程应用</td>
+              <td>一元一次方程、二元一次方程组、分式方程、一元二次方程</td>
+              <td>设未知数，找等量关系，解方程，检验实际意义。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-model-02"></td>
+              <td>不等式应用</td>
+              <td>费用范围、数量限制、方案选择</td>
+              <td>抓住“至少、至多、不少于、不超过”等关键词。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-model-03"></td>
+              <td>函数应用</td>
+              <td>一次函数、二次函数、分段函数</td>
+              <td>明确自变量、因变量和取值范围；根据题意解释图象。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-model-04"></td>
+              <td>统计应用</td>
+              <td>抽样调查、图表分析、数据评价</td>
+              <td>用样本估计总体时要说明样本代表性。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.2 销售利润与方案选择</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>考点</th>
+              <th>常用关系</th>
+              <th>关键点与易错点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="prac-profit-01"></td>
+              <td>利润基础</td>
+              <td>利润 = 售价 - 成本；总利润 = 单件利润 × 销量</td>
+              <td>售价、成本、利润、销量要分清。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-profit-02"></td>
+              <td>一次函数方案</td>
+              <td>费用、收益与数量成一次关系</td>
+              <td>比较两个方案时可令费用相等求临界点，再分区间判断。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-profit-03"></td>
+              <td>二次函数利润</td>
+              <td>价格变化影响销量，建立利润关于价格或涨价次数的二次函数</td>
+              <td>求最大利润时必须考虑自变量取值范围，尤其是整数限制。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-profit-04"></td>
+              <td>折扣和增长率</td>
+              <td>折扣价、增长率、下降率</td>
+              <td>打八折是原价的 80%；连续增长用 <span class="formula">a(1+x)^n</span>。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.3 行程、工程与分段图象</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>题型</th>
+              <th>涉及考点</th>
+              <th>关键方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="prac-trip-01"></td>
+              <td>行程问题</td>
+              <td>路程、速度、时间，一次函数图象</td>
+              <td><span class="formula">s=vt</span>；图象斜率表示速度。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-trip-02"></td>
+              <td>相遇追及</td>
+              <td>方程、函数交点</td>
+              <td>相遇时路程和或位置相等；追及时快慢双方位置相等。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-trip-03"></td>
+              <td>工程问题</td>
+              <td>工作总量、效率、时间</td>
+              <td>常把总量设为 1；效率 = 工作量 / 时间。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-trip-04"></td>
+              <td>分段图象</td>
+              <td>停车、变速、计费、蓄水放水</td>
+              <td>每段图象对应一个实际过程，先读端点坐标和斜率。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.4 几何测量与实际图形</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>题型</th>
+              <th>涉及考点</th>
+              <th>关键方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="prac-measure-01"></td>
+              <td>测高测距</td>
+              <td>相似三角形、锐角三角函数、勾股定理</td>
+              <td>根据仰角、影长、比例关系建立直角三角形或相似三角形。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-measure-02"></td>
+              <td>坡度问题</td>
+              <td>坡角、坡比、正切值</td>
+              <td>坡度通常表示铅直高度与水平距离之比。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-measure-03"></td>
+              <td>航行与方位</td>
+              <td>方位角、直角三角形、三角函数</td>
+              <td>先画方位图，标清方向角，再构造直角三角形。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-measure-04"></td>
+              <td>面积与材料</td>
+              <td>多边形面积、圆、扇形、组合图形</td>
+              <td>组合图形常用分割、补形、整体减局部。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.5 阅读理解、新定义与规律探究</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>题型</th>
+              <th>涉及考点</th>
+              <th>关键方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="prac-read-01"></td>
+              <td>新定义运算</td>
+              <td>代数式、方程、不等式、函数</td>
+              <td>严格按题目定义代入，不套已有运算习惯。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-read-02"></td>
+              <td>阅读材料题</td>
+              <td>公式推导、方法迁移、类比应用</td>
+              <td>先复现样例，再迁移到新问题。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-read-03"></td>
+              <td>规律探究</td>
+              <td>数字规律、图形规律、代数表达</td>
+              <td>从前几项找变量 n 与数量的关系，验证前两三项。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-read-04"></td>
+              <td>开放探究</td>
+              <td>结论判断、条件补充、方案设计</td>
+              <td>结论必须由条件推出，不能只凭图形直观。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.6 动点、参数与压轴综合</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>题型</th>
+              <th>涉及考点</th>
+              <th>关键方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="prac-final-01"></td>
+              <td>动点几何</td>
+              <td>全等、相似、面积、特殊四边形、圆</td>
+              <td>设运动时间或线段长度为变量，写出范围，分阶段讨论。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-final-02"></td>
+              <td>函数动点</td>
+              <td>二次函数、一次函数、面积、平行垂直、相似</td>
+              <td>设点坐标，用坐标表示线段长度、面积或斜率。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-final-03"></td>
+              <td>参数讨论</td>
+              <td>根的个数、图象交点、取值范围、特殊位置</td>
+              <td>先列条件，再按判别式、区间、几何位置分类。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-final-04"></td>
+              <td>存在性问题</td>
+              <td>是否存在点使图形为等腰、直角、平行四边形、相似</td>
+              <td>用分类讨论列方程；解出后必须检验点是否在运动范围内。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-final-05"></td>
+              <td>几何压轴</td>
+              <td>圆、相似、三角函数、最值、辅助线</td>
+              <td>先找基本模型：直角、等腰、相似、圆周角、切线、旋转。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="prac-final-06"></td>
+              <td>函数压轴</td>
+              <td>二次函数、面积最值、交点、动点、参数</td>
+              <td>常规流程：求解析式，设点坐标，表达目标量，列方程或函数，分类检验。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="methods">
+      <div class="section-head">
+        <div>
+          <h2>七、数学思想方法</h2>
+          <p class="section-note">这些不是单独章节，但贯穿浙江中考中档题和压轴题。</p>
+        </div>
+        <span class="tag">方法体系</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>方法</th>
+              <th>常见考点</th>
+              <th>使用要点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="method-01"></td>
+              <td>数形结合</td>
+              <td>函数图象、坐标几何、二次函数、圆</td>
+              <td>把代数关系画成图，把图形关系转成坐标或方程。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="method-02"></td>
+              <td>分类讨论</td>
+              <td>参数题、动点题、几何位置变化、绝对值问题</td>
+              <td>分类标准要互不重叠、不遗漏；每类都要检验。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="method-03"></td>
+              <td>方程思想</td>
+              <td>实际问题、几何线段关系、函数交点</td>
+              <td>把未知量关系转化为方程或方程组。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="method-04"></td>
+              <td>函数思想</td>
+              <td>变量关系、最值、方案优化、面积变化</td>
+              <td>确定变量、解析式和取值范围。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="method-05"></td>
+              <td>转化思想</td>
+              <td>几何转代数、复杂图形转基本图形、折线转直线</td>
+              <td>目标是把陌生问题转成已掌握模型。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="method-06"></td>
+              <td>整体思想</td>
+              <td>代数式求值、条件化简、面积整体减局部</td>
+              <td>不急于求单个未知数，先观察整体表达式。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="method-07"></td>
+              <td>建模思想</td>
+              <td>销售、行程、统计、测量、方案设计</td>
+              <td>把文字转成变量、公式、图象、方程或函数。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="method-08"></td>
+              <td>逆向思维</td>
+              <td>证明题、构造辅助线、存在性问题</td>
+              <td>从目标结论倒推需要的条件，再回到题设寻找或构造。</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="method-09"></td>
+              <td>特殊到一般</td>
+              <td>规律探究、新定义、参数问题</td>
+              <td>先代入特殊值验证，再归纳一般表达式。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="formula">
+      <div class="section-head">
+        <div>
+          <h2>八、公式与结论速查</h2>
+          <p class="section-note">这里收集中考常用公式和定理结论，便于最后阶段快速回看。</p>
+        </div>
+        <span class="tag">速查</span>
+      </div>
+
+      <h3>8.1 代数公式</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>公式/结论</th>
+              <th>内容</th>
+              <th>使用场景</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="formula-alg-01"></td>
+              <td>幂运算</td>
+              <td><span class="formula">a^m·a^n=a^(m+n)</span>，<span class="formula">a^m/a^n=a^(m-n)</span>，<span class="formula">(a^m)^n=a^(mn)</span></td>
+              <td>整式运算、科学记数法、化简求值</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-alg-02"></td>
+              <td>乘法公式</td>
+              <td><span class="formula">(a+b)(a-b)=a²-b²</span>，<span class="formula">(a±b)²=a²±2ab+b²</span></td>
+              <td>整式乘法、因式分解、整体求值</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-alg-03"></td>
+              <td>一元二次方程公式</td>
+              <td><span class="formula">x=(-b±√(b²-4ac))/(2a)</span></td>
+              <td>公式法解一元二次方程</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-alg-04"></td>
+              <td>判别式</td>
+              <td><span class="formula">Δ=b²-4ac</span></td>
+              <td>判断一元二次方程根的个数、二次函数与 x 轴交点个数</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-alg-05"></td>
+              <td>根与系数关系</td>
+              <td><span class="formula">x₁+x₂=-b/a</span>，<span class="formula">x₁x₂=c/a</span></td>
+              <td>构造方程、求参数、二次函数综合</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-alg-06"></td>
+              <td>增长率</td>
+              <td><span class="formula">现量=原量×(1±增长率)^次数</span></td>
+              <td>增长率、下降率、实际应用题</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>8.2 函数公式</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>公式/结论</th>
+              <th>内容</th>
+              <th>使用场景</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="formula-fn-01"></td>
+              <td>一次函数</td>
+              <td><span class="formula">y=kx+b</span></td>
+              <td>直线解析式、方案比较、分段函数</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-fn-02"></td>
+              <td>反比例函数</td>
+              <td><span class="formula">y=k/x</span>，<span class="formula">xy=k</span></td>
+              <td>双曲线、面积问题、函数交点</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-fn-03"></td>
+              <td>二次函数一般式</td>
+              <td><span class="formula">y=ax²+bx+c</span></td>
+              <td>抛物线、待定系数、函数综合</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-fn-04"></td>
+              <td>二次函数顶点</td>
+              <td>对称轴 <span class="formula">x=-b/(2a)</span>，顶点纵坐标 <span class="formula">(4ac-b²)/(4a)</span></td>
+              <td>最值、图象性质、压轴题</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-fn-05"></td>
+              <td>二次函数顶点式</td>
+              <td><span class="formula">y=a(x-h)²+k</span></td>
+              <td>平移、顶点、最值</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>8.3 几何公式与结论</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>公式/结论</th>
+              <th>内容</th>
+              <th>使用场景</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="formula-geo-01"></td>
+              <td>三角形内角和</td>
+              <td>三角形内角和 180°，外角等于不相邻两内角和</td>
+              <td>角度计算、证明</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-geo-02"></td>
+              <td>勾股定理</td>
+              <td><span class="formula">a²+b²=c²</span></td>
+              <td>直角三角形边长、坐标距离、实际测量</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-geo-03"></td>
+              <td>多边形内角和</td>
+              <td><span class="formula">(n-2)·180°</span></td>
+              <td>多边形角度计算</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-geo-04"></td>
+              <td>三角形面积</td>
+              <td><span class="formula">S=底×高/2</span></td>
+              <td>基础面积、坐标三角形、动点面积</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-geo-05"></td>
+              <td>平行四边形面积</td>
+              <td><span class="formula">S=底×高</span></td>
+              <td>四边形计算、证明中的面积关系</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-geo-06"></td>
+              <td>梯形面积</td>
+              <td><span class="formula">S=(上底+下底)×高/2</span></td>
+              <td>梯形和组合图形面积</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-geo-07"></td>
+              <td>圆周长与面积</td>
+              <td><span class="formula">C=2πr</span>，<span class="formula">S=πr²</span></td>
+              <td>圆、扇形、组合图形</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-geo-08"></td>
+              <td>弧长</td>
+              <td><span class="formula">l=nπr/180</span></td>
+              <td>圆中计算、实际路径</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-geo-09"></td>
+              <td>扇形面积</td>
+              <td><span class="formula">S=nπr²/360</span> 或 <span class="formula">S=lr/2</span></td>
+              <td>阴影面积、圆锥侧面积</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-geo-10"></td>
+              <td>相似面积比</td>
+              <td>相似图形周长比等于相似比，面积比等于相似比平方</td>
+              <td>相似三角形、位似、测量题</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>8.4 三角函数与概率统计速查</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>掌握</th>
+              <th>公式/结论</th>
+              <th>内容</th>
+              <th>使用场景</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" data-id="formula-mix-01"></td>
+              <td>锐角三角函数</td>
+              <td><span class="formula">sinA=对边/斜边</span>，<span class="formula">cosA=邻边/斜边</span>，<span class="formula">tanA=对边/邻边</span></td>
+              <td>解直角三角形、测高、坡度</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-mix-02"></td>
+              <td>特殊角</td>
+              <td>30°、45°、60° 的 <span class="formula">sin</span>、<span class="formula">cos</span>、<span class="formula">tan</span> 值</td>
+              <td>几何计算、实际测量</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-mix-03"></td>
+              <td>平均数</td>
+              <td><span class="formula">平均数=数据总和/数据个数</span></td>
+              <td>数据代表、统计评价</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-mix-04"></td>
+              <td>加权平均数</td>
+              <td><span class="formula">(x₁w₁+x₂w₂+...)/(w₁+w₂+...)</span></td>
+              <td>成绩、评分、比例数据</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" data-id="formula-mix-05"></td>
+              <td>概率</td>
+              <td><span class="formula">P(A)=事件A包含结果数/所有等可能结果数</span></td>
+              <td>列表法、树状图法、游戏公平性</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="foot">
+      本表用于浙江温州初中数学中考查漏补缺。勾选状态保存在本机浏览器中。
+    </p>
+  </div>
+
+  <script>
+    const boxes = Array.from(document.querySelectorAll('input[type="checkbox"][data-id]'));
+    const progressText = document.getElementById('progressText');
+    const progressBar = document.getElementById('progressBar');
+    const storagePrefix = 'wenzhou-math-checklist:';
+
+    function updateProgress() {
+      const total = boxes.length;
+      const done = boxes.filter((box) => box.checked).length;
+      const percent = total ? Math.round((done / total) * 100) : 0;
+      progressText.textContent = `${done} / ${total}，${percent}%`;
+      progressBar.style.width = `${percent}%`;
+    }
+
+    boxes.forEach((box) => {
+      const saved = localStorage.getItem(storagePrefix + box.dataset.id);
+      box.checked = saved === '1';
+      box.addEventListener('change', () => {
+        localStorage.setItem(storagePrefix + box.dataset.id, box.checked ? '1' : '0');
+        updateProgress();
+      });
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      const confirmed = window.confirm('确认清空所有勾选状态？');
+      if (!confirmed) return;
+      boxes.forEach((box) => {
+        box.checked = false;
+        localStorage.removeItem(storagePrefix + box.dataset.id);
+      });
+      updateProgress();
+    });
+
+    updateProgress();
+  </script>
+<!-- mobile-foldable-study-start -->
+  <script>
+    (function () {
+      const mobileQuery = window.matchMedia("(max-width: 760px)");
+      if (!mobileQuery.matches) return;
+
+      document.body.classList.add("mobile-table-cards");
+
+      document.querySelectorAll("table").forEach(table => {
+        const labels = Array.from(table.querySelectorAll("thead th")).map(th => th.textContent.trim());
+        table.querySelectorAll("tbody tr").forEach(row => {
+          Array.from(row.children).forEach((cell, index) => {
+            cell.setAttribute("data-label", labels[index] || "");
+          });
+        });
+      });
+
+      document.querySelectorAll("section").forEach(section => {
+        Array.from(section.querySelectorAll(":scope > .table-wrap")).forEach((tableWrap, index) => {
+          if (tableWrap.closest(".mobile-fold")) return;
+
+          const previous = tableWrap.previousElementSibling;
+          const titleNode = previous && previous.tagName === "H3" ? previous : null;
+          const title = (titleNode?.textContent || section.querySelector(".section-head h2, h2")?.textContent || "章节").trim();
+
+          const details = document.createElement("details");
+          details.className = "mobile-fold";
+          details.open = true;
+
+          const summary = document.createElement("summary");
+          summary.textContent = title;
+
+          const body = document.createElement("div");
+          body.className = "mobile-fold-body";
+
+          const anchor = titleNode || tableWrap;
+          anchor.before(details);
+          details.append(summary, body);
+          if (titleNode) body.appendChild(titleNode);
+          body.appendChild(tableWrap);
+        });
+      });
+    })();
+  </script>
+<!-- mobile-foldable-study-end -->
+</body>
+</html>
