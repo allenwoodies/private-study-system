@@ -69,6 +69,6 @@ DEEPSEEK_API_KEY=...
 
 当前 DeepSeek 接入是文本批改：系统会先对上传的图片/PDF做 OCR，再把“题目 / 孩子答案 / OCR文本”交给 DeepSeek 分析。服务器优先使用 RapidOCR，Tesseract 作为兜底。试卷照片过远、旋转、反光、一次拍多页时，评分置信度会下降，需要家长复核。
 
-试卷照片支持多张，可分多次添加，适合正反面和附页。当前默认最多 20 个文件。
+试卷照片支持多张，可分多次添加，适合正反面和附页。上传任务会先保存到服务器，再异步执行 OCR 和 AI 分析；页面会显示每页进度，历史记录可复看原附件、OCR状态和 AI 结论。当前默认最多 20 个文件。
 
-AI 批改结果会同时保存在浏览器本地和服务器 `private/store/evaluations.json`。`private/` 不进入 Git，也不会被部署脚本覆盖。
+AI 批改记录保存在服务器 `private/store/evaluations.json`，附件保存在 `uploads/`，浏览器只保留页面展示用的同步副本。`private/` 和 `uploads/` 不进入 Git，也不会被部署脚本覆盖。

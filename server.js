@@ -89,11 +89,13 @@ function parseJsonObject(text) {
 }
 
 function uploadedFileSummary(files = []) {
-  return files.map((file) => ({
+  return files.map((file, index) => ({
     originalName: file.originalname,
     storedName: file.filename,
     size: file.size,
-    mimeType: file.mimetype
+    mimeType: file.mimetype,
+    page: index + 1,
+    side: index === 0 ? "front" : (index === 1 ? "back" : "appendix")
   }));
 }
 
@@ -124,13 +126,49 @@ async function writeEvaluationStore(store) {
 let evaluationWriteQueue = Promise.resolve();
 
 function saveEvaluationRecord(record) {
-  evaluationWriteQueue = evaluationWriteQueue.then(async () => {
+  evaluationWriteQueue = evaluationWriteQueue.catch(() => {}).then(async () => {
     const store = await readEvaluationStore();
     store.evaluations.push(record);
     await writeEvaluationStore(store);
     return record;
   });
   return evaluationWriteQueue;
+}
+
+function updateEvaluationRecord(id, patch = {}) {
+  evaluationWriteQueue = evaluationWriteQueue.catch(() => {}).then(async () => {
+    const store = await readEvaluationStore();
+    const record = (store.evaluations || []).find((item) => item.id === id);
+    if (!record) throw new Error("Evaluation not found.");
+    Object.assign(record, patch, { updatedAt: new Date().toISOString() });
+    await writeEvaluationStore(store);
+    return record;
+  });
+  return evaluationWriteQueue;
+}
+
+async function findEvaluationRecord(id) {
+  const store = await readEvaluationStore();
+  return (store.evaluations || []).find((item) => item.id === id) || null;
+}
+
+function safeUploadPath(storedName) {
+  const uploadRoot = path.resolve(UPLOAD_DIR);
+  const filePath = path.resolve(uploadRoot, String(storedName || ""));
+  if (!filePath.startsWith(`${uploadRoot}${path.sep}`)) {
+    throw new Error("Invalid uploaded file path.");
+  }
+  return filePath;
+}
+
+function storedFilesToProcess(files = []) {
+  return files.map((file) => ({
+    originalname: file.originalName,
+    filename: file.storedName,
+    size: file.size,
+    mimetype: file.mimeType,
+    path: safeUploadPath(file.storedName)
+  }));
 }
 
 function publicEvaluationRecord(record) {
@@ -148,13 +186,16 @@ function publicEvaluationRecord(record) {
     fullScore: record.fullScore,
     humanScore: record.humanScore,
     rubric: record.rubric,
+    manualText: record.manualText || "",
     files: record.files || [],
     ocr: record.ocr || { text: "", details: [] },
     result: record.result || null,
-    raw: record.raw || "",
     usage: record.usage || null,
     model: record.model || DEEPSEEK_MODEL,
-    error: record.error || ""
+    error: record.error || "",
+    progress: record.progress || { phase: record.status || "unknown", completed: 0, total: (record.files || []).length, percent: 0 },
+    completedAt: record.completedAt || "",
+    updatedAt: record.updatedAt || record.createdAt || ""
   };
 }
 
@@ -343,7 +384,7 @@ async function extractPdfText(filePath) {
   }
 }
 
-async function extractTextFromFiles(files = []) {
+async function extractTextFromFiles(files = [], onFileProgress = null) {
   const details = [];
   const chunks = [];
   const ocrStatus = getOcrStatus();
@@ -363,32 +404,38 @@ async function extractTextFromFiles(files = []) {
         text = imageOcr.text;
         ocrMeta = imageOcr.meta;
       } else {
-        details.push({
+        const detail = {
           file: file.originalname,
           status: "skipped",
           reason: "unsupported_file_or_ocr_missing",
           method
-        });
+        };
+        details.push(detail);
+        if (onFileProgress) await onFileProgress({ index, total: files.length, detail, details: details.slice() });
         continue;
       }
 
       const cleaned = cleanExtractedText(text);
-      details.push({
+      const detail = {
         file: file.originalname,
         status: cleaned ? "ok" : "empty",
         method,
         characters: cleaned.length,
         ...(ocrMeta || {})
-      });
+      };
+      details.push(detail);
       if (cleaned) {
         chunks.push(`【${label}】\n${cleaned}`);
       }
+      if (onFileProgress) await onFileProgress({ index, total: files.length, detail, details: details.slice() });
     } catch (error) {
-      details.push({
+      const detail = {
         file: file.originalname,
         status: "error",
         error: error.message
-      });
+      };
+      details.push(detail);
+      if (onFileProgress) await onFileProgress({ index, total: files.length, detail, details: details.slice() });
     }
   }
 
@@ -499,6 +546,111 @@ async function callDeepSeekJson(prompt, { maxTokens = 2200 } = {}) {
   };
 }
 
+const evaluationJobs = new Map();
+
+function jobProgress(phase, completed, total, percent, message) {
+  return { phase, completed, total, percent, message };
+}
+
+async function processEvaluationJob(recordId) {
+  const record = await findEvaluationRecord(recordId);
+  if (!record) return;
+
+  let files = [];
+  let total = 0;
+  let currentProgress = jobProgress("queued", 0, 0, 0, "任务已保存，等待处理");
+  try {
+    files = storedFilesToProcess(record.files || []);
+    total = files.length;
+    currentProgress = jobProgress("ocr", 0, total, total ? 5 : 45, total ? "正在准备 OCR" : "正在准备 AI 分析");
+    await updateEvaluationRecord(recordId, {
+      status: "processing",
+      error: "",
+      progress: currentProgress
+    });
+
+    const ocr = await extractTextFromFiles(files, async ({ index, details }) => {
+      const completed = index + 1;
+      currentProgress = jobProgress(
+        "ocr",
+        completed,
+        total,
+        total ? 10 + Math.round((completed / total) * 55) : 45,
+        `OCR 已完成 ${completed}/${total} 页`
+      );
+      await updateEvaluationRecord(recordId, {
+        status: "processing",
+        ocr: { text: "", details },
+        progress: currentProgress
+      });
+    });
+
+    const combinedWorkText = cleanExtractedText([
+      record.manualText,
+      ocr.text ? `【系统OCR识别文本】\n${ocr.text}` : ""
+    ].filter(Boolean).join("\n\n"));
+
+    currentProgress = jobProgress("ai", total, total, 78, "OCR 完成，正在请求 DeepSeek");
+    await updateEvaluationRecord(recordId, {
+      status: "analyzing",
+      ocr,
+      progress: currentProgress
+    });
+
+    const payload = {
+      childId: record.childId,
+      child: record.child,
+      grade: record.grade,
+      subject: record.subject,
+      type: record.type,
+      title: record.title,
+      fullScore: record.fullScore,
+      humanScore: record.humanScore,
+      rubric: record.rubric,
+      workText: combinedWorkText,
+      files: record.files || [],
+      ocrDetails: ocr.details
+    };
+    const prompt = buildEvaluationPrompt(payload);
+    const result = await callDeepSeekJson(prompt);
+    const completedAt = new Date().toISOString();
+
+    await updateEvaluationRecord(recordId, {
+      status: "completed",
+      ocr,
+      result: result.parsed,
+      raw: result.raw,
+      usage: result.usage,
+      model: result.model,
+      error: "",
+      completedAt,
+      progress: jobProgress("completed", total, total, 100, "AI 分析完成")
+    });
+  } catch (error) {
+    console.error(`Evaluation job ${recordId} failed`, error);
+    await updateEvaluationRecord(recordId, {
+      status: "failed",
+      error: error.message,
+      progress: { ...currentProgress, phase: "failed", message: error.message }
+    }).catch((storeError) => console.error(storeError));
+  }
+}
+
+function startEvaluationJob(recordId) {
+  if (evaluationJobs.has(recordId)) return;
+  const job = processEvaluationJob(recordId)
+    .catch((error) => console.error(`Evaluation job ${recordId} crashed`, error))
+    .finally(() => evaluationJobs.delete(recordId));
+  evaluationJobs.set(recordId, job);
+}
+
+async function resumePendingEvaluationJobs() {
+  const store = await readEvaluationStore();
+  (store.evaluations || [])
+    .filter((record) => ["queued", "processing", "analyzing"].includes(record.status))
+    .forEach((record) => startEvaluationJob(record.id));
+}
+
 app.get("/api/health", (_req, res) => {
   res.json({
     ok: true,
@@ -540,6 +692,61 @@ app.get("/api/evaluations/:id", async (req, res, next) => {
       return;
     }
     res.json({ ok: true, evaluation: publicEvaluationRecord(record) });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get("/api/evaluations/:id/files/:index", async (req, res, next) => {
+  try {
+    const record = await findEvaluationRecord(req.params.id);
+    const index = Number(req.params.index);
+    const file = Number.isInteger(index) && index >= 0 ? record?.files?.[index] : null;
+    if (!record || !file) {
+      res.status(404).json({ ok: false, error: "Uploaded file not found." });
+      return;
+    }
+    const filePath = safeUploadPath(file.storedName);
+    if (!fs.existsSync(filePath)) {
+      res.status(404).json({ ok: false, error: "Uploaded file is no longer available." });
+      return;
+    }
+    res.setHeader("Content-Disposition", `inline; filename*=UTF-8''${encodeURIComponent(file.originalName || "attachment")}`);
+    res.sendFile(filePath);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.post("/api/evaluations/:id/retry", async (req, res, next) => {
+  try {
+    const record = await findEvaluationRecord(req.params.id);
+    if (!record) {
+      res.status(404).json({ ok: false, error: "Evaluation not found." });
+      return;
+    }
+    if (evaluationJobs.has(record.id)) {
+      res.status(409).json({ ok: false, error: "Evaluation is already processing." });
+      return;
+    }
+    const files = storedFilesToProcess(record.files || []);
+    const missingFile = files.find((file) => !fs.existsSync(file.path));
+    if (missingFile) {
+      res.status(409).json({ ok: false, error: `附件不存在：${missingFile.originalname}` });
+      return;
+    }
+    const updated = await updateEvaluationRecord(record.id, {
+      status: "queued",
+      error: "",
+      result: null,
+      raw: "",
+      usage: null,
+      completedAt: "",
+      ocr: { text: "", details: [] },
+      progress: jobProgress("queued", 0, files.length, 0, "重新排队中")
+    });
+    startEvaluationJob(updated.id);
+    res.status(202).json({ ok: true, record: publicEvaluationRecord(updated) });
   } catch (error) {
     next(error);
   }
@@ -599,40 +806,32 @@ app.post("/api/teacher-progress", async (req, res, next) => {
   }
 });
 
-app.post("/api/evaluate", upload.array("files", MAX_UPLOAD_FILES), async (req, res, next) => {
-  let files = [];
-  let ocr = { text: "", details: [] };
-  const createdAt = new Date().toISOString();
+const evaluateUpload = (req, res, next) => {
+  upload.array("files", MAX_UPLOAD_FILES)(req, res, async (error) => {
+    if (!error) {
+      next();
+      return;
+    }
+    await Promise.all((req.files || []).map((file) => fs.promises.rm(file.path, { force: true }).catch(() => {})));
+    const status = error.code === "LIMIT_FILE_SIZE" ? 413 : 400;
+    const message = error.code === "LIMIT_FILE_SIZE"
+      ? `单个文件不能超过 ${MAX_UPLOAD_MB}MB。`
+      : (error.code === "LIMIT_FILE_COUNT" ? `最多上传 ${MAX_UPLOAD_FILES} 个文件。` : error.message);
+    res.status(status).json({ ok: false, error: message });
+  });
+};
+
+app.post("/api/evaluate", evaluateUpload, async (req, res, next) => {
   try {
     const uploadedFiles = req.files || [];
-    files = uploadedFileSummary(uploadedFiles);
-    ocr = await extractTextFromFiles(uploadedFiles);
-    const combinedWorkText = cleanExtractedText([
-      req.body.workText,
-      ocr.text ? `【系统OCR识别文本】\n${ocr.text}` : ""
-    ].filter(Boolean).join("\n\n"));
-    const payload = {
-      childId: req.body.childId,
-      child: req.body.child,
-      grade: req.body.grade,
-      subject: req.body.subject,
-      type: req.body.type,
-      title: req.body.title,
-      fullScore: req.body.fullScore,
-      humanScore: req.body.humanScore,
-      rubric: req.body.rubric,
-      workText: combinedWorkText,
-      files,
-      ocrDetails: ocr.details
-    };
-
-    const prompt = buildEvaluationPrompt(payload);
-    const result = await callDeepSeekJson(prompt);
+    const files = uploadedFileSummary(uploadedFiles);
+    const createdAt = new Date().toISOString();
     const savedRecord = await saveEvaluationRecord({
       id: createRecordId("eval"),
       createdAt,
+      updatedAt: createdAt,
       date: createdAt.slice(0, 10),
-      status: "completed",
+      status: "queued",
       childId: req.body.childId || "",
       child: req.body.child || "",
       grade: req.body.grade || "",
@@ -644,50 +843,24 @@ app.post("/api/evaluate", upload.array("files", MAX_UPLOAD_FILES), async (req, r
       rubric: req.body.rubric || "",
       manualText: req.body.workText || "",
       files,
-      ocr,
-      result: result.parsed,
-      raw: result.raw,
-      usage: result.usage,
-      model: result.model
+      ocr: { text: "", details: [] },
+      result: null,
+      raw: "",
+      usage: null,
+      model: DEEPSEEK_MODEL,
+      error: "",
+      progress: jobProgress("queued", 0, files.length, 0, "任务已保存，等待处理")
     });
-    res.json({
+
+    startEvaluationJob(savedRecord.id);
+    res.status(202).json({
       ok: true,
-      mode: "ocr_then_deepseek_text",
-      note: "Uploaded image/PDF files are OCR-processed on the server when OCR tools are available; DeepSeek receives the extracted text.",
+      mode: "queued_ocr_then_deepseek_text",
+      note: "上传任务已先保存到服务器，OCR 和 DeepSeek 分析将在后台继续执行。",
       files,
-      ocr,
-      result: result.parsed,
-      raw: result.raw,
-      usage: result.usage,
-      model: result.model,
       record: publicEvaluationRecord(savedRecord)
     });
   } catch (error) {
-    if (files.length || ocr.details?.length) {
-      saveEvaluationRecord({
-        id: createRecordId("eval_failed"),
-        createdAt,
-        date: createdAt.slice(0, 10),
-        status: "failed",
-        childId: req.body.childId || "",
-        child: req.body.child || "",
-        grade: req.body.grade || "",
-        subject: req.body.subject || "",
-        type: req.body.type || "",
-        title: req.body.title || "",
-        fullScore: req.body.fullScore || "",
-        humanScore: req.body.humanScore || "",
-        rubric: req.body.rubric || "",
-        manualText: req.body.workText || "",
-        files,
-        ocr,
-        result: null,
-        raw: "",
-        usage: null,
-        model: DEEPSEEK_MODEL,
-        error: error.message
-      }).catch((storeError) => console.error(storeError));
-    }
     next(error);
   }
 });
@@ -737,4 +910,5 @@ app.use((error, _req, res, _next) => {
 
 app.listen(PORT, "127.0.0.1", () => {
   console.log(`Private study system listening on http://127.0.0.1:${PORT}`);
+  resumePendingEvaluationJobs().catch((error) => console.error("Failed to resume evaluation jobs", error));
 });

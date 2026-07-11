@@ -1075,6 +1075,8 @@
       align-items: center;
     }
 
+    .file-card > div { min-width: 0; }
+
     .file-card img {
       width: 64px;
       height: 64px;
@@ -1095,6 +1097,52 @@
       color: var(--muted);
       font-weight: 800;
     }
+
+    .evaluation-progress {
+      display: grid;
+      gap: 5px;
+    }
+
+    .evaluation-progress-bar {
+      height: 7px;
+      border-radius: 999px;
+      background: #e8edf2;
+      overflow: hidden;
+    }
+
+    .evaluation-progress-bar span {
+      display: block;
+      height: 100%;
+      min-width: 3px;
+      border-radius: inherit;
+      background: var(--blue);
+      transition: width 0.25s ease;
+    }
+
+    .attachment-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .attachment-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      max-width: 100%;
+      padding: 5px 8px;
+      border: 1px solid #cfe0ff;
+      border-radius: 6px;
+      background: var(--blue-soft);
+      color: #174ea6;
+      font-size: 12px;
+      text-decoration: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .attachment-link:hover { text-decoration: underline; }
 
     .toast {
       position: fixed;
@@ -1346,11 +1394,11 @@
             <textarea name="workText" placeholder="可以留空。系统会先自动识别上传图片/PDF里的文字；如果照片不清楚，可以在这里补充题目、孩子答案、作文内容或老师参考答案。"></textarea>
           </label>
           <label>上传作业/试卷照片或 PDF
-            <input id="workFiles" name="files" type="file" accept="image/*,.pdf" capture="environment" multiple />
-            <span class="muted">可分多次拍摄/选择，适合试卷正面、反面和附页，最多 20 个文件。服务器会先做OCR，再交给 DeepSeek 评分。</span>
+            <input id="workFiles" name="files" type="file" accept="image/*,.pdf" multiple />
+            <span class="muted">可一次选择或分多次添加，适合试卷正面、反面和附页。最多 20 个文件，合计不超过 28MB；上传后会先保存任务，再逐页 OCR 和 AI 分析。</span>
           </label>
           <div id="filePreview" class="file-list"></div>
-          <button class="primary" type="submit">保存并AI分析</button>
+          <button id="submitEvaluationBtn" class="primary" type="submit">保存并开始分析</button>
         </form>
       </div>
 
@@ -1897,7 +1945,9 @@
     let activeRecordTab = "scores";
     let pendingFiles = [];
     let serverEvaluations = [];
+    const evaluationPollTimers = new Map();
     const maxPendingFiles = 20;
+    const maxPendingBytes = 28 * 1024 * 1024;
     let lastEvalPrompt = "";
     let serverInfo = { reachable: false, aiConfigured: false, visionInput: false, model: "" };
     let teacherProgressSyncing = false;
@@ -2120,6 +2170,7 @@
       renderEvaluations();
       renderHome();
       renderWeeklyPrompt();
+      watchPendingEvaluations();
     }
 
     async function refreshTeacherProgress() {
@@ -2232,6 +2283,105 @@
       ].filter(Boolean).join("；");
     }
 
+    function isEvaluationPending(item) {
+      return ["queued", "processing", "analyzing", "AI评价中"].includes(item?.status);
+    }
+
+    function evaluationStatusLabel(item) {
+      const status = item?.status || "";
+      if (status === "queued") return "已保存，等待处理";
+      if (status === "processing") return item.progress?.message || "正在 OCR";
+      if (status === "analyzing") return item.progress?.message || "正在 AI 分析";
+      if (["completed", "AI评价完成", "已AI评价"].includes(status)) return "分析完成";
+      if (["failed", "AI调用失败", "upload_failed"].includes(status)) return "分析失败";
+      if (status === "AI评价中") return "正在分析";
+      if (status === "服务端已保存") return "已保存到服务器";
+      return status || "未开始";
+    }
+
+    function evaluationStatusClass(item) {
+      if (isEvaluationPending(item)) return "blue";
+      if (["failed", "AI调用失败", "upload_failed"].includes(item?.status)) return "warn";
+      return "blue";
+    }
+
+    function evaluationProgressText(item) {
+      const progress = item?.progress || {};
+      const percent = Number.isFinite(Number(progress.percent)) ? Math.max(0, Math.min(100, Number(progress.percent))) : 0;
+      return progress.message || `${evaluationStatusLabel(item)} ${percent}%`;
+    }
+
+    function evaluationFileLabel(file, index) {
+      const side = file.side === "front" ? "正面" : file.side === "back" ? "反面" : (file.side === "appendix" ? "附页" : "附件");
+      return `第${file.page || index + 1}页 · ${side}`;
+    }
+
+    function evaluationFileMarkup(item) {
+      if (!item.files?.length) return `<span class="meta">未上传附件</span>`;
+      const recordId = item.serverRecordId || (item.serverOnly ? String(item.id || "").replace(/^server:/, "") : "");
+      return `<div class="attachment-list">${item.files.map((file, index) => {
+        const label = `${evaluationFileLabel(file, index)} ${file.name || file.originalName || "附件"}`;
+        if (!recordId) return `<span class="tag gray">${escapeHtml(label)}</span>`;
+        const href = `/api/evaluations/${encodeURIComponent(recordId)}/files/${index}`;
+        return `<a class="attachment-link" href="${href}" target="_blank" rel="noopener">${escapeHtml(label)}</a>`;
+      }).join("")}</div>`;
+    }
+
+    function watchEvaluation(recordId) {
+      if (!recordId || evaluationPollTimers.has(recordId)) return;
+      const startedAt = Date.now();
+      const poll = async () => {
+        try {
+          const response = await fetch(`/api/evaluations/${encodeURIComponent(recordId)}`, { cache: "no-store" });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const data = await response.json();
+          const updated = data.evaluation;
+          if (updated) {
+            const index = serverEvaluations.findIndex(item => item.id === updated.id);
+            if (index >= 0) serverEvaluations[index] = updated;
+            else serverEvaluations = [updated, ...serverEvaluations];
+            renderEvaluations();
+            renderHome();
+            renderWeeklyPrompt();
+            if (!isEvaluationPending(updated)) {
+              evaluationPollTimers.delete(recordId);
+              return;
+            }
+          }
+        } catch {
+        }
+        if (Date.now() - startedAt >= 15 * 60 * 1000) {
+          evaluationPollTimers.delete(recordId);
+          setToast("任务处理时间较长，请稍后查看历史记录");
+          return;
+        }
+        const timer = setTimeout(poll, 1800);
+        evaluationPollTimers.set(recordId, timer);
+      };
+      evaluationPollTimers.set(recordId, setTimeout(poll, 50));
+    }
+
+    function watchPendingEvaluations() {
+      evaluationRowsForChild()
+        .filter(item => item.serverRecordId && isEvaluationPending(item))
+        .forEach(item => watchEvaluation(item.serverRecordId));
+    }
+
+    async function retryEvaluationTask(recordId) {
+      if (!recordId || location.protocol === "file:") return;
+      try {
+        setToast("正在重新排队分析...");
+        const response = await fetch(`/api/evaluations/${encodeURIComponent(recordId)}/retry`, { method: "POST" });
+        const data = await response.json();
+        if (!response.ok || !data.ok) throw new Error(data.error || `HTTP ${response.status}`);
+        await refreshServerEvaluations();
+        watchEvaluation(recordId);
+        setToast("任务已重新排队");
+      } catch (error) {
+        setToast(`重新分析失败：${error.message}`);
+      }
+    }
+
     function serverRecordToEvaluation(record) {
       const result = record.result || {};
       return {
@@ -2249,18 +2399,24 @@
         humanScore: record.humanScore || "",
         aiScore: result.reference_score ?? "",
         confidence: result.confidence || "",
-        status: record.status === "failed" ? "AI调用失败" : "服务器已保存",
+        status: record.status || "queued",
         summary: result.summary || record.error || "",
+        error: record.error || "",
         weaknesses: resultWeaknesses(result),
         files: (record.files || []).map(file => ({
           name: file.originalName || file.storedName || "附件",
+          originalName: file.originalName || "附件",
+          storedName: file.storedName || "",
+          page: file.page || 0,
+          side: file.side || "",
           type: file.mimeType || "",
           size: file.size || 0
         })),
+        manualText: record.manualText || "",
         ocrText: record.ocr?.text || "",
         ocrDetails: record.ocr?.details || [],
+        progress: record.progress || {},
         rawAiResult: result,
-        rawResponse: record.raw || "",
         model: record.model || "",
         usage: record.usage || null,
         source: "server"
@@ -2270,13 +2426,18 @@
     function evaluationRowsForChild() {
       const localRows = state.evaluations
         .filter(item => item.childId === selectedChildId)
-        .map(item => ({
-          ...item,
-          viewId: item.id,
-          createdAt: item.createdAt || item.date || "",
-          source: "local",
-          serverOnly: false
-        }));
+        .map(item => {
+          const remote = item.serverRecordId ? serverEvaluations.find(record => record.id === item.serverRecordId) : null;
+          const remoteView = remote ? serverRecordToEvaluation(remote) : null;
+          return {
+            ...item,
+            ...(remoteView ? { ...remoteView, id: item.id, viewId: item.id, serverOnly: false } : {}),
+            viewId: item.id,
+            createdAt: item.createdAt || item.date || "",
+            source: "local",
+            serverOnly: false
+          };
+        });
       const localServerIds = new Set(localRows.map(item => item.serverRecordId).filter(Boolean));
       const serverRows = serverEvaluations
         .filter(record => !record.childId || record.childId === selectedChildId)
@@ -2297,7 +2458,8 @@
         `来源：${item.serverOnly ? "服务器历史" : "浏览器本地"}`,
         `名称：${item.title}`,
         `日期：${item.date} · ${item.subject} · ${item.type}`,
-        `状态：${item.status}`,
+        `状态：${evaluationStatusLabel(item)}`,
+        `进度：${evaluationProgressText(item)}`,
         `AI参考分：${item.aiScore === "" || item.aiScore == null ? "无法准确给分" : item.aiScore}`,
         `置信度：${item.confidence || "未标注"}`,
         "",
@@ -2313,13 +2475,16 @@
         "需要人工复核",
         (result.parent_review_needed || []).length ? result.parent_review_needed.map((text, index) => `${index + 1}. ${text}`).join("\n") : "暂无特别复核项。",
         "",
+        "手动补充文本",
+        item.manualText || "无",
+        "",
         "OCR状态",
         (item.ocrDetails || []).length
           ? item.ocrDetails.map(detail => `${detail.file}: ${detail.status}${detail.method ? ` / ${detail.method}` : ""}${detail.characters != null ? ` / ${detail.characters}字` : ""}${detail.rotation != null ? ` / 旋转${detail.rotation}°` : ""}`).join("\n")
           : "无附件OCR记录。",
         "",
         "文件",
-        (item.files || []).length ? item.files.map(file => file.name || file.originalName || "附件").join("\n") : "无文件记录。"
+        (item.files || []).length ? item.files.map((file, index) => `${evaluationFileLabel(file, index)}：${file.name || file.originalName || "附件"}`).join("\n") : "无文件记录。"
       ];
       return lines.join("\n");
     }
@@ -2998,29 +3163,38 @@
       const rows = evaluationRowsForChild();
       const serverOnlyCount = rows.filter(item => item.serverOnly).length;
       $("#evalCount").textContent = `${rows.length} 条${serverOnlyCount ? ` · 服务器补回 ${serverOnlyCount} 条` : ""}`;
-      $("#evaluationList").innerHTML = rows.length ? rows.map(item => `
-        <div class="item">
-          <div class="item-head">
-            <div class="item-title"><strong>${escapeHtml(item.title)}</strong><span class="meta">${item.date} · ${item.subject} · ${item.type}</span></div>
-            <span class="tag ${["已AI评价", "服务器已保存"].includes(item.status) ? "blue" : "warn"}">${escapeHtml(item.status)}</span>
+      $("#evaluationList").innerHTML = rows.length ? rows.map(item => {
+        const durable = Boolean(item.serverOnly || item.serverRecordId);
+        const percent = Math.max(0, Math.min(100, Number(item.progress?.percent || 0)));
+        const retryable = durable && ["failed", "AI调用失败"].includes(item.status);
+        return `
+          <div class="item">
+            <div class="item-head">
+              <div class="item-title"><strong>${escapeHtml(item.title)}</strong><span class="meta">${item.date} · ${item.subject} · ${item.type}</span></div>
+              <span class="tag ${evaluationStatusClass(item)}">${escapeHtml(evaluationStatusLabel(item))}</span>
+            </div>
+            <div class="tags">
+              <span class="tag ${durable ? "blue" : "gray"}">${durable ? "已保存到服务器" : "浏览器本地"}</span>
+              <span class="tag">满分 ${item.fullScore || "-"}</span>
+              <span class="tag">家长 ${item.humanScore || "-"}</span>
+              <span class="tag">AI ${item.aiScore || "-"}</span>
+              ${item.confidence ? `<span class="tag ${item.confidence === "低" ? "warn" : "blue"}">置信度 ${escapeHtml(item.confidence)}</span>` : ""}
+            </div>
+            ${isEvaluationPending(item) ? `<div class="evaluation-progress"><div class="evaluation-progress-bar"><span style="width:${percent}%"></span></div><div class="meta">${escapeHtml(evaluationProgressText(item))}</div></div>` : ""}
+            <div class="meta">附件</div>
+            ${evaluationFileMarkup(item)}
+            ${item.ocrDetails?.length ? `<div class="meta">OCR：${escapeHtml(item.ocrDetails.map(detail => `${detail.file}: ${detail.status}${detail.method ? `/${detail.method}` : ""}${detail.characters != null ? `/${detail.characters}字` : ""}${detail.rotation != null ? `/旋转${detail.rotation}°` : ""}`).join("；"))}</div>` : ""}
+            ${item.summary ? `<div class="meta">AI结论：${escapeHtml(item.summary)}</div>` : ""}
+            ${item.weaknesses ? `<div class="meta">短板：${escapeHtml(item.weaknesses)}</div>` : ""}
+            ${item.error && !item.summary ? `<div class="meta">错误：${escapeHtml(item.error)}</div>` : ""}
+            <div class="item-actions">
+              <button data-view-evaluation="${escapeHtml(item.viewId)}">详情</button>
+              ${retryable ? `<button data-retry-evaluation="${escapeHtml(item.serverRecordId)}">重新分析</button>` : ""}
+              ${item.serverOnly ? "" : `<button class="danger" data-delete-evaluation="${escapeHtml(item.id)}">删除</button>`}
+            </div>
           </div>
-          <div class="tags">
-            <span class="tag ${item.serverOnly ? "blue" : "gray"}">${item.serverOnly ? "服务器历史" : "浏览器本地"}</span>
-            <span class="tag">满分 ${item.fullScore || "-"}</span>
-            <span class="tag">家长 ${item.humanScore || "-"}</span>
-            <span class="tag">AI ${item.aiScore || "-"}</span>
-            ${item.confidence ? `<span class="tag ${item.confidence === "低" ? "warn" : "blue"}">置信度 ${escapeHtml(item.confidence)}</span>` : ""}
-          </div>
-          <div class="meta">文件：${item.files?.length ? item.files.map(file => escapeHtml(file.name)).join("，") : "未保存文件内容"}</div>
-          ${item.ocrDetails?.length ? `<div class="meta">OCR：${escapeHtml(item.ocrDetails.map(detail => `${detail.file}: ${detail.status}${detail.method ? `/${detail.method}` : ""}${detail.characters != null ? `/${detail.characters}字` : ""}${detail.rotation != null ? `/旋转${detail.rotation}°` : ""}`).join("；"))}</div>` : ""}
-          ${item.summary ? `<div class="meta">AI结论：${escapeHtml(item.summary)}</div>` : ""}
-          ${item.weaknesses ? `<div class="meta">短板：${escapeHtml(item.weaknesses)}</div>` : ""}
-          <div class="item-actions">
-            <button data-view-evaluation="${escapeHtml(item.viewId)}">详情</button>
-            ${item.serverOnly ? "" : `<button class="danger" data-delete-evaluation="${escapeHtml(item.id)}">删除</button>`}
-          </div>
-        </div>
-      `).join("") : `<div class="empty">暂无 AI 评价记录。</div>`;
+        `;
+      }).join("") : `<div class="empty">暂无 AI 评价记录。</div>`;
       renderEvaluationPrompt();
     }
 
@@ -3054,7 +3228,7 @@ ${record.workText || "未提供文本。"}
 
     function renderEvaluationPrompt() {
       const rows = evaluationRowsForChild();
-      if (rows[0]?.rawAiResult) {
+      if (rows[0]?.rawAiResult || rows[0]?.serverRecordId || rows[0]?.serverOnly) {
         lastEvalPrompt = evaluationDetailText(rows[0]);
       } else {
         lastEvalPrompt = buildEvaluationPrompt(rows[0]);
@@ -3217,6 +3391,7 @@ ${record.workText || "未提供文本。"}
 
     document.body.addEventListener("click", event => {
       const viewEvaluation = event.target.closest("[data-view-evaluation]");
+      const retryEvaluation = event.target.closest("[data-retry-evaluation]");
       const teacherCheck = event.target.closest("[data-teacher-check]");
       const jump = event.target.closest("[data-jump]");
       const drawer = event.target.closest("[data-drawer]");
@@ -3224,6 +3399,10 @@ ${record.workText || "未提供文本。"}
       const removeUpload = event.target.closest("[data-remove-upload]");
       if (teacherCheck) {
         toggleTeacherCheck(teacherCheck.dataset.teacherProject, teacherCheck.dataset.teacherTask, teacherCheck.dataset.teacherCheck);
+        return;
+      }
+      if (retryEvaluation) {
+        retryEvaluationTask(retryEvaluation.dataset.retryEvaluation);
         return;
       }
       if (viewEvaluation) {
@@ -3440,17 +3619,28 @@ ${record.workText || "未提供文本。"}
         event.target.value = "";
         return;
       }
-      const accepted = files.slice(0, remaining).map(file => ({
-        id: uid("upload"),
-        name: file.name,
-        type: file.type,
-        size: file.size,
-        file,
-        preview: file.type.startsWith("image/") ? URL.createObjectURL(file) : ""
-      }));
+      let remainingBytes = maxPendingBytes - pendingFiles.reduce((sum, item) => sum + item.size, 0);
+      const accepted = [];
+      for (const file of files.slice(0, remaining)) {
+        if (file.size > remainingBytes) continue;
+        accepted.push({
+          id: uid("upload"),
+          name: file.name,
+          type: file.type,
+          size: file.size,
+          file,
+          preview: file.type.startsWith("image/") ? URL.createObjectURL(file) : ""
+        });
+        remainingBytes -= file.size;
+      }
+      if (!accepted.length && files.length) {
+        setToast("附件总大小不能超过 28MB，请减少页数或压缩照片");
+        event.target.value = "";
+        return;
+      }
       pendingFiles = [...pendingFiles, ...accepted];
       if (files.length > accepted.length) {
-        setToast(`最多上传 ${maxPendingFiles} 个文件，已保留前 ${accepted.length} 个`);
+        setToast(`已按 28MB 总大小限制保留 ${accepted.length} 个文件`);
       }
       event.target.value = "";
       renderFilePreview();
@@ -3459,34 +3649,47 @@ ${record.workText || "未提供文本。"}
     $("#evaluationForm").addEventListener("submit", async event => {
       event.preventDefault();
       const form = new FormData(event.target);
+      const submitButton = $("#submitEvaluationBtn");
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "正在保存任务...";
+      }
       await refreshServerInfo();
       const record = {
         id: uid("eval"),
         childId: selectedChildId,
         date: today(),
+        createdAt: new Date().toISOString(),
         subject: form.get("subject"),
         type: form.get("type"),
         title: form.get("title"),
         fullScore: Number(form.get("fullScore") || 100),
         humanScore: form.get("humanScore") ? Number(form.get("humanScore")) : "",
         rubric: form.get("rubric"),
+        manualText: form.get("workText"),
         workText: form.get("workText"),
         status: "待AI评价",
-        files: pendingFiles.map(({ id, file, preview, ...meta }, index) => ({ ...meta, page: index + 1 })),
+        files: pendingFiles.map(({ id, file, preview, ...meta }, index) => ({
+          ...meta,
+          page: index + 1,
+          side: index === 0 ? "front" : (index === 1 ? "back" : "appendix")
+        })),
         aiScore: "",
         confidence: "",
         summary: "",
         weaknesses: "",
         ocrText: "",
         ocrDetails: [],
-        rawAiResult: null
+        rawAiResult: null,
+        progress: { phase: "queued", completed: 0, total: pendingFiles.length, percent: 0, message: "等待保存" },
+        error: ""
       };
 
       lastEvalPrompt = buildEvaluationPrompt(record);
 
       if (canCallAi()) {
         try {
-          setToast("正在调用 DeepSeek 批改...");
+          setToast("正在保存上传任务...");
           const uploadForm = new FormData();
           uploadForm.append("childId", selectedChildId);
           uploadForm.append("child", child().name);
@@ -3503,29 +3706,35 @@ ${record.workText || "未提供文本。"}
             method: "POST",
             body: uploadForm
           });
-          const data = await response.json();
+          const data = await response.json().catch(() => ({}));
           if (!response.ok || !data.ok) throw new Error(data.error || `HTTP ${response.status}`);
-          const result = data.result || {};
-          record.aiScore = result.reference_score ?? "";
-          record.confidence = result.confidence || "中";
-          record.summary = result.summary || "";
-          record.weaknesses = [
-            ...(result.knowledge_weaknesses || []),
-            ...(result.ability_weaknesses || [])
-          ].join("；");
-          record.status = "已AI评价";
-          record.rawAiResult = result;
-          record.ocrText = data.ocr?.text || "";
-          record.ocrDetails = data.ocr?.details || [];
+          const serverRecord = data.record || {};
           record.serverRecordId = data.record?.id || "";
           record.serverSavedAt = data.record?.createdAt || "";
-          record.storedFiles = data.files || [];
+          record.status = serverRecord.status || "queued";
+          record.progress = serverRecord.progress || record.progress;
+          record.files = (serverRecord.files || data.files || record.files).map(file => ({
+            ...file,
+            name: file.originalName || file.name || "附件"
+          }));
+          record.manualText = serverRecord.manualText || record.manualText || "";
+          record.error = serverRecord.error || "";
           lastEvalPrompt = evaluationDetailText(record);
           $("#evaluationPrompt").textContent = lastEvalPrompt;
         } catch (error) {
-          record.status = "AI调用失败";
+          record.status = "upload_failed";
           record.summary = error.message;
+          record.error = error.message;
           $("#evaluationPrompt").textContent = `${lastEvalPrompt}\n\n后端调用失败：${error.message}`;
+          state.evaluations.push(record);
+          saveState();
+          renderAll();
+          setToast(`上传失败：${error.message}，附件仍保留，可重新提交`);
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = "保存并开始分析";
+          }
+          return;
         }
       } else {
         $("#evaluationPrompt").textContent = lastEvalPrompt;
@@ -3539,9 +3748,16 @@ ${record.workText || "未提供文本。"}
       });
       pendingFiles = [];
       renderFilePreview();
-      setToast(canCallAi() ? "AI评价已保存" : "AI请求已生成");
+      setToast(record.serverRecordId ? "任务已保存，后台开始分析" : "AI请求已生成");
       renderAll();
-      if (canCallAi()) refreshServerEvaluations();
+      if (record.serverRecordId) {
+        refreshServerEvaluations();
+        watchEvaluation(record.serverRecordId);
+      }
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = "保存并开始分析";
+      }
     });
 
     $("#copyEvalPromptBtn").addEventListener("click", () => copyText(lastEvalPrompt || $("#evaluationPrompt").textContent));
